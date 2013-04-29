@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "kunde")
-public class Kunde {
+public class Kunde implements IKunde {
 
 	private int nr;
 	private String name;
@@ -16,6 +16,10 @@ public class Kunde {
 	public Kunde() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IKunde#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "kunde_nr")
@@ -27,6 +31,10 @@ public class Kunde {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IKunde#getName()
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -35,6 +43,10 @@ public class Kunde {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IKunde#getAdresse()
+	 */
+	@Override
 	public String getAdresse() {
 		return adresse;
 	}
@@ -43,6 +55,10 @@ public class Kunde {
 		this.adresse = adresse;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IKunde#getAngebote()
+	 */
+	@Override
 	@OneToMany(mappedBy = "kunde")
 	public HashSet<Angebot> getAngebote() {
 		return angebote;
@@ -52,7 +68,7 @@ public class Kunde {
 		this.angebote = angebote;
 	}
 
-	public void setAngebote(Angebot angebot) {
+	public void addAngebot(Angebot angebot) {
 		this.angebote.add(angebot);
 	}
 

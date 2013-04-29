@@ -6,19 +6,23 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "bestellung")
-public class Bestellung {
+public class Bestellung implements IBestellung {
 
 	private int nr;
 	private long bestelldatum;
 	private int menge;
 	private boolean freigabe;
-	private Produkt produkt;
-	private Wareneingangsmeldung wareneingangsmeldung;
-	private Lieferant lieferant;
+	private IProdukt produkt;
+	private IWareneingangsmeldung wareneingangsmeldung;
+	private ILieferant lieferant;
 
 	public Bestellung() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "bestellung_nr")
@@ -30,6 +34,10 @@ public class Bestellung {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#getBestelldatum()
+	 */
+	@Override
 	public long getBestelldatum() {
 		return bestelldatum;
 	}
@@ -38,6 +46,10 @@ public class Bestellung {
 		this.bestelldatum = bestelldatum;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#getMenge()
+	 */
+	@Override
 	public int getMenge() {
 		return menge;
 	}
@@ -46,6 +58,10 @@ public class Bestellung {
 		this.menge = menge;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#isFreigabe()
+	 */
+	@Override
 	public boolean isFreigabe() {
 		return freigabe;
 	}
@@ -54,30 +70,42 @@ public class Bestellung {
 		this.freigabe = freigabe;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#getProdukt()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "warenausgangsmeldungen"*/)
-	public Produkt getProdukt() {
+	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(Produkt produkt) {
+	public void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#getWareneingangsmeldung()
+	 */
+	@Override
 	@OneToOne(mappedBy = "warenausgangsmeldung")
-	public Wareneingangsmeldung getWareneingangsmeldung() {
+	public IWareneingangsmeldung getWareneingangsmeldung() {
 		return wareneingangsmeldung;
 	}
 
-	public void setWareneingangsmeldung(Wareneingangsmeldung wareneingangsmeldung) {
+	public void setWareneingangsmeldung(IWareneingangsmeldung wareneingangsmeldung) {
 		this.wareneingangsmeldung = wareneingangsmeldung;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IBestellung#getLieferant()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "bestellungen"*/)
-	public Lieferant getLieferant() {
+	public ILieferant getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(Lieferant lieferant) {
+	public void setLieferant(ILieferant lieferant) {
 		this.lieferant = lieferant;
 	}
 

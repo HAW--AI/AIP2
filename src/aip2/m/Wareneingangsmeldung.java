@@ -6,16 +6,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "wareneingangsmeldung")
-public class Wareneingangsmeldung {
+public class Wareneingangsmeldung implements IWareneingangsmeldung {
 
 	private int nr;
 	private long datum;
 	private int menge;
-	private Bestellung bestellung;
+	private IBestellung bestellung;
 
 	public Wareneingangsmeldung() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWareneingangsmeldung#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "wareneingangsmeldung_nr")
@@ -27,6 +31,10 @@ public class Wareneingangsmeldung {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWareneingangsmeldung#getDatum()
+	 */
+	@Override
 	public long getDatum() {
 		return datum;
 	}
@@ -35,6 +43,10 @@ public class Wareneingangsmeldung {
 		this.datum = datum;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWareneingangsmeldung#getMenge()
+	 */
+	@Override
 	public int getMenge() {
 		return menge;
 	}
@@ -43,12 +55,16 @@ public class Wareneingangsmeldung {
 		this.menge = menge;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWareneingangsmeldung#getBestellung()
+	 */
+	@Override
 	@OneToOne(mappedBy = "wareneingangsmeldung")
-	public Bestellung getBestellung() {
+	public IBestellung getBestellung() {
 		return bestellung;
 	}
 
-	public void setBestellung(Bestellung bestellung) {
+	public void setBestellung(IBestellung bestellung) {
 		this.bestellung = bestellung;
 	}
 

@@ -6,15 +6,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "bestellung")
-public class Orderbuch {
+public class Orderbuch implements IOrderbuch {
 
 	private int nr;
-	private Produkt produkt;
+	private IProdukt produkt;
 	private HashSet<Orderbuchsatz> orderbuchsaetze;
 
 	public Orderbuch() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuch#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "orderbuch_nr")
@@ -26,15 +30,23 @@ public class Orderbuch {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuch#getProdukt()
+	 */
+	@Override
 	@OneToOne(mappedBy = "orderbuch")
-	public Produkt getProdukt() {
+	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(Produkt produkt) {
+	public void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuch#getOrderbuchsaetze()
+	 */
+	@Override
 	@OneToMany(mappedBy = "orderbuch")
 	public HashSet<Orderbuchsatz> getOrderbuchsaetze() {
 		return orderbuchsaetze;

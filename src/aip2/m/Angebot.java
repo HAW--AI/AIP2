@@ -6,19 +6,23 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "angebot")
-public class Angebot {
+public class Angebot implements IAngebot {
 
 	private int nr;
 	private long gueltigAb;
 	private long gueltigBis;
 	private int gesamtpreis;
-	private Auftrag auftrag;
-	private Kunde kunde;
+	private IAuftrag auftrag;
+	private IKunde kunde;
 	private HashSet<Produkt> produkte;
 
 	public Angebot() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "angebot_nr")
@@ -30,6 +34,10 @@ public class Angebot {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getGueltigAb()
+	 */
+	@Override
 	public long getGueltigAb() {
 		return gueltigAb;
 	}
@@ -38,6 +46,10 @@ public class Angebot {
 		this.gueltigAb = gueltigAb;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getGueltigBis()
+	 */
+	@Override
 	public long getGueltigBis() {
 		return gueltigBis;
 	}
@@ -46,6 +58,10 @@ public class Angebot {
 		this.gueltigBis = gueltigBis;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getGesamtpreis()
+	 */
+	@Override
 	public int getGesamtpreis() {
 		return gesamtpreis;
 	}
@@ -54,24 +70,36 @@ public class Angebot {
 		this.gesamtpreis = gesamtpreis;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getAuftrag()
+	 */
+	@Override
 	@OneToOne(mappedBy = "angebot")
-	public Auftrag getAuftrag() {
+	public IAuftrag getAuftrag() {
 		return auftrag;
 	}
 
-	public void setAuftrag(Auftrag auftrag) {
+	public void setAuftrag(IAuftrag auftrag) {
 		this.auftrag = auftrag;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getKunde()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "angebote"*/)
-	public Kunde getKunde() {
+	public IKunde getKunde() {
 		return kunde;
 	}
 
-	public void setKunde(Kunde kunde) {
+	public void setKunde(IKunde kunde) {
 		this.kunde = kunde;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IAngebot#getProdukte()
+	 */
+	@Override
 	@ManyToMany(mappedBy = "angebot")
 	public HashSet<Produkt> getProdukte() {
 		return produkte;

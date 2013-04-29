@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "einkaufsinfosatz")
-public class Einkaufsinfosatz {
+public class Einkaufsinfosatz implements IEinkaufsinfosatz {
 
 	private int nr;
 	private long gueltigAb;
@@ -14,12 +14,16 @@ public class Einkaufsinfosatz {
 	private long planlieferzeit;
 	private int normalmenge;
 	private int preis;
-	private Produkt produkt;
-	private Lieferant lieferant;
+	private IProdukt produkt;
+	private ILieferant lieferant;
 
 	public Einkaufsinfosatz() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "einkaufsinfosatz_nr")
@@ -31,6 +35,10 @@ public class Einkaufsinfosatz {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getGueltigAb()
+	 */
+	@Override
 	public long getGueltigAb() {
 		return gueltigAb;
 	}
@@ -39,6 +47,10 @@ public class Einkaufsinfosatz {
 		this.gueltigAb = gueltigAb;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getGueltigBis()
+	 */
+	@Override
 	public long getGueltigBis() {
 		return gueltigBis;
 	}
@@ -47,6 +59,10 @@ public class Einkaufsinfosatz {
 		this.gueltigBis = gueltigBis;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getPlanlieferzeit()
+	 */
+	@Override
 	public long getPlanlieferzeit() {
 		return planlieferzeit;
 	}
@@ -55,6 +71,10 @@ public class Einkaufsinfosatz {
 		this.planlieferzeit = planlieferzeit;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getNormalmenge()
+	 */
+	@Override
 	public int getNormalmenge() {
 		return normalmenge;
 	}
@@ -63,6 +83,10 @@ public class Einkaufsinfosatz {
 		this.normalmenge = normalmenge;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getPreis()
+	 */
+	@Override
 	public int getPreis() {
 		return preis;
 	}
@@ -71,21 +95,29 @@ public class Einkaufsinfosatz {
 		this.preis = preis;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getProdukt()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "einkaufsinfosatz"*/)
-	public Produkt getProdukt() {
+	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(Produkt produkt) {
+	public void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IEinkaufsinfosatz#getLieferant()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "einkaufsinfosatz"*/)
-	public Lieferant getLieferant() {
+	public ILieferant getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(Lieferant lieferant) {
+	public void setLieferant(ILieferant lieferant) {
 		this.lieferant = lieferant;
 	}
 

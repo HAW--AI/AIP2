@@ -6,15 +6,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "rechnung")
-public class Rechnung {
+public class Rechnung implements IRechnung {
 
 	private int nr;
 	private HashSet<Zahlungseingang> zahlungseingaenge;
-	private Auftrag auftrag;
+	private IAuftrag auftrag;
 
 	public Rechnung() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IRechnung#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "rechnung_nr")
@@ -26,14 +30,22 @@ public class Rechnung {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IRechnung#getAuftrag()
+	 */
+	@Override
 	@OneToOne(mappedBy = "rechnung")
-	public Auftrag getAuftrag() {
+	public IAuftrag getAuftrag() {
 		return auftrag;
 	}
-	public void setAuftrag(Auftrag auftrag) {
+	public void setAuftrag(IAuftrag auftrag) {
 		this.auftrag = auftrag;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IRechnung#getZahlungseingaenge()
+	 */
+	@Override
 	@OneToMany(mappedBy = "rechnung")
 	public HashSet<Zahlungseingang> getZahlungseingaenge() {
 		return zahlungseingaenge;

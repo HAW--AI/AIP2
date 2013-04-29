@@ -6,15 +6,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "lieferung")
-public class Lieferung {
+public class Lieferung implements ILieferung {
 
 	private int nr;
-	private Transportauftrag transportauftrag;
-	private Auftrag auftrag;
+	private ITransportauftrag transportauftrag;
+	private IAuftrag auftrag;
 
 	public Lieferung() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferung#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "lieferung_nr")
@@ -26,19 +30,27 @@ public class Lieferung {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferung#getAuftrag()
+	 */
+	@Override
 	@OneToOne(mappedBy = "lieferung")
-	public Auftrag getAuftrag() {
+	public IAuftrag getAuftrag() {
 		return auftrag;
 	}
-	public void setAuftrag(Auftrag auftrag) {
+	public void setAuftrag(IAuftrag auftrag) {
 		this.auftrag = auftrag;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferung#getTransportauftrag()
+	 */
+	@Override
 	@OneToOne(mappedBy = "lieferung")
-	public Transportauftrag getTransportauftrag() {
+	public ITransportauftrag getTransportauftrag() {
 		return transportauftrag;
 	}
-	public void setTransportauftrag(Transportauftrag transportauftrag) {
+	public void setTransportauftrag(ITransportauftrag transportauftrag) {
 		this.transportauftrag = transportauftrag;
 	}
 

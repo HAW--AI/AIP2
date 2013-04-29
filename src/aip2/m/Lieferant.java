@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "lieferant")
-public class Lieferant {
+public class Lieferant implements ILieferant {
 
 	private int nr;
 	private String name;
@@ -18,6 +18,10 @@ public class Lieferant {
 	public Lieferant() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferant#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "lieferant_nr")
@@ -29,6 +33,10 @@ public class Lieferant {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferant#getName()
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -37,6 +45,10 @@ public class Lieferant {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferant#getAdresse()
+	 */
+	@Override
 	public String getAdresse() {
 		return adresse;
 	}
@@ -45,6 +57,10 @@ public class Lieferant {
 		this.adresse = adresse;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferant#getKontoverbindung()
+	 */
+	@Override
 	public String getKontoverbindung() {
 		return kontoverbindung;
 	}
@@ -53,6 +69,10 @@ public class Lieferant {
 		this.kontoverbindung = kontoverbindung;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferant#getEinkaufsinfosaetze()
+	 */
+	@Override
 	@OneToMany(mappedBy = "lieferant")
 	public HashSet<Einkaufsinfosatz> getEinkaufsinfosaetze() {
 		return einkaufsinfosaetze;
@@ -62,6 +82,10 @@ public class Lieferant {
 		this.einkaufsinfosaetze = einkaufsinfosaetze;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.ILieferant#getOrderbuchsaetze()
+	 */
+	@Override
 	@OneToMany(mappedBy = "lieferant")
 	public HashSet<Orderbuchsatz> getOrderbuchsaetze() {
 		return orderbuchsaetze;

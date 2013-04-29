@@ -6,16 +6,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "warenausgangsmeldung")
-public class Warenausgangsmeldung {
+public class Warenausgangsmeldung implements IWarenausgangsmeldung {
 
 	private int nr;
 	private long datum;
 	private int menge;
-	private Produkt produkt;
+	private IProdukt produkt;
 
 	public Warenausgangsmeldung() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWarenausgangsmeldung#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "warenausgangsmeldung_nr")
@@ -27,6 +31,10 @@ public class Warenausgangsmeldung {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWarenausgangsmeldung#getDatum()
+	 */
+	@Override
 	public long getDatum() {
 		return datum;
 	}
@@ -35,6 +43,10 @@ public class Warenausgangsmeldung {
 		this.datum = datum;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWarenausgangsmeldung#getMenge()
+	 */
+	@Override
 	public int getMenge() {
 		return menge;
 	}
@@ -43,12 +55,16 @@ public class Warenausgangsmeldung {
 		this.menge = menge;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IWarenausgangsmeldung#getProdukt()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "warenausgangsmeldungen"*/)
-	public Produkt getProdukt() {
+	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(Produkt produkt) {
+	public void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 

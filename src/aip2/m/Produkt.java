@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "produkt")
-public class Produkt {
+public class Produkt implements IProdukt {
 
 	private int nr;
 	private String name;
@@ -14,12 +14,16 @@ public class Produkt {
 	private HashSet<Angebot> angebote;
 	private HashSet<Warenausgangsmeldung> warenausgangsmeldungen;
 	private HashSet<Bestellung> bestellungen;
-	private Orderbuch orderbuch;
+	private IOrderbuch orderbuch;
 	private HashSet<Einkaufsinfosatz> einkaufsinfosaetze;
 
 	public Produkt() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "produkt_nr")
@@ -31,6 +35,10 @@ public class Produkt {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getName()
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -39,6 +47,10 @@ public class Produkt {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getLagerbestand()
+	 */
+	@Override
 	public int getLagerbestand() {
 		return lagerbestand;
 	}
@@ -47,6 +59,10 @@ public class Produkt {
 		this.lagerbestand = lagerbestand;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getAngebote()
+	 */
+	@Override
 	@ManyToMany(mappedBy = "produkte")
 	public HashSet<Angebot> getAngebote() {
 		return angebote;
@@ -56,6 +72,10 @@ public class Produkt {
 		this.angebote = angebote;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getWarenausgangsmeldungen()
+	 */
+	@Override
 	@OneToMany(mappedBy = "produkt")
 	public HashSet<Warenausgangsmeldung> getWarenausgangsmeldungen() {
 		return warenausgangsmeldungen;
@@ -66,6 +86,10 @@ public class Produkt {
 		this.warenausgangsmeldungen = warenausgangsmeldungen;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getBestellungen()
+	 */
+	@Override
 	@OneToMany(mappedBy = "produkt")
 	public HashSet<Bestellung> getBestellungen() {
 		return bestellungen;
@@ -75,15 +99,23 @@ public class Produkt {
 		this.bestellungen = bestellungen;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getOrderbuch()
+	 */
+	@Override
 	@OneToOne(mappedBy = "produkt")
-	public Orderbuch getOrderbuch() {
+	public IOrderbuch getOrderbuch() {
 		return orderbuch;
 	}
 
-	public void setOrderbuch(Orderbuch orderbuch) {
+	public void setOrderbuch(IOrderbuch orderbuch) {
 		this.orderbuch = orderbuch;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IProdukt#getEinkaufsinfosaetze()
+	 */
+	@Override
 	@OneToMany(mappedBy = "produkt")
 	public HashSet<Einkaufsinfosatz> getEinkaufsinfosaetze() {
 		return einkaufsinfosaetze;

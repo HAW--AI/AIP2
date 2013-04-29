@@ -6,17 +6,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "orderbuchsatz")
-public class Orderbuchsatz {
+public class Orderbuchsatz implements IOrderbuchsatz {
 
 	private int nr;
 	private long gueltigAb;
 	private long gueltigBis;
-	private Orderbuch orderbuch;
-	private Lieferant lieferant;
+	private IOrderbuch orderbuch;
+	private ILieferant lieferant;
 
 	public Orderbuchsatz() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuchsatz#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "orderbuchsatz_nr")
@@ -28,6 +32,10 @@ public class Orderbuchsatz {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuchsatz#getGueltigAb()
+	 */
+	@Override
 	public long getGueltigAb() {
 		return gueltigAb;
 	}
@@ -36,6 +44,10 @@ public class Orderbuchsatz {
 		this.gueltigAb = gueltigAb;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuchsatz#getGueltigBis()
+	 */
+	@Override
 	public long getGueltigBis() {
 		return gueltigBis;
 	}
@@ -44,21 +56,29 @@ public class Orderbuchsatz {
 		this.gueltigBis = gueltigBis;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuchsatz#getOrderbuch()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "orderbuchsatz"*/)
-	public Orderbuch getOrderbuch() {
+	public IOrderbuch getOrderbuch() {
 		return orderbuch;
 	}
 
-	public void setOrderbuch(Orderbuch orderbuch) {
+	public void setOrderbuch(IOrderbuch orderbuch) {
 		this.orderbuch = orderbuch;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IOrderbuchsatz#getLieferant()
+	 */
+	@Override
 	@ManyToOne(/*mappedBy = "orderbuchsatz"*/)
-	public Lieferant getLieferant() {
+	public ILieferant getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(Lieferant lieferant) {
+	public void setLieferant(ILieferant lieferant) {
 		this.lieferant = lieferant;
 	}
 

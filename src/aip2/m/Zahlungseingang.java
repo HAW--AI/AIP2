@@ -6,14 +6,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "zahlungseingang")
-public class Zahlungseingang {
+public class Zahlungseingang implements IZahlungseingang {
 
 	private int nr;
-	private Rechnung rechnung;
+	private IRechnung rechnung;
 
 	public Zahlungseingang() {
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IZahlungseingang#getNr()
+	 */
+	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "zahlungseingang_nr")
@@ -25,11 +29,15 @@ public class Zahlungseingang {
 		this.nr = nr;
 	}
 
+	/* (non-Javadoc)
+	 * @see aip2.m.IZahlungseingang#getRechnung()
+	 */
+	@Override
 	@OneToOne(mappedBy = "zahlungseingang")
-	public Rechnung Rechnung() {
+	public IRechnung getRechnung() {
 		return rechnung;
 	}
-	public void setRechnung(Rechnung rechnung) {
+	public void setRechnung(IRechnung rechnung) {
 		this.rechnung = rechnung;
 	}
 
