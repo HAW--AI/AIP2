@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import aip2.m.PersistenzModul.HibernateUtil;
+
 /**
  * a
  * 

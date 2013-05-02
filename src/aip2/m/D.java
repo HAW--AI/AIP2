@@ -2,6 +2,8 @@ package aip2.m;
 
 import java.util.List;
 
+import aip2.m.PersistenzModul.HibernateUtil;
+
 public class D {
 
 	/**

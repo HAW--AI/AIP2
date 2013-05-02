@@ -31,22 +31,21 @@
   <property name="hbm2ddl.auto">update</property>
    
   <!-- Mapping files -->
-  <mapping class="aip2.m.Angebot"/>
-  <mapping class="aip2.m.Auftrag"/>
-  <mapping class="aip2.m.Bestellung"/>
-  <mapping class="aip2.m.Einkaufsinfosatz"/>
-  <mapping class="aip2.m.Kunde"/>
-  <mapping class="aip2.m.Lieferant"/>
-  <mapping class="aip2.m.Lieferung"/>
-  <mapping class="aip2.m.Orderbuch"/>
-  <mapping class="aip2.m.Orderbuchsatz"/>
-  <mapping class="aip2.m.Produkt"/>
-  <mapping class="aip2.m.Rechnung"/>
-  <mapping class="aip2.m.Transportauftrag"/>
-  <mapping class="aip2.m.Warenausgangsmeldung"/>
-  <mapping class="aip2.m.Wareneingangsmeldung"/>
-  <mapping class="aip2.m.Zahlungseingang"/>
-  
+  <mapping class="aip2.m.AngebotAuftragModul.Angebot"/>
+  <mapping class="aip2.m.AngebotAuftragModul.Auftrag"/>
+  <!--<mapping class="aip2.m.BestellungsModul.Bestellung"/>
+  <mapping class="aip2.m.LieferantenModul.Einkaufsinfosatz"/>-->
+  <mapping class="aip2.m.KundenModul.Kunde"/>
+ <!-- <mapping class="aip2.m.LieferantenModul.Lieferant"/>
+  <mapping class="aip2.m.LieferungsModul.Lieferung"/>
+  <mapping class="aip2.m.LieferantenModul.Orderbuch"/>
+  <mapping class="aip2.m.LieferantenModul.Orderbuchsatz"/>-->
+  <mapping class="aip2.m.ProduktModul.Produkt"/>
+ <!-- <mapping class="aip2.m.RechnungsModul.Rechnung"/>
+  <mapping class="aip2.m.LieferungsModul.Transportauftrag"/>
+  <mapping class="aip2.m.WarenmeldungsModul.Warenausgangsmeldung"/>
+  <mapping class="aip2.m.WarenmeldungsModul.Wareneingangsmeldung"/>
+-->  
    
  </session-factory>
 </hibernate-configuration>
