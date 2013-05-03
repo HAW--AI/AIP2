@@ -1,116 +1,148 @@
 package aip2.m.AngebotAuftragModul;
 
+import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+//import java.util.Map;
 
-import aip2.m.AngebotAuftragModul.Auftrag;
-import aip2.m.Interfaces.IAuftrag;
+import javax.persistence.*;
+import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.Kunde;
+//import aip2.m.ProduktModul.IProdukt;
 import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "angebot")
-public class Angebot /*implements IAngebot*/ {
+public class Angebot implements IAngebot {
 
-	private int nr;
-	private long gueltigAb;
-	private long gueltigBis;
-	private int gesamtpreis;
-	private Auftrag auftrag;
-	private Kunde kunde;
-	private List<Produkt> produkte;
-
-	public Angebot() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getNr()
-	 */
-//	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "angebot_nr")
-	public int getNr() {
+	private int nr;
+
+	@Temporal(TemporalType.TIME)
+	private Date gueltigAb;
+
+	@Temporal(TemporalType.TIME)
+	private Date gueltigBis;
+
+	private int gesamtPreisCent;
+
+	@OneToOne(mappedBy = "angebot", targetEntity = Auftrag.class)
+	private IAuftrag auftrag;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Kunde.class)
+	private IKunde kunde;
+
+	@JoinColumn
+	@ManyToMany(targetEntity = Produkt.class)
+	private List<IProduktMenge> produkte;
+//	private Map<IProdukt, Integer> produkte;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Angebot() {
+	}
+
+	public Angebot(Date gueltigAb, Date gueltigBis, int gesamtPreisCent,
+			IKunde kunde, /*Map<IProdukt, Integer>*/List<IProduktMenge> produkte) {
+		super();
+		this.gueltigAb = gueltigAb;
+		this.gueltigBis = gueltigBis;
+		this.gesamtPreisCent = gesamtPreisCent;
+		this.kunde = kunde;
+		this.produkte = produkte;
+	}
+
+	@Override
+	public int getAngebotsNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getGueltigAb()
-	 */
-//	@Override
-	public long getGueltigAb() {
+	@Override
+	public Date getGueltigAb() {
 		return gueltigAb;
 	}
 
-	public void setGueltigAb(long gueltigAb) {
+	void setGueltigAb(Date gueltigAb) {
 		this.gueltigAb = gueltigAb;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getGueltigBis()
-	 */
-//	@Override
-	public long getGueltigBis() {
+	@Override
+	public Date getGueltigBis() {
 		return gueltigBis;
 	}
 
-	public void setGueltigBis(long gueltigBis) {
+	void setGueltigBis(Date gueltigBis) {
 		this.gueltigBis = gueltigBis;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getGesamtpreis()
-	 */
-//	@Override
+	@Override
 	public int getGesamtpreis() {
-		return gesamtpreis;
+		return gesamtPreisCent;
 	}
 
-	public void setGesamtpreis(int gesamtpreis) {
-		this.gesamtpreis = gesamtpreis;
+	void setGesamtpreis(int gesamtPreisCent) {
+		this.gesamtPreisCent = gesamtPreisCent;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getAuftrag()
-	 */
-//	@Override
-	@OneToOne//(mappedBy = "angebot")
-	public Auftrag getAuftrag() {
+	@Override
+	public IAuftrag getAuftrag() {
 		return auftrag;
 	}
 
-	public void setAuftrag(Auftrag auftrag) {
+	void setAuftrag(IAuftrag auftrag) {
 		this.auftrag = auftrag;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getKunde()
-	 */
-//	@Override
-	@ManyToOne(/*mappedBy = "angebote"*/)
-	public Kunde getKunde() {
+	@Override
+	public IKunde getKunde() {
 		return kunde;
 	}
 
-	public void setKunde(Kunde kunde) {
+	void setKunde(IKunde kunde) {
 		this.kunde = kunde;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAngebot#getProdukte()
-	 */
-//	@Override
-	@ManyToMany//(mappedBy = "angebot")
-	public List<Produkt> getProdukte() {
+	@Override
+	public /*Map<IProdukt, Integer>*/List<IProduktMenge> getProdukte() {
 		return produkte;
 	}
 
-	public void setProdukte(List<Produkt> produkte) {
+	void setProdukte(/*Map<IProdukt, Integer>*/List<IProduktMenge> produkte) {
 		this.produkte = produkte;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Angebot other = (Angebot) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Angebot [nr=" + nr + ", gesamtPreisCent=" + gesamtPreisCent
+				+ ", auftrag=" + auftrag + ", kunde=" + kunde + ", produkte="
+				+ produkte + ", getGueltigAbDatum()=" + gueltigAb
+				+ ", getGueltigBisDatum()=" + gueltigBis + "]";
 	}
 
 }

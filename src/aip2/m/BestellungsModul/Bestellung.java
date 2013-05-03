@@ -1,117 +1,147 @@
 package aip2.m.BestellungsModul;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IBestellung;
-import aip2.m.Interfaces.ILieferant;
-import aip2.m.Interfaces.IProdukt;
-import aip2.m.Interfaces.IWareneingangsmeldung;
+import aip2.m.LieferantenModul.ILieferant;
+import aip2.m.LieferantenModul.Lieferant;
+import aip2.m.ProduktModul.IProdukt;
+import aip2.m.ProduktModul.Produkt;
+import aip2.m.WarenmeldungsModul.IWareneingangsmeldung;
+import aip2.m.WarenmeldungsModul.Wareneingangsmeldung;
 
 @Entity
 @Table(name = "bestellung")
 public class Bestellung implements IBestellung {
 
-	private int nr;
-	private long bestelldatum;
-	private int menge;
-	private boolean freigabe;
-	private IProdukt produkt;
-	private IWareneingangsmeldung wareneingangsmeldung;
-	private ILieferant lieferant;
-
-	public Bestellung() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "bestellung_nr")
-	public int getNr() {
+	private int nr;
+
+	@Temporal(TemporalType.TIME)
+	private Date bestelldatum;
+
+	private int menge;
+
+	@Column(nullable = false)
+	private boolean freigabe;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Produkt.class)
+	private IProdukt produkt;
+
+	@JoinColumn
+	@OneToOne(targetEntity = Wareneingangsmeldung.class)
+	private IWareneingangsmeldung wareneingangsmeldung;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Lieferant.class)
+	private ILieferant lieferant;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Bestellung() {
+	}
+
+	public Bestellung(Date bestelldatum, int menge, boolean freigabe,
+			IProdukt produkt, ILieferant lieferant) {
+		this.bestelldatum = bestelldatum;
+		this.menge = menge;
+		this.freigabe = freigabe;
+		this.produkt = produkt;
+		this.lieferant = lieferant;
+	}
+
+	@Override
+	public int getBestellNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#getBestelldatum()
-	 */
 	@Override
-	public long getBestelldatum() {
+	public Date getBestelldatum() {
 		return bestelldatum;
 	}
 
-	public void setBestelldatum(long bestelldatum) {
+	void setBestelldatum(Date bestelldatum) {
 		this.bestelldatum = bestelldatum;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#getMenge()
-	 */
 	@Override
 	public int getMenge() {
 		return menge;
 	}
 
-	public void setMenge(int menge) {
+	void setMenge(int menge) {
 		this.menge = menge;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#isFreigabe()
-	 */
 	@Override
 	public boolean isFreigabe() {
 		return freigabe;
 	}
 
-	public void setFreigabe(boolean freigabe) {
+	void setFreigabe(boolean freigabe) {
 		this.freigabe = freigabe;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#getProdukt()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "warenausgangsmeldungen"*/)
 	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(IProdukt produkt) {
+	void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#getWareneingangsmeldung()
-	 */
 	@Override
-	@OneToOne(mappedBy = "warenausgangsmeldung")
 	public IWareneingangsmeldung getWareneingangsmeldung() {
 		return wareneingangsmeldung;
 	}
 
-	public void setWareneingangsmeldung(IWareneingangsmeldung wareneingangsmeldung) {
+	void setWareneingangsmeldung(IWareneingangsmeldung wareneingangsmeldung) {
 		this.wareneingangsmeldung = wareneingangsmeldung;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IBestellung#getLieferant()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "bestellungen"*/)
 	public ILieferant getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(ILieferant lieferant) {
+	void setLieferant(ILieferant lieferant) {
 		this.lieferant = lieferant;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bestellung other = (Bestellung) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Bestellung [nr=" + nr + ", bestelldatum=" + bestelldatum
+				+ ", menge=" + menge + ", freigabe=" + freigabe + ", produkt="
+				+ produkt + ", wareneingangsmeldung=" + wareneingangsmeldung
+				+ ", lieferant=" + lieferant + "]";
 	}
 
 }

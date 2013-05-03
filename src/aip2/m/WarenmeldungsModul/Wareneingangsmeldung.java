@@ -1,75 +1,112 @@
 package aip2.m.WarenmeldungsModul;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IBestellung;
-import aip2.m.Interfaces.IWareneingangsmeldung;
+import aip2.m.BestellungsModul.Bestellung;
+import aip2.m.BestellungsModul.IBestellung;
 
 @Entity
 @Table(name = "wareneingangsmeldung")
 public class Wareneingangsmeldung implements IWareneingangsmeldung {
 
-	private int nr;
-	private long datum;
-	private int menge;
-	private IBestellung bestellung;
-
-	public Wareneingangsmeldung() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IWareneingangsmeldung#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "wareneingangsmeldung_nr")
-	public int getNr() {
+	private int nr;
+
+	private Date datum;
+
+	private int menge;
+
+	private String Lieferschein;
+
+	@OneToOne(mappedBy = "wareneingangsmeldung", targetEntity = Bestellung.class)
+	private IBestellung bestellung;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Wareneingangsmeldung() {
+	}
+
+	public Wareneingangsmeldung(Date datum, int menge, String lieferschein,
+			IBestellung bestellung) {
+		super();
+		this.datum = datum;
+		this.menge = menge;
+		Lieferschein = lieferschein;
+		this.bestellung = bestellung;
+	}
+
+	@Override
+	public int getWareneingangsmeldungNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IWareneingangsmeldung#getDatum()
-	 */
 	@Override
-	public long getDatum() {
+	public Date getDatum() {
 		return datum;
 	}
 
-	public void setDatum(long datum) {
+	void setDatum(Date datum) {
 		this.datum = datum;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IWareneingangsmeldung#getMenge()
-	 */
 	@Override
 	public int getMenge() {
 		return menge;
 	}
 
-	public void setMenge(int menge) {
+	void setMenge(int menge) {
 		this.menge = menge;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IWareneingangsmeldung#getBestellung()
-	 */
+	public String getLieferschein() {
+		return Lieferschein;
+	}
+
+	void setLieferschein(String lieferschein) {
+		Lieferschein = lieferschein;
+	}
+
 	@Override
-	@OneToOne(mappedBy = "wareneingangsmeldung")
 	public IBestellung getBestellung() {
 		return bestellung;
 	}
 
-	public void setBestellung(IBestellung bestellung) {
+	void setBestellung(IBestellung bestellung) {
 		this.bestellung = bestellung;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Wareneingangsmeldung other = (Wareneingangsmeldung) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Wareneingangsmeldung [nr=" + nr + ", datum=" + datum
+				+ ", menge=" + menge + ", Lieferschein=" + Lieferschein
+				+ ", bestellung=" + bestellung + "]";
+	}
 
 }

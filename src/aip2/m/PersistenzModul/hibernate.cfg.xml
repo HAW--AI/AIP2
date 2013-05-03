@@ -33,20 +33,20 @@
   <!-- Mapping files -->
   <mapping class="aip2.m.AngebotAuftragModul.Angebot"/>
   <mapping class="aip2.m.AngebotAuftragModul.Auftrag"/>
-  <!--<mapping class="aip2.m.BestellungsModul.Bestellung"/>
-  <mapping class="aip2.m.LieferantenModul.Einkaufsinfosatz"/>-->
+  <!--mapping class="aip2.m.AngebotAuftragModul.ProduktMengeTyp"/-->
+  <mapping class="aip2.m.BestellungsModul.Bestellung"/>
+  <mapping class="aip2.m.LieferantenModul.Einkaufsinfosatz"/>
   <mapping class="aip2.m.KundenModul.Kunde"/>
- <!-- <mapping class="aip2.m.LieferantenModul.Lieferant"/>
+  <mapping class="aip2.m.LieferantenModul.Lieferant"/>
   <mapping class="aip2.m.LieferungsModul.Lieferung"/>
   <mapping class="aip2.m.LieferantenModul.Orderbuch"/>
-  <mapping class="aip2.m.LieferantenModul.Orderbuchsatz"/>-->
+  <mapping class="aip2.m.LieferantenModul.Orderbuchsatz"/>
   <mapping class="aip2.m.ProduktModul.Produkt"/>
- <!-- <mapping class="aip2.m.RechnungsModul.Rechnung"/>
+  <mapping class="aip2.m.RechnungsModul.Rechnung"/>
   <mapping class="aip2.m.LieferungsModul.Transportauftrag"/>
   <mapping class="aip2.m.WarenmeldungsModul.Warenausgangsmeldung"/>
   <mapping class="aip2.m.WarenmeldungsModul.Wareneingangsmeldung"/>
   <mapping class="aip2.m.RechnungsModul.Zahlungseingang"/>
--->  
    
  </session-factory>
 </hibernate-configuration>

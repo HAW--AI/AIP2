@@ -1,25 +1,26 @@
 package aip2.m.AngebotAuftragModul;
 
-import java.util.Map;
+import java.util.Date;
+import java.util.List;
+//import java.util.Map;
 
-import aip2.m.Interfaces.IAuftrag;
 import aip2.m.KundenModul.IKunde;
-import aip2.m.ProduktModul.Produkt;
+//import aip2.m.ProduktModul.IProdukt;
 
 public interface IAngebot {
 
-	public abstract int getNr();
+	int getAngebotsNr();
 
-	public abstract long getGueltigAb();
+	Date getGueltigAb();
 
-	public abstract long getGueltigBis();
+	Date getGueltigBis();
 
-	public abstract int getGesamtpreis();
+	int getGesamtpreis();
 
-	public abstract IAuftrag getAuftrag();
+	IAuftrag getAuftrag();
 
-	public abstract IKunde getKunde();
+	IKunde getKunde();
 
-	public abstract Map<Produkt, Integer> getProdukte();
+	/*Map<IProdukt, Integer>*/List<IProduktMenge> getProdukte();
 
 }

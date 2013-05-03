@@ -1,60 +1,84 @@
 package aip2.m.RechnungsModul;
 
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IAuftrag;
-import aip2.m.Interfaces.IRechnung;
+import aip2.m.AngebotAuftragModul.Auftrag;
+import aip2.m.AngebotAuftragModul.IAuftrag;
 
 @Entity
 @Table(name = "rechnung")
 public class Rechnung implements IRechnung {
 
-	private int nr;
-	private Set<Zahlungseingang> zahlungseingaenge;
-	private IAuftrag auftrag;
-
-	public Rechnung() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IRechnung#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "rechnung_nr")
-	public int getNr() {
-		return nr;
-	}
+	private int nr;
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
+	@Temporal(TemporalType.TIME)
+	private Date rechnungsDatum;
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IRechnung#getAuftrag()
+	private boolean istBezahlt;
+
+	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
+	private Set<Zahlungseingang> zahlungseingaenge;
+
+	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
+	private IAuftrag auftrag;
+
+	/**
+	 * For Hibernate
 	 */
-	@Override
-	@OneToOne(mappedBy = "rechnung")
-	public IAuftrag getAuftrag() {
-		return auftrag;
+	@SuppressWarnings("unused")
+	private Rechnung() {
 	}
-	public void setAuftrag(IAuftrag auftrag) {
+
+	public Rechnung(Date rechnungsDatum, boolean istBezahlt, IAuftrag auftrag) {
+		super();
+		this.rechnungsDatum = rechnungsDatum;
+		this.istBezahlt = istBezahlt;
 		this.auftrag = auftrag;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IRechnung#getZahlungseingaenge()
-	 */
 	@Override
-	@OneToMany(mappedBy = "rechnung")
+	public int getRechnungsNr() {
+		return nr;
+	}
+
+	@Override
+	public Date getRechnungsDatum() {
+		return rechnungsDatum;
+	}
+
+	void setRechnungsDatum(Date rechnungsDatum) {
+		this.rechnungsDatum = rechnungsDatum;
+	}
+
+	@Override
+	public boolean isIstBezahlt() {
+		return istBezahlt;
+	}
+
+	void setIstBezahlt(boolean istBezahlt) {
+		this.istBezahlt = istBezahlt;
+	}
+
+	@Override
+	public IAuftrag getAuftrag() {
+		return auftrag;
+	}
+
+	void setAuftrag(IAuftrag auftrag) {
+		this.auftrag = auftrag;
+	}
+
+	@Override
 	public Set<Zahlungseingang> getZahlungseingaenge() {
 		return zahlungseingaenge;
 	}
 
-	public void setZahlungseingaenge(Set<Zahlungseingang> zahlungseingaenge) {
+	void setZahlungseingaenge(Set<Zahlungseingang> zahlungseingaenge) {
 		this.zahlungseingaenge = zahlungseingaenge;
 	}
 
@@ -62,5 +86,33 @@ public class Rechnung implements IRechnung {
 		this.zahlungseingaenge.add(zahlungseingang);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rechnung other = (Rechnung) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Rechnung [nr=" + nr + ", rechnungsDatum=" + rechnungsDatum
+				+ ", istBezahlt=" + istBezahlt + ", zahlungseingaenge="
+				+ zahlungseingaenge + ", auftrag=" + auftrag + "]";
+	}
 
 }

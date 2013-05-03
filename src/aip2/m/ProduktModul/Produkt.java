@@ -1,135 +1,160 @@
 package aip2.m.ProduktModul;
 
-import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
 import aip2.m.AngebotAuftragModul.Angebot;
+import aip2.m.AngebotAuftragModul.IAngebot;
 import aip2.m.BestellungsModul.Bestellung;
-import aip2.m.Interfaces.IOrderbuch;
-import aip2.m.Interfaces.IProdukt;
+import aip2.m.BestellungsModul.IBestellung;
 import aip2.m.LieferantenModul.Einkaufsinfosatz;
+import aip2.m.LieferantenModul.IEinkaufsinfosatz;
+import aip2.m.LieferantenModul.IOrderbuch;
+import aip2.m.LieferantenModul.Orderbuch;
+import aip2.m.WarenmeldungsModul.IWarenausgangsmeldung;
 import aip2.m.WarenmeldungsModul.Warenausgangsmeldung;
 
 @Entity
 @Table(name = "produkt")
-public class Produkt /*implements IProdukt*/ {
+public class Produkt implements IProdukt {
 
-	private int nr;
-	private String name;
-	private int lagerbestand;
-	private Set<Angebot> angebote;
-//	private Set<Warenausgangsmeldung> warenausgangsmeldungen;
-//	private Set<Bestellung> bestellungen;
-//	private IOrderbuch orderbuch;
-//	private Set<Einkaufsinfosatz> einkaufsinfosaetze;
-
-	public Produkt() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IProdukt#getNr()
-	 */
-//	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "produkt_nr")
-	public int getNr() {
+	private int nr;
+
+	private String name;
+
+	private int lagerbestand;
+
+	@ManyToMany(mappedBy = "produkte", targetEntity = Angebot.class)
+	private Set<IAngebot> angebote;
+
+	@OneToMany(targetEntity = Warenausgangsmeldung.class)
+	private Set<IWarenausgangsmeldung> warenausgangsmeldungen;
+
+	@OneToMany(mappedBy = "produkt", targetEntity = Bestellung.class)
+	private Set<IBestellung> bestellungen;
+
+	@JoinColumn
+	@OneToOne(targetEntity = Orderbuch.class)
+	private IOrderbuch orderbuch;
+
+	@OneToMany(mappedBy = "produkt", targetEntity = Einkaufsinfosatz.class)
+	private Set<IEinkaufsinfosatz> einkaufsinfosaetze;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Produkt() {
+	}
+
+	public Produkt(String name, int lagerbestand, IOrderbuch orderbuch) {
+		super();
+		this.name = name;
+		this.lagerbestand = lagerbestand;
+		this.orderbuch = orderbuch;
+	}
+
+	@Override
+	public int getProduktNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IProdukt#getName()
-	 */
-//	@Override
+	@Override
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IProdukt#getLagerbestand()
-	 */
-//	@Override
+	@Override
 	public int getLagerbestand() {
 		return lagerbestand;
 	}
 
-	public void setLagerbestand(int lagerbestand) {
+	void setLagerbestand(int lagerbestand) {
 		this.lagerbestand = lagerbestand;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IProdukt#getAngebote()
-	 */
-//	@Override
-	@ManyToMany//(mappedBy = "produkte")
-	public Set<Angebot> getAngebote() {
+	@Override
+	public Set<IAngebot> getAngebote() {
 		return angebote;
 	}
 
-	public void setAngebote(HashSet<Angebot> angebote) {
+	void setAngebote(Set<IAngebot> angebote) {
 		this.angebote = angebote;
 	}
 
-//	/* (non-Javadoc)
-//	 * @see aip2.m.IProdukt#getWarenausgangsmeldungen()
-//	 */
-//	@Override
-//	@OneToMany(mappedBy = "produkt")
-//	public Set<Warenausgangsmeldung> getWarenausgangsmeldungen() {
-//		return warenausgangsmeldungen;
-//	}
-//
-//	public void setWarenausgangsmeldungen(
-//			HashSet<Warenausgangsmeldung> warenausgangsmeldungen) {
-//		this.warenausgangsmeldungen = warenausgangsmeldungen;
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see aip2.m.IProdukt#getBestellungen()
-//	 */
-//	@Override
-//	@OneToMany(mappedBy = "produkt")
-//	public Set<Bestellung> getBestellungen() {
-//		return bestellungen;
-//	}
-//
-//	public void setBestellungen(HashSet<Bestellung> bestellungen) {
-//		this.bestellungen = bestellungen;
-//	}
+	@Override
+	public Set<IWarenausgangsmeldung> getWarenausgangsmeldungen() {
+		return warenausgangsmeldungen;
+	}
 
-//	/* (non-Javadoc)
-//	 * @see aip2.m.IProdukt#getOrderbuch()
-//	 */
-//	@Override
-//	@OneToOne(mappedBy = "produkt")
-//	public IOrderbuch getOrderbuch() {
-//		return orderbuch;
-//	}
-//
-//	public void setOrderbuch(IOrderbuch orderbuch) {
-//		this.orderbuch = orderbuch;
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see aip2.m.IProdukt#getEinkaufsinfosaetze()
-//	 */
-//	@Override
-//	@OneToMany//(mappedBy = "produkt")
-//	public Set<Einkaufsinfosatz> getEinkaufsinfosaetze() {
-//		return einkaufsinfosaetze;
-//	}
-//
-//	public void setEinkaufsinfosaetze(HashSet<Einkaufsinfosatz> einkaufsinfosaetze) {
-//		this.einkaufsinfosaetze = einkaufsinfosaetze;
-//	}
-	
+	void setWarenausgangsmeldungen(
+			Set<IWarenausgangsmeldung> warenausgangsmeldungen) {
+		this.warenausgangsmeldungen = warenausgangsmeldungen;
+	}
+
+	@Override
+	public Set<IBestellung> getBestellungen() {
+		return bestellungen;
+	}
+
+	void setBestellungen(Set<IBestellung> bestellungen) {
+		this.bestellungen = bestellungen;
+	}
+
+	@Override
+	public IOrderbuch getOrderbuch() {
+		return orderbuch;
+	}
+
+	void setOrderbuch(IOrderbuch orderbuch) {
+		this.orderbuch = orderbuch;
+	}
+
+	@Override
+	public Set<IEinkaufsinfosatz> getEinkaufsinfosaetze() {
+		return einkaufsinfosaetze;
+	}
+
+	void setEinkaufsinfosaetze(Set<IEinkaufsinfosatz> einkaufsinfosaetze) {
+		this.einkaufsinfosaetze = einkaufsinfosaetze;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produkt other = (Produkt) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Produkt [nr=" + nr + ", name=" + name + ", lagerbestand="
+				+ lagerbestand + ", warenausgangsmeldungen="
+				+ warenausgangsmeldungen + ", bestellungen=" + bestellungen
+				+ ", orderbuch=" + orderbuch + ", einkaufsinfosaetze="
+				+ einkaufsinfosaetze + "]";
+	}
+
 }

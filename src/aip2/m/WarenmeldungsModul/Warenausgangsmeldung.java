@@ -1,75 +1,101 @@
 package aip2.m.WarenmeldungsModul;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IProdukt;
-import aip2.m.Interfaces.IWarenausgangsmeldung;
+import aip2.m.ProduktModul.IProdukt;
+import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "warenausgangsmeldung")
 public class Warenausgangsmeldung implements IWarenausgangsmeldung {
 
-	private int nr;
-	private long datum;
-	private int menge;
-	private IProdukt produkt;
-
-	public Warenausgangsmeldung() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IWarenausgangsmeldung#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "warenausgangsmeldung_nr")
-	public int getNr() {
+	private int nr;
+
+	@Temporal(TemporalType.TIME)
+	private Date datum;
+
+	private int menge;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Produkt.class)
+	private IProdukt produkt;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Warenausgangsmeldung() {
+	}
+
+	public Warenausgangsmeldung(Date datum, int menge, IProdukt produkt) {
+		super();
+		this.datum = datum;
+		this.menge = menge;
+		this.produkt = produkt;
+	}
+
+	@Override
+	public int getWarenausgangsmeldungNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IWarenausgangsmeldung#getDatum()
-	 */
 	@Override
-	public long getDatum() {
+	public Date getDatum() {
 		return datum;
 	}
 
-	public void setDatum(long datum) {
+	void setDatum(Date datum) {
 		this.datum = datum;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IWarenausgangsmeldung#getMenge()
-	 */
 	@Override
 	public int getMenge() {
 		return menge;
 	}
 
-	public void setMenge(int menge) {
+	void setMenge(int menge) {
 		this.menge = menge;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IWarenausgangsmeldung#getProdukt()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "warenausgangsmeldungen"*/)
 	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(IProdukt produkt) {
+	void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Warenausgangsmeldung other = (Warenausgangsmeldung) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Warenausgangsmeldung [nr=" + nr + ", datum=" + datum
+				+ ", menge=" + menge + ", produkt=" + produkt + "]";
+	}
 
 }

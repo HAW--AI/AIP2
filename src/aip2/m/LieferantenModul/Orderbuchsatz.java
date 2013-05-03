@@ -1,89 +1,117 @@
 package aip2.m.LieferantenModul;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.*;
+import java.util.Date;
 
-import aip2.m.Interfaces.ILieferant;
-import aip2.m.Interfaces.IOrderbuch;
-import aip2.m.Interfaces.IOrderbuchsatz;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "orderbuchsatz")
 public class Orderbuchsatz implements IOrderbuchsatz {
 
-	private int nr;
-	private long gueltigAb;
-	private long gueltigBis;
-	private IOrderbuch orderbuch;
-	private ILieferant lieferant;
-
-	public Orderbuchsatz() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IOrderbuchsatz#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "orderbuchsatz_nr")
-	public int getNr() {
+	private int nr;
+
+	@Temporal(TemporalType.TIME)
+	private Date gueltigAb;
+
+	@Temporal(TemporalType.TIME)
+	private Date gueltigBis;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Orderbuch.class)
+	private IOrderbuch orderbuch;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Lieferant.class)
+	private ILieferant lieferant;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Orderbuchsatz() {
+	}
+
+	public Orderbuchsatz(int nr, Date gueltigAb, Date gueltigBis,
+			IOrderbuch orderbuch, ILieferant lieferant) {
+		super();
+		this.nr = nr;
+		this.gueltigAb = gueltigAb;
+		this.gueltigBis = gueltigBis;
+		this.orderbuch = orderbuch;
+		this.lieferant = lieferant;
+	}
+
+	@Override
+	public int getOrderbuchsatzNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IOrderbuchsatz#getGueltigAb()
-	 */
 	@Override
-	public long getGueltigAb() {
+	public Date getGueltigAb() {
 		return gueltigAb;
 	}
 
-	public void setGueltigAb(long gueltigAb) {
+	void setGueltigAb(Date gueltigAb) {
 		this.gueltigAb = gueltigAb;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IOrderbuchsatz#getGueltigBis()
-	 */
 	@Override
-	public long getGueltigBis() {
+	public Date getGueltigBis() {
 		return gueltigBis;
 	}
 
-	public void setGueltigBis(long gueltigBis) {
+	void setGueltigBis(Date gueltigBis) {
 		this.gueltigBis = gueltigBis;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IOrderbuchsatz#getOrderbuch()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "orderbuchsatz"*/)
 	public IOrderbuch getOrderbuch() {
 		return orderbuch;
 	}
 
-	public void setOrderbuch(IOrderbuch orderbuch) {
+	void setOrderbuch(IOrderbuch orderbuch) {
 		this.orderbuch = orderbuch;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IOrderbuchsatz#getLieferant()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "orderbuchsatz"*/)
 	public ILieferant getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(ILieferant lieferant) {
+	void setLieferant(ILieferant lieferant) {
 		this.lieferant = lieferant;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orderbuchsatz other = (Orderbuchsatz) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Orderbuchsatz [nr=" + nr + ", gueltigAb=" + gueltigAb
+				+ ", gueltigBis=" + gueltigBis + ", orderbuch=" + orderbuch
+				+ ", lieferant=" + lieferant + "]";
 	}
 
 }

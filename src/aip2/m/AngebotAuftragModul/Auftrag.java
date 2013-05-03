@@ -1,103 +1,131 @@
 package aip2.m.AngebotAuftragModul;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IAuftrag;
-import aip2.m.Interfaces.ILieferung;
-import aip2.m.Interfaces.IRechnung;
+import aip2.m.LieferungsModul.ILieferung;
+import aip2.m.LieferungsModul.Lieferung;
+import aip2.m.RechnungsModul.IRechnung;
+import aip2.m.RechnungsModul.Rechnung;
 
 @Entity
 @Table(name = "auftrag")
-public class Auftrag /*implements IAuftrag*/ {
+public class Auftrag implements IAuftrag {
 
-	private int nr;
-	private boolean abgeschlossen;
-	private long beauftragtAm;
-//	private ILieferung lieferung;
-//	private IRechnung rechnung;
-	private Angebot angebot;
-
-	public Auftrag() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IAuftrag#getNr()
-	 */
-//	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "auftrag_nr")
-	public int getNr() {
+	private int nr;
+
+	private boolean abgeschlossen;
+	
+	@Temporal(TemporalType.TIME)
+	private Date beauftragtAm;
+	
+	@JoinColumn
+	@OneToOne(targetEntity = Lieferung.class)
+	private ILieferung lieferung;
+
+	@JoinColumn
+	@OneToOne(targetEntity = Rechnung.class)
+	private IRechnung rechnung;
+
+	@JoinColumn
+	@OneToOne(targetEntity = Angebot.class)
+	private IAngebot angebot;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Auftrag() {
+	}
+
+	public Auftrag(int nr, Date beauftragtAm, IAngebot angebot) {
+		super();
+		this.nr = nr;
+		this.beauftragtAm = beauftragtAm;
+		this.angebot = angebot;
+		this.abgeschlossen = false;
+	}
+
+	@Override
+	public int getAuftragsNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IAuftrag#isAbgeschlossen()
-	 */
-//	@Override
+	@Override
 	public boolean isAbgeschlossen() {
 		return abgeschlossen;
 	}
 
-	public void setAbgeschlossen(boolean abgeschlossen) {
+	void setAbgeschlossen(boolean abgeschlossen) {
 		this.abgeschlossen = abgeschlossen;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAuftrag#getBeauftragtAm()
-	 */
-//	@Override
-	public long getBeauftragtAm() {
+	@Override
+	public Date getBeauftragtAm() {
 		return beauftragtAm;
 	}
 
-	public void setBeauftragtAm(long beauftragtAm) {
+	void setBeauftragtAm(Date beauftragtAm) {
 		this.beauftragtAm = beauftragtAm;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAuftrag#getLieferung()
-	 */
-//	@Override
-//	@OneToOne(mappedBy = "auftrag")
-//	public ILieferung getLieferung() {
-//		return lieferung;
-//	}
-//
-//	public void setLieferung(ILieferung lieferung) {
-//		this.lieferung = lieferung;
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see aip2.m.IAuftrag#getRechnung()
-//	 */
-//	@Override
-//	@OneToOne(mappedBy = "auftrag")
-//	public IRechnung getRechnung() {
-//		return rechnung;
-//	}
-//
-//	public void setRechnung(IRechnung rechnung) {
-//		this.rechnung = rechnung;
-//	}
+	@Override
+	public ILieferung getLieferung() {
+		return lieferung;
+	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IAuftrag#getAngebot()
-	 */
-//	@Override
-	@OneToOne(mappedBy = "auftrag")
-	public Angebot getAngebot() {
+	void setLieferung(ILieferung lieferung) {
+		this.lieferung = lieferung;
+	}
+
+	@Override
+	public IRechnung getRechnung() {
+		return rechnung;
+	}
+
+	void setRechnung(IRechnung rechnung) {
+		this.rechnung = rechnung;
+	}
+
+	@Override
+	public IAngebot getAngebot() {
 		return angebot;
 	}
 
-	public void setAngebot(Angebot angebot) {
+	void setAngebotI(Angebot angebot) {
 		this.angebot = angebot;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Auftrag other = (Auftrag) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Auftrag [nr=" + nr + ", abgeschlossen=" + abgeschlossen
+				+ ", beauftragtAm=" + beauftragtAm + ", lieferung=" + lieferung
+				+ ", rechnung=" + rechnung + ", angebot=" + angebot + "]";
 	}
 
 }

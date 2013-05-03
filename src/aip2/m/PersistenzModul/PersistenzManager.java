@@ -10,7 +10,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import aip2.m.TransaktionsModul.TransaktionManager;
-
+/**
+ * 
+ * @see http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html
+ *
+ */
 public class PersistenzManager implements IPersistenzIntern {
 
 	private TransaktionManager transaktionsManager;

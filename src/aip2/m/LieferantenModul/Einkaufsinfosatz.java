@@ -1,128 +1,159 @@
 package aip2.m.LieferantenModul;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
+
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IEinkaufsinfosatz;
-import aip2.m.Interfaces.ILieferant;
-import aip2.m.Interfaces.IProdukt;
+import aip2.m.ProduktModul.IProdukt;
+import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "einkaufsinfosatz")
 public class Einkaufsinfosatz implements IEinkaufsinfosatz {
 
-	private int nr;
-	private long gueltigAb;
-	private long gueltigBis;
-	private long planlieferzeit;
-	private int normalmenge;
-	private int preis;
-	private IProdukt produkt;
-	private ILieferant lieferant;
-
-	public Einkaufsinfosatz() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "einkaufsinfosatz_nr")
-	public int getNr() {
+	private int nr;
+
+	@Temporal(TemporalType.TIME)
+	private Date gueltigAb;
+
+	@Temporal(TemporalType.TIME)
+	private Date gueltigBis;
+
+	private int planlieferzeit;
+
+	private int normalmenge;
+
+	private int preis;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Produkt.class)
+	private IProdukt produkt;
+
+	@JoinColumn
+	@ManyToOne(targetEntity = Lieferant.class)
+	private ILieferant lieferant;
+
+	/**
+	 * For Hibernate
+	 */
+	@SuppressWarnings("unused")
+	private Einkaufsinfosatz() {
+	}
+
+	@Override
+	public int getEinkaufsinfosatzNr() {
 		return nr;
 	}
 
-	public void setNr(int nr) {
+	public Einkaufsinfosatz(int nr, Date gueltigAb, Date gueltigBis,
+			int planlieferzeit, int normalmenge, int preis, IProdukt produkt,
+			ILieferant lieferant) {
+		super();
 		this.nr = nr;
+		this.gueltigAb = gueltigAb;
+		this.gueltigBis = gueltigBis;
+		this.planlieferzeit = planlieferzeit;
+		this.normalmenge = normalmenge;
+		this.preis = preis;
+		this.produkt = produkt;
+		this.lieferant = lieferant;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getGueltigAb()
-	 */
 	@Override
-	public long getGueltigAb() {
+	public Date getGueltigAb() {
 		return gueltigAb;
 	}
 
-	public void setGueltigAb(long gueltigAb) {
+	void setGueltigAb(Date gueltigAb) {
 		this.gueltigAb = gueltigAb;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getGueltigBis()
-	 */
 	@Override
-	public long getGueltigBis() {
+	public Date getGueltigBis() {
 		return gueltigBis;
 	}
 
-	public void setGueltigBis(long gueltigBis) {
+	void setGueltigBis(Date gueltigBis) {
 		this.gueltigBis = gueltigBis;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getPlanlieferzeit()
-	 */
 	@Override
-	public long getPlanlieferzeit() {
+	public int getPlanlieferzeit() {
 		return planlieferzeit;
 	}
 
-	public void setPlanlieferzeit(long planlieferzeit) {
+	void setPlanlieferzeit(int planlieferzeit) {
 		this.planlieferzeit = planlieferzeit;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getNormalmenge()
-	 */
 	@Override
 	public int getNormalmenge() {
 		return normalmenge;
 	}
 
-	public void setNormalmenge(int normalmenge) {
+	void setNormalmenge(int normalmenge) {
 		this.normalmenge = normalmenge;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getPreis()
-	 */
 	@Override
 	public int getPreis() {
 		return preis;
 	}
 
-	public void setPreis(int preis) {
+	void setPreis(int preis) {
 		this.preis = preis;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getProdukt()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "einkaufsinfosatz"*/)
 	public IProdukt getProdukt() {
 		return produkt;
 	}
 
-	public void setProdukt(IProdukt produkt) {
+	void setProdukt(IProdukt produkt) {
 		this.produkt = produkt;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.IEinkaufsinfosatz#getLieferant()
-	 */
 	@Override
-	@ManyToOne(/*mappedBy = "einkaufsinfosatz"*/)
 	public ILieferant getLieferant() {
 		return lieferant;
 	}
 
-	public void setLieferant(ILieferant lieferant) {
+	void setLieferant(ILieferant lieferant) {
 		this.lieferant = lieferant;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Einkaufsinfosatz other = (Einkaufsinfosatz) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Einkaufsinfosatz [nr=" + nr + ", gueltigAb=" + gueltigAb
+				+ ", gueltigBis=" + gueltigBis + ", planlieferzeit="
+				+ planlieferzeit + ", normalmenge=" + normalmenge + ", preis="
+				+ preis + ", produkt=" + produkt + ", lieferant=" + lieferant
+				+ "]";
 	}
 
 }

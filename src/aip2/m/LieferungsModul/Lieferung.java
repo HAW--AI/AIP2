@@ -1,61 +1,90 @@
 package aip2.m.LieferungsModul;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IAuftrag;
-import aip2.m.Interfaces.ILieferung;
-import aip2.m.Interfaces.ITransportauftrag;
+import aip2.m.AngebotAuftragModul.Auftrag;
+import aip2.m.AngebotAuftragModul.IAuftrag;
 
 @Entity
 @Table(name = "lieferung")
 public class Lieferung implements ILieferung {
 
-	private int nr;
-	private ITransportauftrag transportauftrag;
-	private IAuftrag auftrag;
-
-	public Lieferung() {
-	}
-
-	/* (non-Javadoc)
-	 * @see aip2.m.ILieferung#getNr()
-	 */
-	@Override
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "lieferung_nr")
-	public int getNr() {
-		return nr;
-	}
+	private int nr;
 
-	public void setNr(int nr) {
-		this.nr = nr;
-	}
+	@JoinColumn
+	@OneToOne(targetEntity = Transportauftrag.class)
+	private ITransportauftrag transportauftrag;
 
-	/* (non-Javadoc)
-	 * @see aip2.m.ILieferung#getAuftrag()
+	@OneToOne(mappedBy = "lieferung", targetEntity = Auftrag.class)
+	private IAuftrag auftrag;
+
+	/**
+	 * For Hibernate
 	 */
-	@Override
-	@OneToOne(mappedBy = "lieferung")
-	public IAuftrag getAuftrag() {
-		return auftrag;
+	@SuppressWarnings("unused")
+	private Lieferung() {
 	}
-	public void setAuftrag(IAuftrag auftrag) {
+
+	public Lieferung(int nr, ITransportauftrag transportauftrag,
+			IAuftrag auftrag) {
+		super();
+		this.nr = nr;
+		this.transportauftrag = transportauftrag;
 		this.auftrag = auftrag;
 	}
 
-	/* (non-Javadoc)
-	 * @see aip2.m.ILieferung#getTransportauftrag()
-	 */
 	@Override
-	@OneToOne(mappedBy = "lieferung")
+	public int getLieferungsNr() {
+		return nr;
+	}
+
+	@Override
+	public IAuftrag getAuftrag() {
+		return auftrag;
+	}
+
+	void setAuftrag(IAuftrag auftrag) {
+		this.auftrag = auftrag;
+	}
+
+	@Override
 	public ITransportauftrag getTransportauftrag() {
 		return transportauftrag;
 	}
-	public void setTransportauftrag(ITransportauftrag transportauftrag) {
+
+	void setTransportauftrag(ITransportauftrag transportauftrag) {
 		this.transportauftrag = transportauftrag;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + nr;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lieferung other = (Lieferung) obj;
+		if (nr != other.nr)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Lieferung [nr=" + nr + ", transportauftrag=" + transportauftrag
+				+ ", auftrag=" + auftrag + "]";
 	}
 
 }
