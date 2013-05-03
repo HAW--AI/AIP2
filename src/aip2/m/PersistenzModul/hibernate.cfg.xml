@@ -45,6 +45,7 @@
   <mapping class="aip2.m.LieferungsModul.Transportauftrag"/>
   <mapping class="aip2.m.WarenmeldungsModul.Warenausgangsmeldung"/>
   <mapping class="aip2.m.WarenmeldungsModul.Wareneingangsmeldung"/>
+  <mapping class="aip2.m.RechnungsModul.Zahlungseingang"/>
 -->  
    
  </session-factory>

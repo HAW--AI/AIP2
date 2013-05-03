@@ -1,16 +1,9 @@
-package aip2.m.Interfaces;
+package aip2.m.AngebotAuftragModul;
 
-import java.util.HashSet;
 import java.util.Map;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
+import aip2.m.Interfaces.IAuftrag;
+import aip2.m.KundenModul.IKunde;
 import aip2.m.ProduktModul.Produkt;
 
 public interface IAngebot {

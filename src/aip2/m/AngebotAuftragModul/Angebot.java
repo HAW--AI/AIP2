@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.Interfaces.IAuftrag;
-import aip2.m.Interfaces.IAngebot;
 import aip2.m.KundenModul.Kunde;
 import aip2.m.ProduktModul.Produkt;
 

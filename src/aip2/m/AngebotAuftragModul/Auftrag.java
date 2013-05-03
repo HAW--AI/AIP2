@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
-import aip2.m.Interfaces.IAngebot;
 import aip2.m.Interfaces.IAuftrag;
 import aip2.m.Interfaces.ILieferung;
 import aip2.m.Interfaces.IRechnung;
