@@ -1,5 +1,6 @@
 package aip2.m.KundenModul;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -7,9 +8,13 @@ import javax.persistence.*;
 import aip2.m.AngebotAuftragModul.Angebot;
 import aip2.m.AngebotAuftragModul.IAngebot;
 
+/**
+ * Kunden Entität inklusive Speicherung in der DB
+ *
+ */
 @Entity
-@Table(name = "kunde")
-public class Kunde implements IKunde {
+@Table(name = "Kunde")
+public final class Kunde implements IKunde {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +29,7 @@ public class Kunde implements IKunde {
 	@OneToMany(mappedBy = "kunde", targetEntity = Angebot.class)
 	private Set<IAngebot> angebote;
 
-	public Kunde(String name, String adresse) {
+	Kunde(String name, String adresse) {
 		super();
 		this.name = name;
 		this.adresse = adresse;
@@ -39,7 +44,7 @@ public class Kunde implements IKunde {
 	}
 
 	@Override
-	public int getNr() {
+	public int getKundenNr() {
 		return nr;
 	}
 
@@ -63,19 +68,18 @@ public class Kunde implements IKunde {
 
 	@Override
 	public Set<IAngebot> getAngebote() {
-		return angebote;
+		return Collections.unmodifiableSet(angebote);
 	}
 
 	void setAngebote(Set<IAngebot> angebote) {
 		this.angebote = angebote;
 	}
 
-	@Override
-	public boolean addAngebot(IAngebot angebot) {
+	boolean addAngebot(IAngebot angebot) {
 		this.angebote.add(angebot);
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Kunde [nr=" + nr + ", name=" + name + ", adresse=" + adresse

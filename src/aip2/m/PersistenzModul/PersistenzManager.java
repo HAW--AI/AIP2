@@ -1,66 +1,131 @@
 package aip2.m.PersistenzModul;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import aip2.m.TransaktionsModul.TransaktionManager;
 /**
+ * Implementiert die Persistenz Schnittstelle IPersitenzIntern
  * 
- * @see http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html
- *
+ * @see http 
+ *      ://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.
+ *      html
+ * 
  */
-public class PersistenzManager implements IPersistenzIntern {
+final class PersistenzManager implements IPersistenzIntern,
+		IPersistenzSessionIntern {
 
-	private TransaktionManager transaktionsManager;
+	private SessionFactory sessionFactory;
+	private Session session;
 
-	public PersistenzManager(TransaktionManager transaktionsManager) {
-		this.transaktionsManager = transaktionsManager;
-		transaktionsManager.setSessionFactory(getSessionFactory());
+	PersistenzManager() {
+		this.sessionFactory = HibernateUtil.getSessionFactory();
+		this.session = sessionFactory.openSession();
 	}
 
-	public <T> Serializable add(T thing) {
-		Serializable ret = getSession().save(thing);
-		return ret;
+	@Override
+	public <T> void add(T thing) {
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
+		getSession().save(thing);
 	}
 
+	@Override
 	public <T> T getById(Class<T> idClass, int id) {
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
 		return idClass.cast(getSession().get(idClass, id));
 	}
 
+	@Override
 	public <T> List<T> getAll(Class<T> type) {
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
+
 		Criteria criteria = getSession().createCriteria(type);
-		@SuppressWarnings("rawtypes")
-		List critList = criteria.list();
+
+		return reCastListTo(type, criteria.list());
+	}
+
+	@Override
+	public <T> List<T> getFromWhere(Class<T> type, String columnName,
+			Object value) {
+
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
+		Query query = session.createQuery("from " + type.getSimpleName()
+				+ " where " + columnName + " = :value");
+		query.setParameter("value", value);
+
+		return reCastListTo(type, query.list());
+
+	}
+
+	@SuppressWarnings("rawtypes")
+	private <T> List<T> reCastListTo(Class<T> type, List list) {
 		List<T> resultList = new ArrayList<T>();
 
-		for (@SuppressWarnings("rawtypes")
-		Iterator iterator = critList.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 			T typeThingX = type.cast(iterator.next());
 			resultList.add(typeThingX);
 		}
+
 		return resultList;
 	}
 
+	@Override
 	public <T> void update(T thing) {
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
 		getSession().update(thing);
 	}
 
+	@Override
 	public <T> void delete(T thing) {
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
 		getSession().delete(thing);
 	}
 
-	private Session getSession() {
-		return transaktionsManager.getSession();
+	@Override
+	public boolean isSessionOpen() {
+		return session != null && session.isConnected();
 	}
 
-	public SessionFactory getSessionFactory() {
-		return HibernateUtil.getSessionFactory();
+	@Override
+	public Session getSession() {
+		return session;
+	}
+
+	@Override
+	public boolean openNewSession() {
+		if (isSessionOpen())
+			closeSession();
+		else {
+			this.session = sessionFactory.openSession();
+		}
+		return true;
+	}
+
+	@Override
+	public boolean closeSession() {
+		if (session == null)
+			return true;
+		else {
+			session.close();
+			return true;
+		}
 	}
 
 }
