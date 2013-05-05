@@ -21,6 +21,8 @@ public interface ITransaktionIntern {
 	/**
 	 * startet eine neue Transaktion
 	 * 
+	 * @pre erst prüfen mit isRunningTransaction(), ob schon eine Transaktion
+	 *      läuft
 	 * @return false wenn keine Transaktion gestartet werden könnte, sonst true.
 	 *         //*@throws TransactionNotClosed //* um zu verhinden, dass
 	 *         Transaktionen nicht commitet werden

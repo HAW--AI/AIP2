@@ -48,7 +48,7 @@ public final class TestKundenKomponente {
 
 	@After
 	public void afterEach() {
-		transaktion.commitTransaction();
+		transaktion.rollbackTransaction();
 	}
 
 	@Test
