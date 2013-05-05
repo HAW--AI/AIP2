@@ -22,6 +22,15 @@ public interface IKundenModulExtern {
 	List<KundenTyp> sucheKunden(String name);
 	
 	/**
+	 * Sucht Kunden mit gegebener Id
+	 * 
+	 * @param kundenId
+	 *            Die Id des Kunden
+	 * @return Der gewünschte Kunde oder null
+	 */
+	KundenTyp sucheKunden(int kundenId);
+	
+	/**
 	 * Erstellt einen neuen Kunden
 	 * @param name
 	 * @param adresse

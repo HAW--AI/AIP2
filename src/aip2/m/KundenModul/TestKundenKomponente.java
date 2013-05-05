@@ -66,7 +66,7 @@ public final class TestKundenKomponente {
 			assertEquals("DB sollte gleiches Objekt zurückgeben", hansda,
 					hansdaDB);
 		}
-
+		
 		// Prüfe ob auch alle Hanse in DB findbar sind
 		List<KundenTyp> gesuchte = kundenFassade.sucheKunden("Hans");
 		assertEquals("Es sollte 3 Hanses geben", ortsListe.size(),
@@ -77,6 +77,12 @@ public final class TestKundenKomponente {
 				.sucheKunden("KEINGÜLTIGERNAME!?!");
 		assertEquals("Es sollte keine KEINGÜLTIGERNAME!?! geben", 0,
 				gesuchte2.size());
+		
+		//prüfe ob finde per Id gehts
+		IKunde kurd = kundenFassade.erstelleKunde("Kurd", "hier");
+		KundenTyp kurdTyp = kundenVerwalter.getKundenTyp(kurd);
+		KundenTyp kurdTypDB = kundenFassade.sucheKunden(kurd.getKundenNr());
+		assertEquals("Suche über Id sollte gleichen Kurd", kurdTyp, kurdTypDB);
 	}
 
 }

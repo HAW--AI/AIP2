@@ -35,9 +35,9 @@ final class KundenVerwalter {
 		return kundenTyp;
 	}
 
-	// Kunde getKundeById(int nr) {
-	// return persistenzManager.getById(Kunde.class, nr);
-	// }
+	Kunde getKundeById(int nr) {
+		return persistenzManager.getById(Kunde.class, nr);
+	}
 	//
 	// void updateKunde(Kunde kunde) {
 	// persistenzManager.update(kunde);

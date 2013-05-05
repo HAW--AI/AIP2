@@ -64,4 +64,9 @@ class KundenFassade implements IKundenModulExtern {
 		return kunde;
 	}
 
+	@Override
+	public KundenTyp sucheKunden(int kundenId) {
+		return kundenLogik.sucheKunden(kundenId);
+	}
+
 }

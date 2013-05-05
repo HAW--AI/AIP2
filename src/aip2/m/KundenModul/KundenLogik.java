@@ -26,4 +26,9 @@ class KundenLogik {
 
 		return kundenTypListe;
 	}
+	
+	KundenTyp sucheKunden(int kundenId){
+		Kunde k = kundenVerwalter.getKundeById(kundenId);
+		return kundenVerwalter.getKundenTyp(k);
+	}
 }
