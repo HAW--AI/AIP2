@@ -6,7 +6,7 @@ import aip2.m.PersistenzModul.IPersistenzSessionIntern;
 
 /**
  * Verwaltet Transaktionen
- *
+ * 
  */
 final class TransaktionManager implements ITransaktionIntern {
 
@@ -21,13 +21,8 @@ final class TransaktionManager implements ITransaktionIntern {
 		return runningTransaction;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see aip2.m.TransaktionsModul.ITransaktionIntern#startTransaction()
-	 */
 	@Override
-	public boolean startTransaction() /*throws TransactionNotClosed*/ {
+	public boolean startTransaction() /* throws TransactionNotClosed */{
 		Session session = getCurrentSession();
 		if (session == null)
 			return false;
@@ -36,11 +31,19 @@ final class TransaktionManager implements ITransaktionIntern {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see aip2.m.TransaktionsModul.ITransaktionIntern#commitTransaction()
-	 */
+	@Override
+	public boolean checkStartMyTransaction() {
+		if (!isRunningTransaction()) {
+			Session session = getCurrentSession();
+			if (session == null)
+				persistenz.openNewSession();
+			session.beginTransaction();
+			runningTransaction = true;
+			return true;
+		} else
+			return false;
+	}
+
 	@Override
 	public boolean commitTransaction() {
 		Session session = getCurrentSession();
@@ -51,11 +54,6 @@ final class TransaktionManager implements ITransaktionIntern {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see aip2.m.TransaktionsModul.ITransaktionIntern#rollbackTransaction()
-	 */
 	@Override
 	public boolean rollbackTransaction() {
 		Session session = getCurrentSession();
@@ -71,5 +69,4 @@ final class TransaktionManager implements ITransaktionIntern {
 			return persistenz.getSession();
 		return null;
 	}
-
 }

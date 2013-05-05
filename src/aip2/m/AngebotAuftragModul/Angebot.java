@@ -5,6 +5,10 @@ import java.util.List;
 //import java.util.Map;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.Kunde;
 //import aip2.m.ProduktModul.IProdukt;
@@ -31,6 +35,8 @@ public class Angebot implements IAngebot {
 	private IAuftrag auftrag;
 
 	@JoinColumn
+	//TODO cascade? angbot fügt kunde hinzu, sieht kunden angebot? 
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@ManyToOne(targetEntity = Kunde.class)
 	private IKunde kunde;
 

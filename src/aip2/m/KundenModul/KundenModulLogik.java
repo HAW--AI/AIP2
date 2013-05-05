@@ -5,19 +5,24 @@ import java.util.List;
 
 /**
  * Die Logik der Kunden Komponente
- *
+ * 
  */
-class KundenLogik {
+class KundenModulLogik {
 	private final KundenVerwalter kundenVerwalter;
 
-	KundenLogik(KundenVerwalter kv) {
+	KundenModulLogik(KundenVerwalter kv) {
 		this.kundenVerwalter = kv;
+	}
+
+	public KundenTyp erstelleKunde(String name, String adresse) {
+		IKunde kunde = kundenVerwalter.erstelleKunde(name, adresse);
+		return kundenVerwalter.getKundenTyp(kunde);
 	}
 
 	List<KundenTyp> sucheKunden(String name) {
 		List<Kunde> kundenListe = kundenVerwalter.sucheKunde(name);
 
-		//Wandeln Kunde zu KundenTyp
+		// Wandeln Kunde zu KundenTyp
 		List<KundenTyp> kundenTypListe = new ArrayList<KundenTyp>();
 		for (Kunde kunde : kundenListe) {
 			KundenTyp k = kundenVerwalter.getKundenTyp(kunde);
@@ -26,8 +31,8 @@ class KundenLogik {
 
 		return kundenTypListe;
 	}
-	
-	KundenTyp sucheKunden(int kundenId){
+
+	KundenTyp sucheKunden(int kundenId) {
 		Kunde k = kundenVerwalter.getKundeById(kundenId);
 		return kundenVerwalter.getKundenTyp(k);
 	}

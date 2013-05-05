@@ -15,15 +15,15 @@ import aip2.m.PersistenzModul.Persistenz;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 import aip2.m.TransaktionModul.Transaktion;
 
-public final class TestKundenKomponente {
+public final class TestKundenModul {
 
-	private static KundenFassade kundenFassade;
-	private static KundenLogik kundenLogik;
+	private static KundenModulFassade kundenFassade;
+	private static KundenModulLogik kundenLogik;
 	private static KundenVerwalter kundenVerwalter;
 	private static IPersistenzSessionIntern persistenzSession;
 	private static ITransaktionIntern transaktion;
 
-	public TestKundenKomponente() {
+	public TestKundenModul() {
 	}
 
 	@BeforeClass
@@ -35,8 +35,8 @@ public final class TestKundenKomponente {
 		transaktion = Transaktion.getTransaktion(persistenzSession);
 
 		kundenVerwalter = new KundenVerwalter(Persistenz.getPersistenz());
-		kundenLogik = new KundenLogik(kundenVerwalter);
-		kundenFassade = new KundenFassade(kundenLogik, kundenVerwalter,
+		kundenLogik = new KundenModulLogik(kundenVerwalter);
+		kundenFassade = new KundenModulFassade(kundenLogik, kundenVerwalter,
 				transaktion);
 
 	}
@@ -59,10 +59,9 @@ public final class TestKundenKomponente {
 
 		for (String ort : ortsListe) {
 			// Erstelle Kunden
-			IKunde hansda = kundenFassade.erstelleKunde("Hans", ort);
+			KundenTyp hansda = kundenFassade.erstelleKunde("Hans", ort);
 			// Prüfe ob die DB das gleiche Objekt zurückgibt
-			IKunde hansdaDB = persistenzSession.getById(Kunde.class,
-					hansda.getKundenNr());
+			KundenTyp hansdaDB = kundenFassade.sucheKunden(hansda.getKundenNr());
 			assertEquals("DB sollte gleiches Objekt zurückgeben", hansda,
 					hansdaDB);
 		}

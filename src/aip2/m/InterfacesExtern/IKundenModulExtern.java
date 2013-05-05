@@ -2,7 +2,6 @@ package aip2.m.InterfacesExtern;
 
 import java.util.List;
 
-import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.KundenTyp;
 
 /**
@@ -34,8 +33,8 @@ public interface IKundenModulExtern {
 	 * Erstellt einen neuen Kunden
 	 * @param name
 	 * @param adresse
-	 * @return den erstellten Kunden
+	 * @return den erstellten Kunden oder null bei Misserfolg
 	 */
-	IKunde erstelleKunde(String name, String adresse);
+	KundenTyp erstelleKunde(String name, String adresse);
 	
 }

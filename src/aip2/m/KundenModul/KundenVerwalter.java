@@ -11,7 +11,7 @@ import aip2.m.PersistenzModul.IPersistenzIntern;
  */
 final class KundenVerwalter {
 
-	private IPersistenzIntern persistenzManager;
+	private final IPersistenzIntern persistenzManager;
 
 	KundenVerwalter(IPersistenzIntern pm) {
 		this.persistenzManager = pm;

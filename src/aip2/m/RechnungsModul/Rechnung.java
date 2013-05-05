@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
 @Entity
-@Table(name = "rechnung")
+@Table(name = "Rechnung")
 public class Rechnung implements IRechnung {
 
 	@Id
@@ -24,6 +27,7 @@ public class Rechnung implements IRechnung {
 	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
 	private Set<Zahlungseingang> zahlungseingaenge;
 
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
 	private IAuftrag auftrag;
 
@@ -34,7 +38,7 @@ public class Rechnung implements IRechnung {
 	private Rechnung() {
 	}
 
-	public Rechnung(Date rechnungsDatum, boolean istBezahlt, IAuftrag auftrag) {
+	Rechnung(Date rechnungsDatum, boolean istBezahlt, IAuftrag auftrag) {
 		super();
 		this.rechnungsDatum = rechnungsDatum;
 		this.istBezahlt = istBezahlt;
@@ -82,7 +86,7 @@ public class Rechnung implements IRechnung {
 		this.zahlungseingaenge = zahlungseingaenge;
 	}
 
-	public void addZahlungseingang(Zahlungseingang zahlungseingang) {
+	void addZahlungseingang(Zahlungseingang zahlungseingang) {
 		this.zahlungseingaenge.add(zahlungseingang);
 	}
 

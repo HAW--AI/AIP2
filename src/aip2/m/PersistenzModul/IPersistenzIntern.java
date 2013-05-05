@@ -7,6 +7,7 @@ import java.util.List;
  * Session zur DB verwaltet.
  * NICHT Threadsafe, da es nur jeweils eine Session gibt!
  * TODO Verursacht HibernateExceptions
+ * TODO mehere Sessions für multitreading
  * 
  * 
  */

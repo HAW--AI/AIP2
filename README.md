@@ -1,6 +1,8 @@
 AIP2
 ====
 
+Diagramme -> pub
+
 http://sourceforge.net/projects/hibernate/files/hibernate4/4.2.0.Final/hibernate-release-4.2.0.Final.zip/download
 
 	hibernate-release-4.2.0.Final/lib/required/antlr-2.7.7.jar
@@ -12,7 +14,8 @@ http://sourceforge.net/projects/hibernate/files/hibernate4/4.2.0.Final/hibernate
 	hibernate-release-4.2.0.Final/lib/required/jboss-logging-3.1.0.GA.jar
 	hibernate-release-4.2.0.Final/lib/required/jboss-transaction-api_1.1_spec-1.0.0.Final.jar
 
-MySQL DB Schema: "aip", User: "aip", PW: "aip"
-	mysql-connector-java-5.1.23-bin.jar
 
+mysql-connector-java-5.1.23-bin.jar
+MySQL DB Schema: "aip", User: "aip", PW: "aip"
+	
 JUnit4

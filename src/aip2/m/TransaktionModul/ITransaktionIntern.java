@@ -6,7 +6,7 @@ package aip2.m.TransaktionModul;
  * 
  * Vor jeder Transaktion sollte geprüft werden ob bereits eine Transaktion
  * läuft.
- * 
+ * TODO mehere Transaktion gleichzeitig -> Peristenz mehr als eine Session
  * 
  */
 public interface ITransaktionIntern {
@@ -28,6 +28,15 @@ public interface ITransaktionIntern {
 	 *         Transaktionen nicht commitet werden
 	 */
 	boolean startTransaction();
+
+	/**
+	 * Prüft bevor eine neue Transaktion aufgebaut wird, falls keine vorhanden
+	 * ist wird eine neue eröffnet und MyTransaction wird true
+	 * 
+	 * @return Habe ich die Transaktion gestartet? aka true gibt an Transaktion
+	 *         wurde gerade gestartet, bei false lief bereits eine Transaktion
+	 */
+	boolean checkStartMyTransaction();
 
 	/**
 	 * Commitet eine Transaktion
