@@ -3,13 +3,11 @@ package aip2.m.RechnungsModul;
 import java.util.Date;
 
 import aip2.m.AngebotAuftragModul.IAuftrag;
-import aip2.m.InterfacesExtern.IRechnungsModulExtern;
 
 import aip2.m.PersistenzModul.IPersistenzIntern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
-public class RechnungModulFassade implements IRechnungsModulExtern,
-		IRechnungsModulIntern {
+public class RechnungModulFassade implements IRechnungsModulIntern {
 
 	private static RechnungModulFassade rechnungModulFassade;
 
@@ -87,7 +85,7 @@ public class RechnungModulFassade implements IRechnungsModulExtern,
 	}
 
 	@Override
-	public boolean erzeugeZahlungsEingang(Date datum, int betragCent) {
+	public IZahlungseingang erzeugeZahlungsEingang(Date datum, int betragCent) {
 		try {
 			boolean myTransaction = transaktion.checkStartMyTransaction();
 
@@ -98,12 +96,11 @@ public class RechnungModulFassade implements IRechnungsModulExtern,
 				transaktion.commitTransaction();
 
 			if (zahlungseingang != null)
-				return true;
+				return zahlungseingang;
 
 		} catch (Exception e) {
 			transaktion.rollbackTransaction();
 		}
-		return false;
+		return null;
 	}
-
 }

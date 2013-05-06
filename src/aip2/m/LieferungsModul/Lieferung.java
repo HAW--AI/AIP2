@@ -28,26 +28,14 @@ public class Lieferung implements ILieferung {
 	private Lieferung() {
 	}
 
-	public Lieferung(int nr, ITransportauftrag transportauftrag,
-			IAuftrag auftrag) {
+	public Lieferung(ITransportauftrag transportauftrag) {
 		super();
-		this.nr = nr;
 		this.transportauftrag = transportauftrag;
-		this.auftrag = auftrag;
 	}
 
 	@Override
 	public int getLieferungsNr() {
 		return nr;
-	}
-
-	@Override
-	public IAuftrag getAuftrag() {
-		return auftrag;
-	}
-
-	void setAuftrag(IAuftrag auftrag) {
-		this.auftrag = auftrag;
 	}
 
 	@Override

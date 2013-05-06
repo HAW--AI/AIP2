@@ -26,8 +26,7 @@ final class RechnungModulLogik {
 			bezahlt += zahlung.getBetragCent();
 		}
 		
-		//TODO lod oder betrag in Rechnung?
-		if(bezahlt >= rechnung.getAuftrag().getAngebot().getGesamtpreis()){
+		if(bezahlt >= rechnung.getPreis()){
 			rechnung.setIstBezahlt(true);
 			rechnungVerwalter.updateRechnung(rechnung);
 		}

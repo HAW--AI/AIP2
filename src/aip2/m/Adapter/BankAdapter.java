@@ -1,29 +1,36 @@
 package aip2.m.Adapter;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 import aip2.externeSysteme.HapSpar;
-import aip2.m.InterfacesExtern.IRechnungsModulExtern;
+import aip2.m.RechnungsModul.IRechnungsModulIntern;
+import aip2.m.RechnungsModul.IZahlungseingang;
 
 public class BankAdapter {
+	private final IRechnungsModulIntern iRechnungsModulIntern;
 
-	private final IRechnungsModulExtern iRechnungsModulExtern;
-
-	// private final HapSpar hapSpar;
-
-	public BankAdapter(IRechnungsModulExtern iRechnungsModulExtern
-	// , HapSpar hapSpar
-	) {
-		this.iRechnungsModulExtern = iRechnungsModulExtern;
-		// this.hapSpar = hapSpar;
+	public BankAdapter(IRechnungsModulIntern iRechnungsModulExtern) {
+		this.iRechnungsModulIntern = iRechnungsModulExtern;
+		
+//		while (true) {
+//			jedeNacht();
+//			try {
+//				Thread.sleep(24 * 60 * 60 * 1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
-
+	
 	public void jedeNacht() {
-		List<Integer> eingange = HapSpar.getBuchungen();
+		Map<Integer, int[]> eingange = HapSpar.getBuchungen();
 
-		for (Integer eingang : eingange) {
-			iRechnungsModulExtern.erzeugeZahlungsEingang(new Date(), eingang);
+		for (Integer eingang : eingange.keySet()) {
+			for (int zahlung : eingange.get(eingang)) {
+				IZahlungseingang z = iRechnungsModulIntern.erzeugeZahlungsEingang(new Date(), zahlung);
+				iRechnungsModulIntern.verbucheTeilZahlungseingang(eingang, z);
+			}
 		}
 	}
 }

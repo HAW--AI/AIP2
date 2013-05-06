@@ -33,15 +33,9 @@ public class Transportauftrag implements ITransportauftrag {
 	private Transportauftrag() {
 	}
 
-	public Transportauftrag(int nr, ILieferung lieferung, Date ausgangsDatum,
-			boolean lieferungErfolgt, Date lieferDatum,
-			String transportDienstleister) {
+	public Transportauftrag(Date ausgangsDatum, String transportDienstleister) {
 		super();
-		this.nr = nr;
-		this.lieferung = lieferung;
 		this.ausgangsDatum = ausgangsDatum;
-		this.lieferungErfolgt = lieferungErfolgt;
-		this.lieferDatum = lieferDatum;
 		this.transportDienstleister = transportDienstleister;
 	}
 

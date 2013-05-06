@@ -22,6 +22,7 @@ public class Rechnung implements IRechnung {
 	@Temporal(TemporalType.TIME)
 	private Date rechnungsDatum;
 
+	private int preis;
 	private boolean istBezahlt;
 
 	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
@@ -29,6 +30,7 @@ public class Rechnung implements IRechnung {
 
 	@Cascade({CascadeType.SAVE_UPDATE})
 	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
+	// TODO: Unnötige Entitäten bei allen entfernen
 	private IAuftrag auftrag;
 
 	/**
@@ -43,6 +45,7 @@ public class Rechnung implements IRechnung {
 		this.rechnungsDatum = rechnungsDatum;
 		this.istBezahlt = istBezahlt;
 		this.auftrag = auftrag;
+		this.preis = auftrag.getAngebot().getGesamtpreis();
 	}
 
 	@Override
@@ -88,6 +91,10 @@ public class Rechnung implements IRechnung {
 
 	void addZahlungseingang(Zahlungseingang zahlungseingang) {
 		this.zahlungseingaenge.add(zahlungseingang);
+	}
+
+	public int getPreis() {
+		return preis;
 	}
 
 	@Override
