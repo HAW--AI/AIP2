@@ -6,7 +6,7 @@ import aip2.m.AngebotAuftragModul.IAngebot;
 /**
  * Fachlicher Datentyp Kunde
  */
-public class KundenTyp implements IKunde {
+public class KundenTyp{
 
 	private int nr;
 
@@ -23,22 +23,22 @@ public class KundenTyp implements IKunde {
 		this.angebote = angebote;
 	}
 
-	@Override
+	
 	public int getKundenNr() {
 		return nr;
 	}
 
-	@Override
+	
 	public String getName() {
 		return name;
 	}
 
-	@Override
+	
 	public String getAdresse() {
 		return adresse;
 	}
 
-	@Override
+	
 	public Set<IAngebot> getAngebote() {
 		return angebote;
 	}

@@ -1,5 +1,6 @@
 package aip2.m.AngebotAuftragModul;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 //import java.util.Map;
@@ -114,7 +115,7 @@ public class Angebot implements IAngebot {
 
 	@Override
 	public /*Map<IProdukt, Integer>*/List<IProduktMenge> getProdukte() {
-		return produkte;
+		return Collections.unmodifiableList(produkte);
 	}
 
 	void setProdukte(/*Map<IProdukt, Integer>*/List<IProduktMenge> produkte) {

@@ -78,10 +78,9 @@ public final class TestKundenModul {
 				gesuchte2.size());
 		
 		//prüfe ob finde per Id gehts
-		IKunde kurd = kundenFassade.erstelleKunde("Kurd", "hier");
-		KundenTyp kurdTyp = kundenVerwalter.getKundenTyp(kurd);
+		KundenTyp kurd = kundenFassade.erstelleKunde("Kurd", "hier");
 		KundenTyp kurdTypDB = kundenFassade.sucheKunden(kurd.getKundenNr());
-		assertEquals("Suche über Id sollte gleichen Kurd", kurdTyp, kurdTypDB);
+		assertEquals("Suche über Id sollte gleichen Kurd", kurd, kurdTypDB);
 	}
 
 }
