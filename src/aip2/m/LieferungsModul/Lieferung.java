@@ -5,9 +5,13 @@ import javax.persistence.*;
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
+/**
+ * Lieferung Entität inklusive Speicherung in der DB
+ * 
+ */
 @Entity
-@Table(name = "lieferung")
-public class Lieferung implements ILieferung {
+@Table(name = "Lieferung")
+public final class Lieferung implements ILieferung {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +32,7 @@ public class Lieferung implements ILieferung {
 	private Lieferung() {
 	}
 
-	public Lieferung(ITransportauftrag transportauftrag) {
+	Lieferung(ITransportauftrag transportauftrag) {
 		super();
 		this.transportauftrag = transportauftrag;
 	}

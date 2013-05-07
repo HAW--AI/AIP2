@@ -2,48 +2,32 @@ package aip2.m.LieferungsModul;
 
 import aip2.m.AngebotAuftragModul.IAuftrag;
 import aip2.m.InterfacesExtern.ILieferungModulExtern;
-import aip2.m.PersistenzModul.IPersistenzIntern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
-public class LieferungModulFassade implements ILieferungModulIntern,
+/**
+ * Stellt die Schnittstelle für externe Operationen und steuert Transaktionen
+ * 
+ */
+final class LieferungModulFassade implements ILieferungModulIntern,
 		ILieferungModulExtern {
 
-	private static LieferungModulFassade lieferungModulFassade;
-	
 	private final LieferungModulLogik lieferungModulLogik;
+	@SuppressWarnings("unused")
 	private final LieferungVerwalter lieferungVerwalter;
+	@SuppressWarnings("unused")
 	private final TransportauftragVerwalter transportauftragVerwalter;
 	private final ITransaktionIntern transaktion;
-	
-	
-	private LieferungModulFassade(IPersistenzIntern persistenz,
+
+	LieferungModulFassade(LieferungModulLogik lieferungModulLogik,
+			LieferungVerwalter lieferungVerwalter,
+			TransportauftragVerwalter transportauftragVerwalter,
 			ITransaktionIntern transaktion) {
+		this.lieferungVerwalter = lieferungVerwalter;
+		this.transportauftragVerwalter = transportauftragVerwalter;
+		this.lieferungModulLogik = lieferungModulLogik;
 		this.transaktion = transaktion;
-		this.lieferungVerwalter = new LieferungVerwalter(persistenz);
-		this.transportauftragVerwalter = new TransportauftragVerwalter(persistenz);
-		this.lieferungModulLogik = new LieferungModulLogik(lieferungVerwalter, transportauftragVerwalter);
 	}
 
-	public static LieferungModulFassade startLieferungFassade(
-			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
-		if (lieferungModulFassade == null)
-			lieferungModulFassade = new LieferungModulFassade(persistenz, transaktion);
-		return lieferungModulFassade;
-	}
-
-	/**
-	 * Für JunitTest ONLY !!!
-	 */
-//	LieferungModulFassade(RechnungModulLogik rechnungModulLogik,
-//			RechnungVerwalter rechnungVerwalter,
-//			ZahlungseingangVerwalter zahlungseingangVerwalter,
-//			ITransaktionIntern transaktion) {
-//		this.rechnungModulLogik = rechnungModulLogik;
-//		this.rechnungVerwalter = rechnungVerwalter;
-//		this.zahlungseingangVerwalter = zahlungseingangVerwalter;
-//		this.transaktion = transaktion;
-//	}
-	
 	@Override
 	public boolean bestaetigeLieferung(int lieferungsNummer) {
 		try {
@@ -67,7 +51,8 @@ public class LieferungModulFassade implements ILieferungModulIntern,
 		try {
 			boolean myTransaction = transaktion.checkStartMyTransaction();
 
-			ILieferung lieferung = lieferungModulLogik.erzeugeLieferung(auftrag);
+			ILieferung lieferung = lieferungModulLogik
+					.erzeugeLieferung(auftrag);
 
 			if (myTransaction)
 				transaktion.commitTransaction();

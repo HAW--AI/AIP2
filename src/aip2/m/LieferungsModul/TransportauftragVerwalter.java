@@ -4,7 +4,10 @@ import java.util.Date;
 
 import aip2.m.PersistenzModul.IPersistenzIntern;
 
-
+/**
+ * Verwaltet Transportauftrag Entitäten
+ * 
+ */
 final class TransportauftragVerwalter {
 	private final IPersistenzIntern persistenz;
 
@@ -12,8 +15,10 @@ final class TransportauftragVerwalter {
 		this.persistenz = persistenz;
 	}
 
-	Transportauftrag erstelleTransportauftrag(Date ausgangsDatum, String transportDienstleister) {
-		Transportauftrag transportauftrag = new Transportauftrag(ausgangsDatum, transportDienstleister);
+	Transportauftrag erstelleTransportauftrag(Date ausgangsDatum,
+			String transportDienstleister) {
+		Transportauftrag transportauftrag = new Transportauftrag(ausgangsDatum,
+				transportDienstleister);
 
 		persistenz.add(transportauftrag);
 

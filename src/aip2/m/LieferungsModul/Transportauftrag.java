@@ -4,8 +4,12 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+/**
+ * Transportauftrag Entität inklusive Speicherung in der DB
+ * 
+ */
 @Entity
-@Table(name = "transportauftrag")
+@Table(name = "Transportauftrag")
 public class Transportauftrag implements ITransportauftrag {
 
 	@Id
@@ -33,7 +37,7 @@ public class Transportauftrag implements ITransportauftrag {
 	private Transportauftrag() {
 	}
 
-	public Transportauftrag(Date ausgangsDatum, String transportDienstleister) {
+	Transportauftrag(Date ausgangsDatum, String transportDienstleister) {
 		super();
 		this.ausgangsDatum = ausgangsDatum;
 		this.transportDienstleister = transportDienstleister;
@@ -53,6 +57,7 @@ public class Transportauftrag implements ITransportauftrag {
 		this.lieferung = lieferung;
 	}
 
+	@Override
 	public Date getAusgangsDatum() {
 		return ausgangsDatum;
 	}
@@ -61,6 +66,7 @@ public class Transportauftrag implements ITransportauftrag {
 		this.ausgangsDatum = ausgangsDatum;
 	}
 
+	@Override
 	public boolean isLieferungErfolgt() {
 		return lieferungErfolgt;
 	}
@@ -69,6 +75,7 @@ public class Transportauftrag implements ITransportauftrag {
 		this.lieferungErfolgt = lieferungErfolgt;
 	}
 
+	@Override
 	public Date getLieferDatum() {
 		return lieferDatum;
 	}
@@ -77,6 +84,7 @@ public class Transportauftrag implements ITransportauftrag {
 		this.lieferDatum = lieferDatum;
 	}
 
+	@Override
 	public String getTransportDienstleister() {
 		return transportDienstleister;
 	}

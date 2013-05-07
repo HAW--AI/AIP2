@@ -14,7 +14,7 @@ public interface IRechnungsModulIntern {
 	 * Erzeugt eine Rechnung für diesen Auftrag
 	 * 
 	 * @param auftrag
-	 * @return Rechnung
+	 * @return Rechnung oder null bei Misserfolg
 	 */
 	IRechnung erzeugeRechnung(IAuftrag auftrag);
 
@@ -23,7 +23,7 @@ public interface IRechnungsModulIntern {
 	 * 
 	 * @param datum
 	 * @param betragCent
-	 * @return der Zahlungseingang
+	 * @return der Zahlungseingang oder null bei Misserfolg
 	 */
 	IZahlungseingang erzeugeZahlungsEingangReturn(Date datum, int betragCent);
 
@@ -33,7 +33,7 @@ public interface IRechnungsModulIntern {
 	 * 
 	 * @param rechnungsNr
 	 * @param zahlungseingang
-	 * @return die aktualisierte Rechnung
+	 * @return die aktualisierte Rechnung oder null bei Misserfolg
 	 */
 	IRechnung verbucheTeilZahlungseingang(int rechnungsNr,
 			IZahlungseingang zahlungseingang);
