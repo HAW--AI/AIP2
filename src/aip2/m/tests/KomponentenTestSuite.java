@@ -6,12 +6,13 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import aip2.m.AngebotAuftragModul.TestAngebotAuftragModul;
 import aip2.m.KundenModul.TestKundenModul;
+import aip2.m.LieferungsModul.TestLieferungsModul;
 
 import aip2.m.RechnungsModul.TestRechungsModul;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestKundenModul.class, TestRechungsModul.class,
-		TestAngebotAuftragModul.class })
+		TestAngebotAuftragModul.class, TestLieferungsModul.class })
 public class KomponentenTestSuite {
 
 	// public static void main(String[] args) {
