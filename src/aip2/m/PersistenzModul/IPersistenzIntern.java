@@ -54,6 +54,19 @@ public interface IPersistenzIntern {
 	<T> List<T> getFromWhere(Class<T> type, String columnName, Object value);
 
 	/**
+	 * Sucht in der Tabelle des Types nach Objekten deren Wert in der Spalte
+	 * columnName value ist (hier anstatt = Operator, der Like Operator für Strings)
+	 * 
+	 * @param type
+	 *            der gesuchte Typ(der KlassenName wird als Tabelle angenommen)
+	 * @param columnName
+	 * @param value
+	 * @return Eine leere Liste falls keine Einträge gefunden wurden, sonst eine
+	 *         volle Liste
+	 */
+	<T> List<T> getFromWhereString(Class<T> type, String columnName, String value);
+	
+	/**
 	 * Aktualisiert eine Entität in der DB
 	 * 
 	 * @param thing

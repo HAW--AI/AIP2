@@ -12,7 +12,15 @@ public class LieferungModul {
 
 	public static ILieferungModulExtern getILieferungModulExtern(
 			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+		return fassade(persistenz, transaktion);
+	}
 
+	public static ILieferungModulIntern getILieferungModulIntern(
+			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+		return fassade(persistenz, transaktion);
+	}
+
+	private static LieferungModulFassade fassade(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		if (lieferungModulFassade == null) {
 			LieferungVerwalter lieferungVerwalter = new LieferungVerwalter(
 					persistenz);
@@ -25,15 +33,5 @@ public class LieferungModul {
 					transportauftragVerwalter, transaktion);
 		}
 		return lieferungModulFassade;
-
 	}
-
-	public static ILieferungModulIntern getILieferungModulIntern(
-			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
-		if (lieferungModulFassade == null) {
-			LieferungModul.getILieferungModulExtern(persistenz, transaktion);
-		}
-		return lieferungModulFassade;
-	}
-
 }

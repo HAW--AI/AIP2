@@ -47,5 +47,10 @@ public class ProduktModulLogik {
 		return true;
 	}
 
+	public ProduktTyp erstelleProdukt(String name, int mengeImLager) {
+		IProdukt p = produktVerwalter.erstelleProdukt(name, mengeImLager);
+		return produktVerwalter.getProduktTyp(p);
+	}
+
 
 }

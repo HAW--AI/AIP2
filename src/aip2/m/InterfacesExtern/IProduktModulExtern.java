@@ -10,4 +10,5 @@ public interface IProduktModulExtern {
 	
 	ProduktTyp sucheProdukt(int id);
 	
+	ProduktTyp erstelleProdukt(String name, int mengeImLager);
 }

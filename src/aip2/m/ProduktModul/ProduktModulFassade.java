@@ -46,4 +46,21 @@ public class ProduktModulFassade implements IProduktModulIntern, IProduktModulEx
 			return false;
 		}
 	}
+
+	@Override
+	public ProduktTyp erstelleProdukt(String name, int mengeImLager) {
+		try {
+			boolean myTransaction = transaktion.checkStartMyTransaction();
+
+			ProduktTyp produkt = produktLogik.erstelleProdukt(name, mengeImLager);
+
+			if (myTransaction)
+				transaktion.commitTransaction();
+
+			return produkt;
+		} catch (Exception e) {
+			transaktion.rollbackTransaction();
+			return null;
+		}
+	}
 }

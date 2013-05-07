@@ -25,11 +25,11 @@ public class ProduktModul {
 	 * @param transaktion
 	 * @return die einzige Produktfassade
 	 */
-	public static IProduktModulExtern getProduktFassadeExtern(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+	public static IProduktModulExtern getIProduktModulExtern(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		return fassade(persistenz, transaktion);
 	}
 	
-	public static IProduktModulIntern getProduktFassadeIntern(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+	public static IProduktModulIntern getIProduktModulIntern(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		return fassade(persistenz, transaktion);
 	}
 	

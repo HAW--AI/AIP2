@@ -25,17 +25,7 @@ public class RechnungModul {
 	 */
 	public static IRechnungsModulExtern getIRechnungsModulExtern(
 			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
-		if (rechnungModulFassade == null) {
-			RechnungVerwalter rechnungVerwalter = new RechnungVerwalter(
-					persistenz);
-			ZahlungseingangVerwalter zahlungseingangVerwalter = new ZahlungseingangVerwalter(
-					persistenz);
-			RechnungModulLogik rechnungModulLogik = new RechnungModulLogik(
-					rechnungVerwalter, zahlungseingangVerwalter);
-			rechnungModulFassade = new RechnungModulFassade(rechnungModulLogik,
-					rechnungVerwalter, zahlungseingangVerwalter, transaktion);
-		}
-		return rechnungModulFassade;
+		return fassade(persistenz, transaktion);
 	}
 
 	/**
@@ -48,8 +38,19 @@ public class RechnungModul {
 	 */
 	public static IRechnungsModulIntern getIRechnungsModulIntern(
 			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+		return fassade(persistenz, transaktion);
+	}
+	
+	private static RechnungModulFassade fassade(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		if (rechnungModulFassade == null) {
-			RechnungModul.getIRechnungsModulExtern(persistenz, transaktion);
+			RechnungVerwalter rechnungVerwalter = new RechnungVerwalter(
+					persistenz);
+			ZahlungseingangVerwalter zahlungseingangVerwalter = new ZahlungseingangVerwalter(
+					persistenz);
+			RechnungModulLogik rechnungModulLogik = new RechnungModulLogik(
+					rechnungVerwalter, zahlungseingangVerwalter);
+			rechnungModulFassade = new RechnungModulFassade(rechnungModulLogik,
+					rechnungVerwalter, zahlungseingangVerwalter, transaktion);
 		}
 		return rechnungModulFassade;
 	}

@@ -30,19 +30,19 @@ public class TestAngebotAuftragModul {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		persistenzSession = Persistenz.getPersistenzSessionIntern();
-		transaktion = Transaktion.getTransaktion(persistenzSession);
-		angebotVerwalter = new AngebotVerwalter(persistenzSession);
-		auftragVerwalter = new AuftragVerwalter(persistenzSession);
-		angebotAuftragModulLogik = new AngebotAuftragModulLogik(
-				angebotVerwalter, auftragVerwalter);
-
-		iKundeIntern = KundenModul.getIKundeIntern(persistenzSession,
-				transaktion);
-
-		angebotAuftragModulFassade = new AngebotAuftragModulFassade(
-				transaktion, angebotAuftragModulLogik, angebotVerwalter,
-				auftragVerwalter, iProduktIntern, iKundeIntern);
+//		persistenzSession = Persistenz.getPersistenzSessionIntern();
+//		transaktion = Transaktion.getTransaktion(persistenzSession);
+//		angebotVerwalter = new AngebotVerwalter(persistenzSession);
+//		auftragVerwalter = new AuftragVerwalter(persistenzSession);
+//		angebotAuftragModulLogik = new AngebotAuftragModulLogik(
+//				angebotVerwalter, auftragVerwalter);
+//
+//		iKundeIntern = KundenModul.getIKundeIntern(persistenzSession,
+//				transaktion);
+//
+//		angebotAuftragModulFassade = new AngebotAuftragModulFassade(
+//				transaktion, angebotAuftragModulLogik, angebotVerwalter,
+//				auftragVerwalter, iProduktIntern, iKundeIntern);
 	}
 
 	@Before

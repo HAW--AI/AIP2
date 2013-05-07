@@ -23,7 +23,7 @@ final class ProduktVerwalter {
 	}
 	
 	List<Produkt> getProduktByName(String name) {
-		return persistenz.getFromWhere(Produkt.class, "name", name);
+		return persistenz.getFromWhereString(Produkt.class, "name", name);
 	}
 
 	ProduktTyp getProduktTyp(IProdukt produkt) {

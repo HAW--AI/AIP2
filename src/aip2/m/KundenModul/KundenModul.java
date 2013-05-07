@@ -24,13 +24,7 @@ public class KundenModul {
 	 */
 	public static IKundenModulExtern getIKundenModulExtern(
 			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
-		if (kundenFassade == null) {
-			KundenVerwalter kundenVerwalter = new KundenVerwalter(persistenz);
-			KundenModulLogik kundenLogik = new KundenModulLogik(kundenVerwalter);
-			kundenFassade = new KundenModulFassade(kundenLogik,
-					kundenVerwalter, transaktion);
-		}
-		return kundenFassade;
+		return fassade(persistenz, transaktion);
 	}
 
 	/**
@@ -43,12 +37,16 @@ public class KundenModul {
 	 */
 	public static IKundenModulIntern getIKundeIntern(IPersistenzIntern persistenz,
 			ITransaktionIntern transaktion) {
+		return fassade(persistenz, transaktion);
+	}
+	
+	private static KundenModulFassade fassade(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		if (kundenFassade == null) {
 			KundenVerwalter kundenVerwalter = new KundenVerwalter(persistenz);
 			KundenModulLogik kundenLogik = new KundenModulLogik(kundenVerwalter);
 			kundenFassade = new KundenModulFassade(kundenLogik,
 					kundenVerwalter, transaktion);
 		}
-		return kundenFassade;
+		return kundenFassade;		
 	}
 }

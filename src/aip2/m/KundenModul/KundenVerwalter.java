@@ -26,7 +26,7 @@ final class KundenVerwalter {
 	}
 
 	List<Kunde> sucheKunde(String name) {
-		return persistenzManager.getFromWhere(Kunde.class, "name", name);
+		return persistenzManager.getFromWhereString(Kunde.class, "name", name);
 	}
 
 	KundenTyp getKundenTyp(IKunde kunde) {

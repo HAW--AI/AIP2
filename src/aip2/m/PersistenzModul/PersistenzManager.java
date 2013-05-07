@@ -73,6 +73,21 @@ final class PersistenzManager implements IPersistenzIntern,
 
 	}
 
+	@Override
+	public <T> List<T> getFromWhereString(Class<T> type, String columnName,
+			String value) {
+
+		if (!isSessionOpen()) {
+			openNewSession();
+		}
+		Query query = session.createQuery("from " + type.getSimpleName()
+				+ " where " + columnName + " like :value");
+		query.setParameter("value", "%"+value+"%");
+
+		return reCastListTo(type, query.list());
+
+	}
+	
 	@SuppressWarnings("rawtypes")
 	private <T> List<T> reCastListTo(Class<T> type, List list) {
 		List<T> resultList = new ArrayList<T>();
