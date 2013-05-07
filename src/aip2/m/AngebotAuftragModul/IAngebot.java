@@ -1,11 +1,10 @@
 package aip2.m.AngebotAuftragModul;
 
 import java.util.Date;
-import java.util.List;
-//import java.util.Map;
+import java.util.Map;
 
 import aip2.m.KundenModul.IKunde;
-//import aip2.m.ProduktModul.IProdukt;
+import aip2.m.ProduktModul.IProdukt;
 
 public interface IAngebot {
 
@@ -21,6 +20,6 @@ public interface IAngebot {
 
 	IKunde getKunde();
 
-	/*Map<IProdukt, Integer>*/List<IProduktMenge> getProdukte();
+	Map<IProdukt, Integer>/* List<IProduktMenge> */getProdukte();
 
 }

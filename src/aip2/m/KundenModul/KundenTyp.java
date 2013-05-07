@@ -6,7 +6,7 @@ import aip2.m.AngebotAuftragModul.IAngebot;
 /**
  * Fachlicher Datentyp Kunde
  */
-public class KundenTyp{
+public final class KundenTyp{
 
 	private int nr;
 

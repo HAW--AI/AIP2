@@ -2,7 +2,7 @@ package aip2.m.AngebotAuftragModul;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 //import java.util.Map;
 
 import javax.persistence.*;
@@ -12,8 +12,7 @@ import org.hibernate.annotations.CascadeType;
 
 import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.Kunde;
-//import aip2.m.ProduktModul.IProdukt;
-import aip2.m.ProduktModul.Produkt;
+import aip2.m.ProduktModul.IProdukt;
 
 @Entity
 @Table(name = "angebot")
@@ -36,15 +35,23 @@ public class Angebot implements IAngebot {
 	private IAuftrag auftrag;
 
 	@JoinColumn
-	//TODO cascade? angbot fügt kunde hinzu, sieht kunden angebot? 
-	@Cascade({CascadeType.SAVE_UPDATE})
+	// TODO cascade? angbot fügt kunde hinzu, sieht kunden angebot?
+	@Cascade({ CascadeType.SAVE_UPDATE })
 	@ManyToOne(targetEntity = Kunde.class)
 	private IKunde kunde;
 
-	@JoinColumn
-	@ManyToMany(targetEntity = Produkt.class)
-	private List<IProduktMenge> produkte;
-//	private Map<IProdukt, Integer> produkte;
+	// @JoinColumn
+	// @ManyToMany(targetEntity = Produkt.class)
+	// private List<IProduktMenge> produkte;
+	// @ElementCollection
+	// @CollectionTable//(name = "ProduktMenge")//, joinColumns = @JoinColumn)
+	// @MapKeyJoinColumn
+	// //Lets get CRAZY!!!
+	// @MapKeyType(@Type(parameters = {@Parameter(value =
+	// "aip2.m.ProduktModul.Produkt", name = "")}, type = ""))
+	// TODO
+	@Transient
+	private Map<IProdukt, Integer> produkte;
 
 	/**
 	 * For Hibernate
@@ -54,7 +61,8 @@ public class Angebot implements IAngebot {
 	}
 
 	public Angebot(Date gueltigAb, Date gueltigBis, int gesamtPreisCent,
-			IKunde kunde, /*Map<IProdukt, Integer>*/List<IProduktMenge> produkte) {
+			IKunde kunde,
+			Map<IProdukt, Integer> /* List<IProduktMenge> */produkte) {
 		super();
 		this.gueltigAb = gueltigAb;
 		this.gueltigBis = gueltigBis;
@@ -114,11 +122,11 @@ public class Angebot implements IAngebot {
 	}
 
 	@Override
-	public /*Map<IProdukt, Integer>*/List<IProduktMenge> getProdukte() {
-		return Collections.unmodifiableList(produkte);
+	public Map<IProdukt, Integer>/* List<IProduktMenge> */getProdukte() {
+		return Collections.unmodifiableMap(produkte);
 	}
 
-	void setProdukte(/*Map<IProdukt, Integer>*/List<IProduktMenge> produkte) {
+	void setProdukte(Map<IProdukt, Integer>/* List<IProduktMenge> */produkte) {
 		this.produkte = produkte;
 	}
 

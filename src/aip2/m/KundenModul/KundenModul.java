@@ -19,7 +19,7 @@ public class KundenModul {
 	 * @param transaktion
 	 * @return die einzige Kundenfassade
 	 */
-	public static IKundenModulExtern getKundenFassade(
+	public static IKundenModulExtern getIKundenModulExtern(
 			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		if (kundenFassade == null) {
 			KundenVerwalter kundenVerwalter = new KundenVerwalter(persistenz);

@@ -10,10 +10,9 @@ import aip2.m.TransaktionModul.ITransaktionIntern;
  * Kundenkomponente
  * 
  */
-class KundenModulFassade implements IKundenModulExtern {
+class KundenModulFassade implements IKundenModulExtern, IKundeIntern {
 
 	private final KundenModulLogik kundenLogik;
-	@SuppressWarnings("unused")
 	private final KundenVerwalter kundenVerwalter;
 	private final ITransaktionIntern transaktion;
 
@@ -49,6 +48,11 @@ class KundenModulFassade implements IKundenModulExtern {
 			transaktion.rollbackTransaction();
 			return null;
 		}
+	}
+
+	@Override
+	public IKunde getKunde(int nr) {
+		return kundenVerwalter.getKundeById(nr);
 	}
 
 }

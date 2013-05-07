@@ -27,6 +27,8 @@ public class Produkt implements IProdukt {
 
 	private int lagerbestand;
 
+	//TODO
+	@Transient
 	@ManyToMany(mappedBy = "produkte", targetEntity = Angebot.class)
 	private Set<IAngebot> angebote;
 

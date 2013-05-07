@@ -18,10 +18,10 @@ public class Auftrag implements IAuftrag {
 	private int nr;
 
 	private boolean abgeschlossen;
-	
+
 	@Temporal(TemporalType.TIME)
 	private Date beauftragtAm;
-	
+
 	@JoinColumn
 	@OneToOne(targetEntity = Lieferung.class)
 	private ILieferung lieferung;
@@ -41,9 +41,7 @@ public class Auftrag implements IAuftrag {
 	private Auftrag() {
 	}
 
-	public Auftrag(int nr, Date beauftragtAm, IAngebot angebot) {
-		super();
-		this.nr = nr;
+	public Auftrag(Date beauftragtAm, IAngebot angebot) {
 		this.beauftragtAm = beauftragtAm;
 		this.angebot = angebot;
 		this.abgeschlossen = false;
