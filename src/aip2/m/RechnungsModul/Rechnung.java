@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
@@ -28,9 +25,8 @@ public class Rechnung implements IRechnung {
 	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
 	private Set<Zahlungseingang> zahlungseingaenge;
 
-	@Cascade({CascadeType.SAVE_UPDATE})
+//	@Cascade({CascadeType.SAVE_UPDATE})
 	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
-	// TODO: Unnötige Entitäten bei allen entfernen
 	private IAuftrag auftrag;
 
 	/**

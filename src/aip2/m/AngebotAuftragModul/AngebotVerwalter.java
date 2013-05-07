@@ -35,7 +35,6 @@ final class AngebotVerwalter {
 
 	Angebot erstelleAngbot(IKunde kunde, Date angebotsEnde,
 			Map<IProdukt, Integer> anzahlProdukte, int preisCent) {
-		//TODO
 		Angebot angebot = new Angebot(new Date(), angebotsEnde, preisCent, kunde, anzahlProdukte);
 		persistenzManager.add(angebot);
 		return angebot;

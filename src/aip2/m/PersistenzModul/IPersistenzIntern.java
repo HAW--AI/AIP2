@@ -7,7 +7,7 @@ import java.util.List;
  * Session zur DB verwaltet. NICHT Threadsafe, da es nur jeweils eine Session
  * gibt! 
  * 
- * TODO Verursacht HibernateExceptions, da können wir aber eh wenig tun
+ * TODO  für Aufgabe 3 Verursacht HibernateExceptions, da können wir aber eh wenig tun
  * 
  */
 public interface IPersistenzIntern {

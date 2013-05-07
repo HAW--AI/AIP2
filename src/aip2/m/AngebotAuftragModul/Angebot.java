@@ -3,16 +3,13 @@ package aip2.m.AngebotAuftragModul;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-//import java.util.Map;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.Kunde;
 import aip2.m.ProduktModul.IProdukt;
+import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "angebot")
@@ -35,22 +32,21 @@ public class Angebot implements IAngebot {
 	private IAuftrag auftrag;
 
 	@JoinColumn
-	// TODO cascade? angbot fügt kunde hinzu, sieht kunden angebot?
-	@Cascade({ CascadeType.SAVE_UPDATE })
 	@ManyToOne(targetEntity = Kunde.class)
 	private IKunde kunde;
 
 	// @JoinColumn
 	// @ManyToMany(targetEntity = Produkt.class)
 	// private List<IProduktMenge> produkte;
-	// @ElementCollection
+	@ElementCollection
 	// @CollectionTable//(name = "ProduktMenge")//, joinColumns = @JoinColumn)
 	// @MapKeyJoinColumn
 	// //Lets get CRAZY!!!
 	// @MapKeyType(@Type(parameters = {@Parameter(value =
 	// "aip2.m.ProduktModul.Produkt", name = "")}, type = ""))
-	// TODO
-	@Transient
+	// TODO teste wie DB die Map speichert?
+	// @Transient
+	@MapKeyClass(Produkt.class)
 	private Map<IProdukt, Integer> produkte;
 
 	/**

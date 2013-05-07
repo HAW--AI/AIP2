@@ -55,7 +55,7 @@ public class TestRechungsModul {
 
 	@Test
 	public void testIRechnungsModulExtern() {
-		// TODO
+		// TODO teste IRechnungExtern
 		rechnungModulFassade.erzeugeZahlungsEingang(new Date(), 100);
 
 		List<Zahlungseingang> list = persistenzSession
@@ -66,7 +66,7 @@ public class TestRechungsModul {
 	@Ignore
 	public void testIRechnungsModulIntern() {
 
-		// TODO
+		// TODO test IRechnungIntern
 		// IAngebot angebot = new MyAngebotMockUp(90);
 		// IAuftrag auftrag = new MyAuftragMockUp(0, false, angebot);
 

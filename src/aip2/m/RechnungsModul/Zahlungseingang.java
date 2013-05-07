@@ -4,9 +4,6 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 @Entity
 @Table(name = "Zahlungseingang")
 public class Zahlungseingang implements IZahlungseingang {
@@ -22,8 +19,6 @@ public class Zahlungseingang implements IZahlungseingang {
 	private int betragCent;
 
 	@JoinColumn
-	//TODO cascade?
-	@Cascade({ CascadeType.SAVE_UPDATE })
 	@ManyToOne(targetEntity = Rechnung.class)
 	private IRechnung rechnung;
 

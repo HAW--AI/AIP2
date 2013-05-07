@@ -33,7 +33,7 @@
   <!-- Mapping files -->
   <mapping class="aip2.m.AngebotAuftragModul.Angebot"/>
   <mapping class="aip2.m.AngebotAuftragModul.Auftrag"/>
-  <mapping class="aip2.m.AngebotAuftragModul.ProduktMengeTyp"/>
+  <!--mapping class="aip2.m.AngebotAuftragModul.ProduktMengeTyp"/-->
   <mapping class="aip2.m.BestellungsModul.Bestellung"/>
   <mapping class="aip2.m.LieferantenModul.Einkaufsinfosatz"/>
   <mapping class="aip2.m.KundenModul.Kunde"/>
