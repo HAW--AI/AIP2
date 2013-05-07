@@ -1,13 +1,18 @@
 package aip2.m.ProduktModul;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import aip2.m.WarenmeldungsModul.IWarenmeldungsModulIntern;
 
 public class ProduktModulLogik {
 	private final ProduktVerwalter produktVerwalter;
-
-	ProduktModulLogik(ProduktVerwalter pv) {
-		this.produktVerwalter = pv;
+	private final IWarenmeldungsModulIntern warenmeldungsModulIntern;
+	
+	ProduktModulLogik(ProduktVerwalter produktVerwalter, IWarenmeldungsModulIntern warenmeldungsModulIntern) {
+		this.produktVerwalter = produktVerwalter;
+		this.warenmeldungsModulIntern = warenmeldungsModulIntern;
 	}
 	
 	public List<ProduktTyp> sucheProdukt(String name) {
@@ -33,11 +38,12 @@ public class ProduktModulLogik {
 	
 	public boolean lagereAusProdukt(IProdukt produkt, int menge) {
 		// Immer genug vorhanden!
-		// TODO: Warenausgangsmeldung
 		
 		Produkt p = produktVerwalter.getProduktById(produkt.getProduktNr());
 		p.setLagerbestand(p.getLagerbestand() - menge);
 		produktVerwalter.updateProdukt(p);
+		
+		warenmeldungsModulIntern.erstelleWarenausgangsmeldung(new Date(), menge, produkt);		
 		return true;
 	}
 

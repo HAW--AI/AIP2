@@ -3,6 +3,8 @@ package aip2.m.ProduktModul;
 import aip2.m.InterfacesExtern.IProduktModulExtern;
 import aip2.m.PersistenzModul.IPersistenzIntern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
+import aip2.m.WarenmeldungsModul.IWarenmeldungsModulIntern;
+import aip2.m.WarenmeldungsModul.WarenmeldungsModul;
 
 
 /**
@@ -33,8 +35,11 @@ public class ProduktModul {
 	
 	private static ProduktModulFassade fassade(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		if (produktFassade == null) {
+			IWarenmeldungsModulIntern warenmeldungsModulIntern = WarenmeldungsModul.getProduktFassadeIntern(persistenz, transaktion);
+			
 			ProduktVerwalter produktVerwalter = new ProduktVerwalter(persistenz);
-			ProduktModulLogik produktLogik = new ProduktModulLogik(produktVerwalter);
+			ProduktModulLogik produktLogik = new ProduktModulLogik(produktVerwalter, warenmeldungsModulIntern);
+			
 			produktFassade = new ProduktModulFassade(produktLogik, produktVerwalter, transaktion);
 		}
 		return produktFassade;		
