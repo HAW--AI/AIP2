@@ -38,7 +38,7 @@ public final class AngebotAuftragModul {
 			IKundenModulIntern iKundeIntern = KundenModul.getIKundeIntern(persistenz,
 					transaktion);
 			IProduktModulIntern iProduktModulIntern = ProduktModul
-					.getIProduktModulIntern(persistenz, transaktion);
+					.getProduktFassadeIntern(persistenz, transaktion);
 			angebotAuftragModulFassade = new AngebotAuftragModulFassade(
 					transaktion, angebotAuftragModulLogik, angebotVerwalter,
 					auftragVerwalter, iProduktModulIntern, iKundeIntern);

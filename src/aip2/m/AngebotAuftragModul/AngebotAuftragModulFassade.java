@@ -61,7 +61,7 @@ final class AngebotAuftragModulFassade implements
 		try {
 			boolean myTransaction = transaktion.checkStartMyTransaction();
 
-			Map<IProdukt, Integer> iproduktMap = new HashMap<>();
+			Map<IProdukt, Integer> iproduktMap = new HashMap<IProdukt, Integer>();
 			for (ProduktTyp produktTyp : anzahlProdukte.keySet()) {
 				IProdukt produkt = iProduktIntern
 						.getProdukt(produktTyp.getNr());
