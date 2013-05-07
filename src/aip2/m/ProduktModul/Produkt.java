@@ -27,8 +27,6 @@ public class Produkt implements IProdukt {
 
 	private int lagerbestand;
 
-	//TODO
-	@Transient
 	@ManyToMany(mappedBy = "produkte", targetEntity = Angebot.class)
 	private Set<IAngebot> angebote;
 
@@ -52,11 +50,11 @@ public class Produkt implements IProdukt {
 	private Produkt() {
 	}
 
-	public Produkt(String name, int lagerbestand, IOrderbuch orderbuch) {
+	public Produkt(String name, int lagerbestand/*, IOrderbuch orderbuch*/) {
 		super();
 		this.name = name;
 		this.lagerbestand = lagerbestand;
-		this.orderbuch = orderbuch;
+//		this.orderbuch = orderbuch;
 	}
 
 	@Override
