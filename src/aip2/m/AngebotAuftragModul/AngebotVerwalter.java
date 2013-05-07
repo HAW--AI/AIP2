@@ -2,7 +2,7 @@ package aip2.m.AngebotAuftragModul;
 
 import aip2.m.PersistenzModul.IPersistenzIntern;
 
-class AngebotVerwalter {
+final class AngebotVerwalter {
 
 	private final IPersistenzIntern persistenzManager;
 
