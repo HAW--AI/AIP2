@@ -11,7 +11,7 @@ import aip2.m.KundenModul.IKundeIntern;
 import aip2.m.KundenModul.KundenTyp;
 import aip2.m.LieferungsModul.ILieferungModulIntern;
 import aip2.m.ProduktModul.IProdukt;
-import aip2.m.ProduktModul.IProduktIntern;
+import aip2.m.ProduktModul.IProduktModulIntern;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
@@ -25,7 +25,7 @@ public final class AngebotAuftragModulFassade implements
 	@SuppressWarnings("unused")
 	private final AuftragVerwalter auftragVerwalter;
 
-	private final IProduktIntern iProduktIntern;
+	private final IProduktModulIntern iProduktIntern;
 	@SuppressWarnings("unused")
 	private final ILieferungModulIntern iLieferungModulIntern;
 	private final IKundeIntern iKundeIntern;
@@ -33,7 +33,7 @@ public final class AngebotAuftragModulFassade implements
 	AngebotAuftragModulFassade(ITransaktionIntern transaktion,
 			AngebotAuftragModulLogik angebotAuftragModulLogik,
 			AngebotVerwalter angebotVerwalter,
-			AuftragVerwalter auftragVerwalter, IProduktIntern iProduktIntern,
+			AuftragVerwalter auftragVerwalter, IProduktModulIntern iProduktIntern,
 			ILieferungModulIntern iLieferungModulIntern, IKundeIntern iKundeIntern) {
 		this.transaktion = transaktion;
 		this.angebotAuftragModulLogik = angebotAuftragModulLogik;
@@ -52,7 +52,7 @@ public final class AngebotAuftragModulFassade implements
 
 			Map<IProdukt, Integer> iproduktMap = new HashMap<>();
 			for (ProduktTyp produktTyp : anzahlProdukte.keySet()) {
-				IProdukt produkt = iProduktIntern.getIProdukt(produktTyp
+				IProdukt produkt = iProduktIntern.getProdukt(produktTyp
 						.getNr());
 				iproduktMap.put(produkt, anzahlProdukte.get(produktTyp));
 			}

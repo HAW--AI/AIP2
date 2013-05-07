@@ -10,7 +10,7 @@ import aip2.m.KundenModul.KundenModul;
 import aip2.m.LieferungsModul.ILieferungModulIntern;
 import aip2.m.PersistenzModul.IPersistenzSessionIntern;
 import aip2.m.PersistenzModul.Persistenz;
-import aip2.m.ProduktModul.IProduktIntern;
+import aip2.m.ProduktModul.IProduktModulIntern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 import aip2.m.TransaktionModul.Transaktion;
 
@@ -26,7 +26,7 @@ public class TestAngebotAuftragModul {
 	@SuppressWarnings("unused")
 	private static AngebotAuftragModulFassade angebotAuftragModulFassade;
 
-	private static IProduktIntern iProduktIntern;
+	private static IProduktModulIntern iProduktIntern;
 	@SuppressWarnings("unused")
 	private static ILieferungModulIntern iLieferungModulIntern;
 	private static IKundeIntern iKundeIntern;
