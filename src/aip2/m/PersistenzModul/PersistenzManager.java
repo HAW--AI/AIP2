@@ -15,6 +15,9 @@ import org.hibernate.SessionFactory;
  * @see http 
  *      ://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.
  *      html
+ * @see http
+ *      ://www.galileocomputing.de/artikel/gp/artikelID-328?GalileoSession=52213403
+ *      A6AyfB.WMUE#abschnitt0
  * 
  */
 final class PersistenzManager implements IPersistenzIntern,

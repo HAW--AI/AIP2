@@ -3,8 +3,10 @@ package aip2.m.PersistenzModul;
 /**
  * Konfigurator: Stellt die IPersitenzIntern zur Verfügung
  * 
+ * 
+ * TODO für Aufgabe 3 mehere Sessions für multitreading
  */
-public class Persistenz {
+public final class Persistenz {
 	private static PersistenzManager perisistenzManager = null;
 
 	private Persistenz() {

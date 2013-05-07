@@ -6,7 +6,6 @@ package aip2.m.TransaktionModul;
  * 
  * Vor jeder Transaktion sollte geprüft werden ob bereits eine Transaktion
  * läuft.
- * TODO mehere Transaktion gleichzeitig -> Peristenz mehr als eine Session
  * 
  */
 public interface ITransaktionIntern {

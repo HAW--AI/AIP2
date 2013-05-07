@@ -4,7 +4,7 @@ import aip2.m.ProduktModul.IProdukt;
 
 
 /**
- * MAYBE I DONT KNOW
+ * MAYBE
  * 
  */
 public interface IProduktMenge {

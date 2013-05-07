@@ -1,13 +1,13 @@
 package aip2.m.TransaktionModul;
 
 import aip2.m.PersistenzModul.IPersistenzSessionIntern;
-import aip2.m.PersistenzModul.Persistenz;
 
 /**
  * Konfigurator: Stellt die ITransaktionIntern zur Verfügung
  * 
+ * TODO für Aufgabe 3 mehrere TransaktionsManager
  */
-public class Transaktion {
+public final class Transaktion {
 
 	private static TransaktionManager transaktionManager = null;
 
@@ -22,9 +22,9 @@ public class Transaktion {
 		return Transaktion.transaktionManager;
 	}
 
-	// TODO richtiges DI?
-	public static ITransaktionIntern getTransaktion() {
-		return getTransaktion(Persistenz.getPersistenzSessionIntern());
-	}
+	// @Deprecated
+	// public static ITransaktionIntern getTransaktion() {
+	// return getTransaktion(Persistenz.getPersistenzSessionIntern());
+	// }
 
 }

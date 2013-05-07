@@ -17,6 +17,7 @@ final class TransaktionManager implements ITransaktionIntern {
 		this.persistenz = persistenz;
 	}
 
+	@Override
 	public boolean isRunningTransaction() {
 		return runningTransaction;
 	}

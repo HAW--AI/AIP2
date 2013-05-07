@@ -5,12 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import aip2.m.ProduktModul.IProdukt;
+import aip2.m.ProduktModul.Produkt;
 
 /**
- * MAYBE I DONT KNOW
+ * MAYBE
  * 
  */
 @Entity
@@ -22,7 +24,8 @@ public class ProduktMengeTyp implements IProduktMenge {
 	@Column(name = "produktMenge")
 	private int nr;
 	
-	//To do @OneToMany(mappedBy = "produkte", targetEntity = Angebot.class)
+	//TODO
+	@ManyToOne(/*mappedBy = "produkte", */targetEntity = Produkt.class)
 	private IProdukt produkt;
 	
 	private int menge;
