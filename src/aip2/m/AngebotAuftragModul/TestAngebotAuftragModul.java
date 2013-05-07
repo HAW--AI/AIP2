@@ -48,18 +48,43 @@ public class TestAngebotAuftragModul {
 	@Before
 	public void setUp() throws Exception {
 		transaktion.startTransaction();
-
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		transaktion.rollbackTransaction();
-
 	}
 
 	@Test
 	public void test() {
+
+		// IProduktModulExtern ipme = ProduktModul.getProduktFassade(
+		// persistenzSession, transaktion);
+		// ProduktTyp pt = ipme.sucheProdukt(4);
+		// System.out.println(pt);
+		//
+		// IKunde kunde = iKundeIntern.getKunde(114);
+		// KundenTyp kundeT =
+		// KundenModul.getIKundenModulExtern(persistenzSession,
+		// transaktion).sucheKunden(kunde.getKundenNr());
+		//
+		// Map<ProduktTyp, Integer> anzahlProdukte = new HashMap<ProduktTyp,
+		// Integer>();
+		// anzahlProdukte.put(pt, 100);
+		//
+		// AngebotTyp angebot =
+		// angebotAuftragModulFassade.erstelleAngebot(kundeT,
+		// new Date(), anzahlProdukte, 100);
+		// System.out.println(angebot);
+		//
+		// Angebot a = angebotVerwalter.getAngebot(angebot.getAngebotsNr());
+		// System.out.println(a);
+		//
+		// AuftragTyp auftrag = angebotAuftragModulFassade
+		// .erstelleAuftrag(angebot);
+		// angebotAuftragModulFassade.schliesseAbAuftrag(auftrag);
 		assert (true);
+
 	}
 
 }

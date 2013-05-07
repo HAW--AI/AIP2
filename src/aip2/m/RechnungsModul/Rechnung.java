@@ -1,5 +1,6 @@
 package aip2.m.RechnungsModul;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
@@ -7,9 +8,13 @@ import javax.persistence.*;
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
+/**
+ * Rechnung Entität inklusive Speicherung in der DB
+ *
+ */
 @Entity
 @Table(name = "Rechnung")
-public class Rechnung implements IRechnung {
+public final class Rechnung implements IRechnung {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,12 +25,13 @@ public class Rechnung implements IRechnung {
 	private Date rechnungsDatum;
 
 	private int preis;
+
 	private boolean istBezahlt;
 
 	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
 	private Set<Zahlungseingang> zahlungseingaenge;
 
-//	@Cascade({CascadeType.SAVE_UPDATE})
+	// @Cascade({CascadeType.SAVE_UPDATE})
 	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
 	private IAuftrag auftrag;
 
@@ -36,10 +42,10 @@ public class Rechnung implements IRechnung {
 	private Rechnung() {
 	}
 
-	Rechnung(Date rechnungsDatum, boolean istBezahlt, IAuftrag auftrag) {
+	Rechnung(Date rechnungsDatum, IAuftrag auftrag) {
 		super();
 		this.rechnungsDatum = rechnungsDatum;
-		this.istBezahlt = istBezahlt;
+		this.istBezahlt = false;
 		this.auftrag = auftrag;
 		this.preis = auftrag.getAngebot().getGesamtpreis();
 	}
@@ -78,7 +84,7 @@ public class Rechnung implements IRechnung {
 
 	@Override
 	public Set<Zahlungseingang> getZahlungseingaenge() {
-		return zahlungseingaenge;
+		return Collections.unmodifiableSet(zahlungseingaenge);
 	}
 
 	void setZahlungseingaenge(Set<Zahlungseingang> zahlungseingaenge) {
