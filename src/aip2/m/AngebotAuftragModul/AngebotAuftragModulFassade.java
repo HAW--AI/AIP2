@@ -7,15 +7,18 @@ import java.util.Map;
 
 import aip2.m.InterfacesExtern.IAngebotAuftragModulExtern;
 import aip2.m.KundenModul.IKunde;
-import aip2.m.KundenModul.IKundeIntern;
+import aip2.m.KundenModul.IKundenModulIntern;
 import aip2.m.KundenModul.KundenTyp;
-import aip2.m.LieferungsModul.ILieferungModulIntern;
 import aip2.m.ProduktModul.IProdukt;
 import aip2.m.ProduktModul.IProduktModulIntern;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
-public final class AngebotAuftragModulFassade implements
+/**
+ * Stellt die Schnittstelle für externe Operationen und steuert Transaktionen
+ * 
+ */
+final class AngebotAuftragModulFassade implements
 		IAngebotAuftragModulExtern {
 
 	private final ITransaktionIntern transaktion;
@@ -26,22 +29,30 @@ public final class AngebotAuftragModulFassade implements
 	private final AuftragVerwalter auftragVerwalter;
 
 	private final IProduktModulIntern iProduktIntern;
-	@SuppressWarnings("unused")
-	private final ILieferungModulIntern iLieferungModulIntern;
-	private final IKundeIntern iKundeIntern;
+	private final IKundenModulIntern iKundeIntern;
+
+	// TODO AA braucht Lieferung Rechnung???
+	// private final ILieferungModulIntern iLieferungModulIntern;
+	// private final IRechnungsModulIntern iRechnungsModulIntern;
 
 	AngebotAuftragModulFassade(ITransaktionIntern transaktion,
 			AngebotAuftragModulLogik angebotAuftragModulLogik,
 			AngebotVerwalter angebotVerwalter,
-			AuftragVerwalter auftragVerwalter, IProduktModulIntern iProduktIntern,
-			ILieferungModulIntern iLieferungModulIntern, IKundeIntern iKundeIntern) {
+			AuftragVerwalter auftragVerwalter,
+			IProduktModulIntern iProduktIntern, IKundenModulIntern iKundeIntern // ,
+	// ILieferungModulIntern iLieferungModulIntern,IRechnungsModulIntern
+	// iRechnungsModulIntern
+	) {
 		this.transaktion = transaktion;
 		this.angebotAuftragModulLogik = angebotAuftragModulLogik;
 		this.angebotVerwalter = angebotVerwalter;
 		this.auftragVerwalter = auftragVerwalter;
 		this.iProduktIntern = iProduktIntern;
-		this.iLieferungModulIntern = iLieferungModulIntern;
 		this.iKundeIntern = iKundeIntern;
+
+		// this.iLieferungModulIntern = iLieferungModulIntern;
+		// this.iRechnungsModulIntern = iRechnungsModulIntern;
+
 	}
 
 	@Override
@@ -52,8 +63,8 @@ public final class AngebotAuftragModulFassade implements
 
 			Map<IProdukt, Integer> iproduktMap = new HashMap<>();
 			for (ProduktTyp produktTyp : anzahlProdukte.keySet()) {
-				IProdukt produkt = iProduktIntern.getProdukt(produktTyp
-						.getNr());
+				IProdukt produkt = iProduktIntern
+						.getProdukt(produktTyp.getNr());
 				iproduktMap.put(produkt, anzahlProdukte.get(produktTyp));
 			}
 			IKunde kunde = iKundeIntern.getKunde(kundenTyp.getKundenNr());

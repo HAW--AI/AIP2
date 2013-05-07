@@ -8,9 +8,13 @@ import aip2.m.LieferungsModul.Lieferung;
 import aip2.m.RechnungsModul.IRechnung;
 import aip2.m.RechnungsModul.Rechnung;
 
+/**
+ * Auftrags Entität inklusive Speicherung in der DB
+ *
+ */
 @Entity
-@Table(name = "auftrag")
-public class Auftrag implements IAuftrag {
+@Table(name = "Auftrag")
+public final class Auftrag implements IAuftrag {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +45,7 @@ public class Auftrag implements IAuftrag {
 	private Auftrag() {
 	}
 
-	public Auftrag(Date beauftragtAm, IAngebot angebot) {
+	Auftrag(Date beauftragtAm, IAngebot angebot) {
 		this.beauftragtAm = beauftragtAm;
 		this.angebot = angebot;
 		this.abgeschlossen = false;

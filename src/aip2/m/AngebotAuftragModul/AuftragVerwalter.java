@@ -5,6 +5,10 @@ import java.util.List;
 
 import aip2.m.PersistenzModul.IPersistenzIntern;
 
+/**
+ * Verwaltet Auftrags Entitäten und erzeugt den Fachlichen Datentypen
+ * 
+ */
 final class AuftragVerwalter {
 	private final IPersistenzIntern persistenzManager;
 
@@ -20,9 +24,8 @@ final class AuftragVerwalter {
 
 	AuftragTyp getAuftragTyp(Auftrag auftrag) {
 		AuftragTyp auftragTyp = new AuftragTyp(auftrag.getAuftragsNr(),
-				auftrag.isAbgeschlossen(), auftrag.getBeauftragtAm(),
-				auftrag.getLieferung(), auftrag.getRechnung(),
-				auftrag.getAngebot());
+				auftrag.isAbgeschlossen(), auftrag.getBeauftragtAm()
+		/* , auftrag.getLieferung(), auftrag.getRechnung(),auftrag.getAngebot() */);
 		return auftragTyp;
 	}
 

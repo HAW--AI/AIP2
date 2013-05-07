@@ -7,7 +7,7 @@ import java.util.List;
  * Die Logik der Kunden Komponente
  * 
  */
-class KundenModulLogik {
+final class KundenModulLogik {
 	private final KundenVerwalter kundenVerwalter;
 
 	KundenModulLogik(KundenVerwalter kv) {

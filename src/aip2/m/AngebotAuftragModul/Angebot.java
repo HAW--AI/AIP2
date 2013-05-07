@@ -11,9 +11,13 @@ import aip2.m.KundenModul.Kunde;
 import aip2.m.ProduktModul.IProdukt;
 import aip2.m.ProduktModul.Produkt;
 
+/**
+ * Angebots Entität inklusive Speicherung in der DB
+ * 
+ */
 @Entity
-@Table(name = "angebot")
-public class Angebot implements IAngebot {
+@Table(name = "Angebot")
+public final class Angebot implements IAngebot {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +42,6 @@ public class Angebot implements IAngebot {
 	// @JoinColumn
 	// @ManyToMany(targetEntity = Produkt.class)
 	// private List<IProduktMenge> produkte;
-	@ElementCollection
 	// @CollectionTable//(name = "ProduktMenge")//, joinColumns = @JoinColumn)
 	// @MapKeyJoinColumn
 	// //Lets get CRAZY!!!
@@ -46,6 +49,7 @@ public class Angebot implements IAngebot {
 	// "aip2.m.ProduktModul.Produkt", name = "")}, type = ""))
 	// TODO teste wie DB die Map speichert?
 	// @Transient
+	@ElementCollection
 	@MapKeyClass(Produkt.class)
 	private Map<IProdukt, Integer> produkte;
 
@@ -56,8 +60,7 @@ public class Angebot implements IAngebot {
 	private Angebot() {
 	}
 
-	public Angebot(Date gueltigAb, Date gueltigBis, int gesamtPreisCent,
-			IKunde kunde,
+	Angebot(Date gueltigAb, Date gueltigBis, int gesamtPreisCent, IKunde kunde,
 			Map<IProdukt, Integer> /* List<IProduktMenge> */produkte) {
 		super();
 		this.gueltigAb = gueltigAb;

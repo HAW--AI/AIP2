@@ -9,6 +9,10 @@ import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.KundenTyp;
 import aip2.m.ProduktModul.IProdukt;
 
+/**
+ * Die Logik der angebot Auftrags Komponente
+ * 
+ */
 final class AngebotAuftragModulLogik {
 	private final AngebotVerwalter angebotVerwalter;
 	private final AuftragVerwalter auftragVerwalter;
@@ -46,14 +50,16 @@ final class AngebotAuftragModulLogik {
 	}
 
 	boolean schliesseAbAuftrag(AuftragTyp auftrag) {
-		Auftrag retauftrag = auftragVerwalter.getAuftrag(auftrag.getNr());
+		Auftrag retauftrag = auftragVerwalter.getAuftrag(auftrag
+				.getAuftragsNr());
 		retauftrag.setAbgeschlossen(true);
 		auftragVerwalter.update(retauftrag);
 		return true;
 	}
 
 	AuftragTyp erstelleAuftrag(AngebotTyp angebotTyp) {
-		Angebot angebot = angebotVerwalter.getAngebot(angebotTyp.getNr());
+		Angebot angebot = angebotVerwalter.getAngebot(angebotTyp
+				.getAngebotsNr());
 		Auftrag auftrag = auftragVerwalter.erstelleAuftrag(angebot);
 		return auftragVerwalter.getAuftragTyp(auftrag);
 	}

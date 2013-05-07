@@ -6,11 +6,10 @@ import aip2.m.InterfacesExtern.IKundenModulExtern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
 /**
- * Stellt die Schnittstelle für externe Operationen und startet die
- * Kundenkomponente
+ * Stellt die Schnittstelle für externe Operationen und steuert Transaktionen
  * 
  */
-class KundenModulFassade implements IKundenModulExtern, IKundeIntern {
+class KundenModulFassade implements IKundenModulExtern, IKundenModulIntern {
 
 	private final KundenModulLogik kundenLogik;
 	private final KundenVerwalter kundenVerwalter;

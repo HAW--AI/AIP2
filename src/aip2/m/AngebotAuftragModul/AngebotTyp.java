@@ -1,11 +1,10 @@
 package aip2.m.AngebotAuftragModul;
 
 import java.util.Date;
-import java.util.Map;
 
-import aip2.m.KundenModul.IKunde;
-import aip2.m.ProduktModul.IProdukt;
-
+/**
+ * Fachlicher Datentyp Angebot
+ */
 public final class AngebotTyp {
 	private int nr;
 
@@ -15,25 +14,25 @@ public final class AngebotTyp {
 
 	private int gesamtPreisCent;
 
-	private IAuftrag auftrag;
+	// private IAuftrag auftrag;
 
-	private IKunde kunde;
+	// private IKunde kunde;
 
-	//TODO IProdukt to ProduktTyp + in Verwalter
-	private Map<IProdukt, Integer> produkte;
+	// TODO für Aufgabe 3 IProdukt to ProduktTyp in allen Fachlichen
+	// private Map<ProduktTyp, Integer> produkte;
 
-	AngebotTyp(int nr, Date gueltigAb, Date gueltigBis, int gesamtPreisCent,
-			IAuftrag auftrag, IKunde kunde, Map<IProdukt, Integer> produkte) {
+	AngebotTyp(int nr, Date gueltigAb, Date gueltigBis, int gesamtPreisCent
+	/* ,IAuftrag auftrag, IKunde kunde , Map<IProdukt, Integer> produkte */) {
 		this.nr = nr;
 		this.gueltigAb = gueltigAb;
 		this.gueltigBis = gueltigBis;
 		this.gesamtPreisCent = gesamtPreisCent;
-		this.auftrag = auftrag;
-		this.kunde = kunde;
-		this.produkte = produkte;
+		// this.auftrag = auftrag;
+		// this.kunde = kunde;
+		// this.produkte = produkte;
 	}
 
-	public int getNr() {
+	public int getAngebotsNr() {
 		return nr;
 	}
 
@@ -49,17 +48,17 @@ public final class AngebotTyp {
 		return gesamtPreisCent;
 	}
 
-	public IAuftrag getAuftrag() {
-		return auftrag;
-	}
+	// public IAuftrag getAuftrag() {
+	// return auftrag;
+	// }
+	//
+	// public IKunde getKunde() {
+	// return kunde;
+	// }
 
-	public IKunde getKunde() {
-		return kunde;
-	}
-
-	public Map<IProdukt, Integer> getProdukte() {
-		return produkte;
-	}
+	// public Map<IProdukt, Integer> getProdukte() {
+	// return produkte;
+	// }
 
 	@Override
 	public int hashCode() {
@@ -87,8 +86,7 @@ public final class AngebotTyp {
 	public String toString() {
 		return "AngebotTyp [nr=" + nr + ", gueltigAb=" + gueltigAb
 				+ ", gueltigBis=" + gueltigBis + ", gesamtPreisCent="
-				+ gesamtPreisCent + ", auftrag=" + auftrag + ", kunde=" + kunde
-				+ ", produkte=" + produkte + "]";
+				+ gesamtPreisCent + "]";
 	}
 
 }

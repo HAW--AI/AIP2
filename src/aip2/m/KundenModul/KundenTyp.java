@@ -1,7 +1,5 @@
 package aip2.m.KundenModul;
 
-import java.util.Set;
-import aip2.m.AngebotAuftragModul.IAngebot;
 
 /**
  * Fachlicher Datentyp Kunde
@@ -14,13 +12,13 @@ public final class KundenTyp{
 
 	private String adresse;
 
-	private Set<IAngebot> angebote;
+//	private Set<IAngebot> angebote;
 
-	KundenTyp(int nr, String name, String adresse, Set<IAngebot> angebote) {
+	KundenTyp(int nr, String name, String adresse/*, Set<IAngebot> angebote*/) {
 		this.nr = nr;
 		this.name = name;
 		this.adresse = adresse;
-		this.angebote = angebote;
+//		this.angebote = angebote;
 	}
 
 	
@@ -39,9 +37,9 @@ public final class KundenTyp{
 	}
 
 	
-	public Set<IAngebot> getAngebote() {
-		return angebote;
-	}
+//	public Set<IAngebot> getAngebote() {
+//		return angebote;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -68,7 +66,7 @@ public final class KundenTyp{
 	@Override
 	public String toString() {
 		return "KundenTyp [nr=" + nr + ", name=" + name + ", adresse="
-				+ adresse + ", angebote=" + angebote + "]";
+				+ adresse + "]";
 	}
 
 }

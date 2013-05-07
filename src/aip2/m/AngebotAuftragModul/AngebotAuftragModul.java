@@ -1,21 +1,48 @@
 package aip2.m.AngebotAuftragModul;
 
 import aip2.m.InterfacesExtern.IAngebotAuftragModulExtern;
+import aip2.m.KundenModul.IKundenModulIntern;
+import aip2.m.KundenModul.KundenModul;
+import aip2.m.PersistenzModul.IPersistenzIntern;
+import aip2.m.ProduktModul.IProduktModulIntern;
+import aip2.m.ProduktModul.ProduktModul;
+import aip2.m.TransaktionModul.ITransaktionIntern;
 
+/**
+ * Factory Klasse konfiguriert und liefert die AAfassade aus
+ * 
+ */
 public final class AngebotAuftragModul {
+
 	private static AngebotAuftragModulFassade angebotAuftragModulFassade;
 
-	public static IAngebotAuftragModulExtern getIAngebotAuftragModulExtern() {
-		// TODO erstelle Fassade mit externen Interfaces zB IProduktIntern
+	private AngebotAuftragModul() {
+	}
 
-		/*
-		 * AngebotAuftragModulFassade(IPersistenzIntern persistenz,
-		 * ITransaktionIntern transaktion) { this.transaktion = transaktion;
-		 * this.angebotVerwalter = new AngebotVerwalter(persistenz);
-		 * this.auftragVerwalter = new AuftragVerwalter(persistenz);
-		 * this.angebotAuftragModulLogik = new AngebotAuftragModulLogik(
-		 * angebotVerwalter, auftragVerwalter);
-		 */
+	/**
+	 * Gibt die einzige AngebotAuftragModulFassade zurück. Nach dem ersten
+	 * Aufruf werden die Parameter persistenz und transaktion ignoriert
+	 * 
+	 * @param persistenz
+	 * @param transaktion
+	 * @return die einzige AngebotAuftragModulFassade
+	 */
+	public static IAngebotAuftragModulExtern getIAngebotAuftragModulExtern(
+			IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+		if (angebotAuftragModulFassade == null) {
+			AngebotVerwalter angebotVerwalter = new AngebotVerwalter(persistenz);
+			AuftragVerwalter auftragVerwalter = new AuftragVerwalter(persistenz);
+			AngebotAuftragModulLogik angebotAuftragModulLogik = new AngebotAuftragModulLogik(
+					angebotVerwalter, auftragVerwalter);
+
+			IKundenModulIntern iKundeIntern = KundenModul.getIKundeIntern(persistenz,
+					transaktion);
+			IProduktModulIntern iProduktModulIntern = ProduktModul
+					.getIProduktModulIntern(persistenz, transaktion);
+			angebotAuftragModulFassade = new AngebotAuftragModulFassade(
+					transaktion, angebotAuftragModulLogik, angebotVerwalter,
+					auftragVerwalter, iProduktModulIntern, iKundeIntern);
+		}
 		return angebotAuftragModulFassade;
 	}
 }

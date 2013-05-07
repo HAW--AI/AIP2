@@ -11,6 +11,9 @@ import aip2.m.TransaktionModul.ITransaktionIntern;
 public class KundenModul {
 	private static KundenModulFassade kundenFassade;
 
+	private KundenModul() {
+	}
+
 	/**
 	 * Gibt die einzige KundenFassade zurück. Nach dem ersten Aufruf werden die
 	 * Parameter persistenz und transaktion ignoriert
@@ -38,7 +41,7 @@ public class KundenModul {
 	 * @param transaktion
 	 * @return die einzige Kundenfassade
 	 */
-	public static IKundeIntern getIKundeIntern(IPersistenzIntern persistenz,
+	public static IKundenModulIntern getIKundeIntern(IPersistenzIntern persistenz,
 			ITransaktionIntern transaktion) {
 		if (kundenFassade == null) {
 			KundenVerwalter kundenVerwalter = new KundenVerwalter(persistenz);

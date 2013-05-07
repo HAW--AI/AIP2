@@ -31,7 +31,7 @@ final class KundenVerwalter {
 
 	KundenTyp getKundenTyp(IKunde kunde) {
 		KundenTyp kundenTyp = new KundenTyp(kunde.getKundenNr(),
-				kunde.getName(), kunde.getAdresse(), kunde.getAngebote());
+				kunde.getName(), kunde.getAdresse()/* , kunde.getAngebote() */);
 		return kundenTyp;
 	}
 

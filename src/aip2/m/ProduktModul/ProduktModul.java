@@ -28,4 +28,15 @@ public class ProduktModul {
 		}
 		return produktFassade;
 	}
+	
+	public static IProduktModulIntern getIProduktModulIntern(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+		if (produktFassade == null) {
+			ProduktVerwalter produktVerwalter = new ProduktVerwalter(persistenz);
+			ProduktModulLogik produktLogik = new ProduktModulLogik(produktVerwalter);
+			produktFassade = new ProduktModulFassade(produktLogik, produktVerwalter, transaktion);
+		}
+		return produktFassade;
+	}
+	
+	
 }
