@@ -26,7 +26,7 @@ public interface IAngebotAuftragModulExtern {
 	 *            abbildet
 	 * @param Gesamtpreis
 	 *            in Cent
-	 * @return Das Angebot als fachlicher DatenTyp
+	 * @return Das Angebot als fachlicher DatenTyp oder null bei Misserfolg
 	 */
 	AngebotTyp erstelleAngebot(KundenTyp kunde, Date angebotsEnde,
 			Map<ProduktTyp, Integer> anzahlProdukte, int preisCent);
@@ -44,7 +44,7 @@ public interface IAngebotAuftragModulExtern {
 	 * Erstelle aus einem Angebot eine Auftag
 	 * 
 	 * @param angebot
-	 * @return Der Auftrag als fachlicher DatenTyp
+	 * @return Der Auftrag als fachlicher DatenTyp oder null bei Misserfolg
 	 */
 	AuftragTyp erstelleAuftrag(AngebotTyp angebot);
 

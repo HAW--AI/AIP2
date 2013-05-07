@@ -9,7 +9,7 @@ public interface IKundenModulIntern {
 	 * Liefert ein Kunden Objekt mit der gewünschten Id
 	 * 
 	 * @param nr
-	 * @return Der Kunde
+	 * @return Der Kunde oder null bei Misserfolg
 	 */
 	IKunde getKunde(int nr);
 

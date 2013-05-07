@@ -28,7 +28,7 @@ public class BankAdapter {
 
 		for (Integer eingang : eingange.keySet()) {
 			for (int zahlung : eingange.get(eingang)) {
-				IZahlungseingang z = iRechnungsModulIntern.erzeugeZahlungsEingang(new Date(), zahlung);
+				IZahlungseingang z = iRechnungsModulIntern.erzeugeZahlungsEingangReturn(new Date(), zahlung);
 				iRechnungsModulIntern.verbucheTeilZahlungseingang(eingang, z);
 			}
 		}

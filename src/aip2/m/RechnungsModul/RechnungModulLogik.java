@@ -1,5 +1,9 @@
 package aip2.m.RechnungsModul;
 
+/**
+ * Die Logik der Rechnugs Komponente
+ * 
+ */
 final class RechnungModulLogik {
 
 	private final RechnungVerwalter rechnungVerwalter;
@@ -25,12 +29,12 @@ final class RechnungModulLogik {
 		for (IZahlungseingang zahlung : rechnung.getZahlungseingaenge()) {
 			bezahlt += zahlung.getBetragCent();
 		}
-		
-		if(bezahlt >= rechnung.getPreis()){
+
+		if (bezahlt >= rechnung.getPreis()) {
 			rechnung.setIstBezahlt(true);
 			rechnungVerwalter.updateRechnung(rechnung);
 		}
-		
+
 		return rechnung;
 	}
 }

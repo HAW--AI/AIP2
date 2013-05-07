@@ -4,9 +4,13 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+/**
+ * Zahlungseingang Entität inklusive Speicherung in der DB
+ *
+ */
 @Entity
 @Table(name = "Zahlungseingang")
-public class Zahlungseingang implements IZahlungseingang {
+public final class Zahlungseingang implements IZahlungseingang {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

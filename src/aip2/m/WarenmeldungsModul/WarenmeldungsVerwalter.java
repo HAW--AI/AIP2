@@ -5,6 +5,7 @@ import java.util.List;
 
 import aip2.m.BestellungsModul.IBestellung;
 import aip2.m.PersistenzModul.IPersistenzIntern;
+import aip2.m.ProduktModul.IProdukt;
 
 /**
  * Verwalter Kunden: erstellt, sucheNachNamen und erzeugt den Fachlichen
@@ -27,6 +28,12 @@ final class WarenmeldungsVerwalter {
 		return w;
 	}
 
+	IWarenausgangsmeldung erstelleWarenausgangsmeldung(Date datum, int menge, IProdukt produkt) {
+		IWarenausgangsmeldung m = new Warenausgangsmeldung(datum, menge, produkt);
+		persistenzManager.add(m);
+		return m;
+	}
+
 	List<Wareneingangsmeldung> sucheWareneingangsmeldungen(IBestellung bestellung) {
 		return persistenzManager.getFromWhere(Wareneingangsmeldung.class, "bestellung_id", bestellung.getBestellNr());
 	}
@@ -41,8 +48,5 @@ final class WarenmeldungsVerwalter {
 	Wareneingangsmeldung getWareneingangsmeldungById(int nr) {
 		return persistenzManager.getById(Wareneingangsmeldung.class, nr);
 	}
-	//
-	// void updateKunde(Kunde kunde) {
-	// persistenzManager.update(kunde);
-	// }
+
 }

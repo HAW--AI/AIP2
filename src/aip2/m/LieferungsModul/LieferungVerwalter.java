@@ -2,6 +2,10 @@ package aip2.m.LieferungsModul;
 
 import aip2.m.PersistenzModul.IPersistenzIntern;
 
+/**
+ * Verwaltet Lieferungs Entitäten
+ * 
+ */
 final class LieferungVerwalter {
 	private final IPersistenzIntern persistenz;
 

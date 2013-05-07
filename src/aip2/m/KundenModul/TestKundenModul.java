@@ -59,16 +59,17 @@ public final class TestKundenModul {
 
 		for (String ort : ortsListe) {
 			// Erstelle Kunden
-			KundenTyp hansda = kundenFassade.erstelleKunde("Hans", ort);
+			KundenTyp hansda = kundenFassade.erstelleKunde("HansNOTREAL", ort);
 			// Prüfe ob die DB das gleiche Objekt zurückgibt
-			KundenTyp hansdaDB = kundenFassade.sucheKunden(hansda.getKundenNr());
+			KundenTyp hansdaDB = kundenFassade
+					.sucheKunden(hansda.getKundenNr());
 			assertEquals("DB sollte gleiches Objekt zurückgeben", hansda,
 					hansdaDB);
 		}
-		
+
 		// Prüfe ob auch alle Hanse in DB findbar sind
-		List<KundenTyp> gesuchte = kundenFassade.sucheKunden("Hans");
-		assertEquals("Es sollte 3 Hanses geben", ortsListe.size(),
+		List<KundenTyp> gesuchte = kundenFassade.sucheKunden("HansNOTREAL");
+		assertEquals("Es sollte 3 HansNOTREALs geben", ortsListe.size(),
 				gesuchte.size());
 
 		// Prüfe ob es keine KEINGÜLTIGERNAME!?! in DB findbar sind
@@ -76,11 +77,11 @@ public final class TestKundenModul {
 				.sucheKunden("KEINGÜLTIGERNAME!?!");
 		assertEquals("Es sollte keine KEINGÜLTIGERNAME!?! geben", 0,
 				gesuchte2.size());
-		
-		//prüfe ob finde per Id gehts
-		KundenTyp kurd = kundenFassade.erstelleKunde("Kurd", "hier");
+
+		// prüfe ob finde per Id gehts
+		KundenTyp kurd = kundenFassade.erstelleKunde("KurdHansNOTREAL", "hier");
 		KundenTyp kurdTypDB = kundenFassade.sucheKunden(kurd.getKundenNr());
-		assertEquals("Suche über Id sollte gleichen Kurd", kurd, kurdTypDB);
+		assertEquals("Suche über Id sollte gleichen KurdHansNOTREAL", kurd, kurdTypDB);
 	}
 
 }

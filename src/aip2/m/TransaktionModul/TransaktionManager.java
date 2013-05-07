@@ -1,6 +1,7 @@
 package aip2.m.TransaktionModul;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import aip2.m.PersistenzModul.IPersistenzSessionIntern;
 
@@ -12,6 +13,7 @@ final class TransaktionManager implements ITransaktionIntern {
 
 	private boolean runningTransaction;
 	private IPersistenzSessionIntern persistenz;
+	private Transaction transaktion;
 
 	TransaktionManager(IPersistenzSessionIntern persistenz) {
 		this.persistenz = persistenz;
@@ -27,7 +29,7 @@ final class TransaktionManager implements ITransaktionIntern {
 		Session session = getCurrentSession();
 		if (session == null)
 			return false;
-		session.beginTransaction();
+		transaktion = session.beginTransaction();
 		runningTransaction = true;
 		return true;
 	}
@@ -38,7 +40,7 @@ final class TransaktionManager implements ITransaktionIntern {
 			Session session = getCurrentSession();
 			if (session == null)
 				persistenz.openNewSession();
-			session.beginTransaction();
+			transaktion = session.beginTransaction();
 			runningTransaction = true;
 			return true;
 		} else
@@ -50,7 +52,8 @@ final class TransaktionManager implements ITransaktionIntern {
 		Session session = getCurrentSession();
 		if (session == null)
 			return false;
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
+		transaktion.commit();
 		runningTransaction = false;
 		return true;
 	}
@@ -60,7 +63,8 @@ final class TransaktionManager implements ITransaktionIntern {
 		Session session = getCurrentSession();
 		if (session == null)
 			return false;
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
+		transaktion.rollback();
 		runningTransaction = false;
 		return true;
 	}
