@@ -1,16 +1,10 @@
 package aip2.m.KundenModul;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
-
-import aip2.m.AngebotAuftragModul.Angebot;
-import aip2.m.AngebotAuftragModul.IAngebot;
 
 /**
  * Kunden Entität inklusive Speicherung in der DB
- *
+ * 
  */
 @Entity
 @Table(name = "Kunde")
@@ -26,14 +20,14 @@ public final class Kunde implements IKunde {
 
 	private String adresse;
 
-	@OneToMany(mappedBy = "kunde", targetEntity = Angebot.class)
-	private Set<IAngebot> angebote;
+	// @OneToMany(mappedBy = "kunde", targetEntity = Angebot.class)
+	// private Set<IAngebot> angebote;
 
 	Kunde(String name, String adresse) {
 		super();
 		this.name = name;
 		this.adresse = adresse;
-		this.angebote = new HashSet<IAngebot>();
+		// this.angebote = new HashSet<IAngebot>();
 	}
 
 	/**
@@ -66,20 +60,20 @@ public final class Kunde implements IKunde {
 		this.adresse = adresse;
 	}
 
-	@Override
-	public Set<IAngebot> getAngebote() {
-		return Collections.unmodifiableSet(angebote);
-	}
+	// @Override
+	// public Set<IAngebot> getAngebote() {
+	// return Collections.unmodifiableSet(angebote);
+	// }
+	//
+	// void setAngebote(Set<IAngebot> angebote) {
+	// this.angebote = angebote;
+	// }
+	//
+	// boolean addAngebot(IAngebot angebot) {
+	// this.angebote.add(angebot);
+	// return true;
+	// }
 
-	void setAngebote(Set<IAngebot> angebote) {
-		this.angebote = angebote;
-	}
-
-	boolean addAngebot(IAngebot angebot) {
-		this.angebote.add(angebot);
-		return true;
-	}
-	
 	@Override
 	public String toString() {
 		return "Kunde [nr=" + nr + ", name=" + name + ", adresse=" + adresse

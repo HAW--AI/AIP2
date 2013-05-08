@@ -80,7 +80,7 @@ final class AngebotAuftragModulLogik {
 		for (IProdukt p : angebot.getProdukte().keySet()) {
 			iProduktModulIntern.lagereAusProdukt(p, angebot.getProdukte().get(p));
 		}		
-		ILieferung lieferung = iLieferungModulIntern.erzeugeLieferung(auftrag);
+		ILieferung lieferung = iLieferungModulIntern.erzeugeLieferung();
 		IRechnung rechnung = iRechnungsModulIntern.erzeugeRechnung(auftrag);
 		auftrag.setLieferung(lieferung);
 		auftrag.setRechnung(rechnung);

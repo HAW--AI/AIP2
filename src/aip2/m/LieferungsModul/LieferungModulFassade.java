@@ -1,6 +1,5 @@
 package aip2.m.LieferungsModul;
 
-import aip2.m.AngebotAuftragModul.IAuftrag;
 import aip2.m.InterfacesExtern.ILieferungModulExtern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
@@ -47,12 +46,12 @@ final class LieferungModulFassade implements ILieferungModulIntern,
 	}
 
 	@Override
-	public ILieferung erzeugeLieferung(IAuftrag auftrag) {
+	public ILieferung erzeugeLieferung(/*IAuftrag auftrag*/) {
 		try {
 			boolean myTransaction = transaktion.checkStartMyTransaction();
 
 			ILieferung lieferung = lieferungModulLogik
-					.erzeugeLieferung(auftrag);
+					.erzeugeLieferung();
 
 			if (myTransaction)
 				transaktion.commitTransaction();

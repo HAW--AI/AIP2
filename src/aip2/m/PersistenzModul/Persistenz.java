@@ -6,7 +6,7 @@ package aip2.m.PersistenzModul;
  * 
  * TODO für Aufgabe 3 mehere Sessions für multitreading
  * 
- * TODO für Aufgabe 3 eventuell @Cascade({ CascadeType.SAVE_UPDATE })
+ * NoTO DO für Aufgabe 3 eventuell @Cascade({ CascadeType.SAVE_UPDATE })
  * 
  * TODO: für Aufgabe 3 Unnötige Entitäten bei allen entfernen
  */

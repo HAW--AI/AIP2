@@ -48,7 +48,7 @@ public class TestRechungsModul {
 
 	@After
 	public void tearDown() throws Exception {
-		transaktion.commitTransaction();
+		transaktion.rollbackTransaction();
 
 	}
 

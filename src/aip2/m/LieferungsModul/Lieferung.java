@@ -2,8 +2,6 @@ package aip2.m.LieferungsModul;
 
 import javax.persistence.*;
 
-import aip2.m.AngebotAuftragModul.Auftrag;
-import aip2.m.AngebotAuftragModul.IAuftrag;
 
 /**
  * Lieferung Entität inklusive Speicherung in der DB
@@ -22,8 +20,8 @@ public final class Lieferung implements ILieferung {
 	@OneToOne(targetEntity = Transportauftrag.class)
 	private ITransportauftrag transportauftrag;
 
-	@OneToOne(mappedBy = "lieferung", targetEntity = Auftrag.class)
-	private IAuftrag auftrag;
+//	@OneToOne(mappedBy = "lieferung", targetEntity = Auftrag.class)
+//	private IAuftrag auftrag;
 
 	/**
 	 * For Hibernate
@@ -76,8 +74,8 @@ public final class Lieferung implements ILieferung {
 	@Override
 	public String toString() {
 		return "Lieferung [nr=" + nr + ", transportauftrag="
-				+ transportauftrag.getTransportAuftragNr() + ", auftrag="
-				+ auftrag.getAuftragsNr() + "]";
+				+ transportauftrag.getTransportAuftragNr()+ /* ", auftrag="
+				+ auftrag.getAuftragsNr() + */"]";
 	}
 
 }

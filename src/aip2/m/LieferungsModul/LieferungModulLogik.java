@@ -2,7 +2,6 @@ package aip2.m.LieferungsModul;
 
 import java.util.Date;
 
-import aip2.m.AngebotAuftragModul.IAuftrag;
 
 final class LieferungModulLogik {
 
@@ -28,7 +27,7 @@ final class LieferungModulLogik {
 		return true;
 	}
 
-	public ILieferung erzeugeLieferung(IAuftrag auftrag) {
+	public ILieferung erzeugeLieferung() {
 		Transportauftrag transportauftrag = transportauftragVerwalter
 				.erstelleTransportauftrag(new Date(), "DLH");
 

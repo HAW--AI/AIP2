@@ -90,6 +90,7 @@ public final class Szenario_SystemTest {
 		// Call Agent erstellt Angebot
 		Map<ProduktTyp, Integer> pMap = new HashMap<ProduktTyp, Integer>();
 		pMap.put(produktL.get(0), 1000);
+		pMap.put(produktL.get(1), 100);
 		AngebotTyp angebot = hes.getIAngebotAuftragModulExtern()
 				.erstelleAngebot(kundenL.get(0), new Date(), pMap, 1000000);
 		assertTrue(angebot != null);

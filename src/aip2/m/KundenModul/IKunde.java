@@ -1,8 +1,5 @@
 package aip2.m.KundenModul;
 
-import java.util.Set;
-import aip2.m.AngebotAuftragModul.IAngebot;
-
 /**
  * Read only Sicht auf einen Kunden
  * 
@@ -30,11 +27,11 @@ public interface IKunde {
 	 */
 	String getAdresse();
 
-	/**
-	 * Gibt die dem Kunden gemachten Angebote zurück
-	 * 
-	 * @return Eine Menge der Angebote des Kunden
-	 */
-	Set<IAngebot> getAngebote();
+//	/**
+//	 * Gibt die dem Kunden gemachten Angebote zurück
+//	 * 
+//	 * @return Eine Menge der Angebote des Kunden
+//	 */
+//	Set<IAngebot> getAngebote();
 
 }
