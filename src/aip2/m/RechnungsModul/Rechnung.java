@@ -2,17 +2,16 @@ package aip2.m.RechnungsModul;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
-//import org.hibernate.annotations.CascadeType;
-//import org.hibernate.annotations.Cascade;
 
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
 /**
  * Rechnung Entität inklusive Speicherung in der DB
- *
+ * 
  */
 @Entity
 @Table(name = "Rechnung")
@@ -33,7 +32,7 @@ public final class Rechnung implements IRechnung {
 	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
 	private Set<Zahlungseingang> zahlungseingaenge;
 
-//	 @Cascade({CascadeType.SAVE_UPDATE})
+	// @Cascade({CascadeType.SAVE_UPDATE})
 	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
 	private IAuftrag auftrag;
 
@@ -50,6 +49,7 @@ public final class Rechnung implements IRechnung {
 		this.istBezahlt = false;
 		this.auftrag = auftrag;
 		this.preis = auftrag.getAngebot().getGesamtpreis();
+		this.zahlungseingaenge = new HashSet<Zahlungseingang>();
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public final class Rechnung implements IRechnung {
 	public String toString() {
 		return "Rechnung [nr=" + nr + ", rechnungsDatum=" + rechnungsDatum
 				+ ", istBezahlt=" + istBezahlt + ", zahlungseingaenge="
-				+ zahlungseingaenge + ", auftrag=" + auftrag + "]";
+				+ zahlungseingaenge + "]";
 	}
 
 }

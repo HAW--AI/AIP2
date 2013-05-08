@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+//import org.hibernate.annotations.CascadeType;
+//import org.hibernate.annotations.Cascade;
+
 /**
  * Zahlungseingang Entität inklusive Speicherung in der DB
- *
+ * 
  */
 @Entity
 @Table(name = "Zahlungseingang")
@@ -24,6 +27,7 @@ public final class Zahlungseingang implements IZahlungseingang {
 
 	@JoinColumn
 	@ManyToOne(targetEntity = Rechnung.class)
+	// @Cascade({ CascadeType.SAVE_UPDATE })
 	private IRechnung rechnung;
 
 	/**
@@ -34,7 +38,6 @@ public final class Zahlungseingang implements IZahlungseingang {
 	}
 
 	Zahlungseingang(Date eingangsDatum, int betragCent) {
-		super();
 		this.eingangsDatum = eingangsDatum;
 		this.betragCent = betragCent;
 	}
@@ -96,7 +99,8 @@ public final class Zahlungseingang implements IZahlungseingang {
 	@Override
 	public String toString() {
 		return "Zahlungseingang [nr=" + nr + ", eingangsDatum=" + eingangsDatum
-				+ ", betragCent=" + betragCent + ", rechnung=" + rechnung + "]";
+				+ ", betragCent=" + betragCent + ", rechnung="
+				+ rechnung.getRechnungsNr() + "]";
 	}
 
 }

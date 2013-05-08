@@ -17,12 +17,12 @@ final class RechnungModulLogik {
 
 	IRechnung verbucheTeilZahlungseingang(int rechnungsNr,
 			IZahlungseingang izahlungseingang) {
+
 		Rechnung rechnung = rechnungVerwalter.sucheRechnung(rechnungsNr);
 		Zahlungseingang zahlungseingang = zahlungseingangVerwalter
 				.getZahlungseingang(izahlungseingang.getZahlungseingangNr());
 
 		zahlungseingang.setRechnung(rechnung);
-
 		zahlungseingangVerwalter.updateZahlungsEingang(zahlungseingang);
 
 		rechnung.addZahlungseingang(zahlungseingang);
@@ -37,7 +37,6 @@ final class RechnungModulLogik {
 			rechnung.setIstBezahlt(true);
 			rechnungVerwalter.updateRechnung(rechnung);
 		}
-
 		return rechnung;
 	}
 }

@@ -119,6 +119,8 @@ final class RechnungModulFassade implements IRechnungsModulIntern,
 			IRechnung rechnung = rechnungModulLogik
 					.verbucheTeilZahlungseingang(rechnungsNr, zahlungseingang);
 
+			System.out.println(zahlungseingang);
+			System.out.println(rechnung);
 			if (myTransaction)
 				transaktion.commitTransaction();
 

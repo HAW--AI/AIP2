@@ -117,10 +117,10 @@ public class Transportauftrag implements ITransportauftrag {
 
 	@Override
 	public String toString() {
-		return "Transportauftrag [nr=" + nr + ", lieferung=" + lieferung
-				+ ", ausgangsDatum=" + ausgangsDatum + ", lieferungErfolgt="
-				+ lieferungErfolgt + ", lieferDatum=" + lieferDatum
-				+ ", transportDienstleister=" + transportDienstleister + "]";
+		return "Transportauftrag [nr=" + nr + ", ausgangsDatum="
+				+ ausgangsDatum + ", lieferungErfolgt=" + lieferungErfolgt
+				+ ", lieferDatum=" + lieferDatum + ", transportDienstleister="
+				+ transportDienstleister + "]";
 	}
 
 }
