@@ -1,7 +1,6 @@
 package aip2.m.WarenmeldungsModul;
 
 import java.util.Date;
-import java.util.List;
 
 import aip2.m.BestellungsModul.IBestellung;
 import aip2.m.PersistenzModul.IPersistenzIntern;
@@ -34,19 +33,12 @@ final class WarenmeldungsVerwalter {
 		return m;
 	}
 
-	List<Wareneingangsmeldung> sucheWareneingangsmeldungen(IBestellung bestellung) {
-		return persistenzManager.getFromWhere(Wareneingangsmeldung.class, "bestellung_id", bestellung.getBestellNr());
-	}
-
-	WareneingangsmeldungTyp getWareneingangsmeldungTyp(IWareneingangsmeldung wareneingangsmeldung) {
-		WareneingangsmeldungTyp wareneingangsmeldungTyp = new WareneingangsmeldungTyp(wareneingangsmeldung.getWareneingangsmeldungNr(),
-				wareneingangsmeldung.getDatum(), wareneingangsmeldung.getMenge(),
-				wareneingangsmeldung.getLieferschein(), wareneingangsmeldung.getBestellung());
-		return wareneingangsmeldungTyp;
-	}
-
-	Wareneingangsmeldung getWareneingangsmeldungById(int nr) {
-		return persistenzManager.getById(Wareneingangsmeldung.class, nr);
-	}
+//	List<Wareneingangsmeldung> sucheWareneingangsmeldungen(IBestellung bestellung) {
+//		return persistenzManager.getFromWhere(Wareneingangsmeldung.class, "bestellung_id", bestellung.getBestellNr());
+//	}
+//
+//	Wareneingangsmeldung getWareneingangsmeldungById(int nr) {
+//		return persistenzManager.getById(Wareneingangsmeldung.class, nr);
+//	}
 
 }
