@@ -16,6 +16,8 @@ public final class AuftragTyp {
 
 	private int rechnungsNr;
 
+	private int angebotsNr;
+
 	// private ILieferung lieferung;
 	//
 	// private IRechnung rechnung;
@@ -23,7 +25,7 @@ public final class AuftragTyp {
 	// private IAngebot angebot;
 
 	AuftragTyp(int nr, boolean abgeschlossen, Date beauftragtAm,
-			int lieferungsNr, int rechnungsNr
+			int lieferungsNr, int rechnungsNr, int angebotsNr
 	/* , ILieferung lieferung, IRechnung rechnung, IAngebot angebot */) {
 		this.nr = nr;
 		this.abgeschlossen = abgeschlossen;
@@ -33,6 +35,7 @@ public final class AuftragTyp {
 		// this.angebot = angebot;
 		this.lieferungsNr = lieferungsNr;
 		this.rechnungsNr = rechnungsNr;
+		this.angebotsNr = angebotsNr;
 	}
 
 	public int getAuftragsNr() {
@@ -65,6 +68,10 @@ public final class AuftragTyp {
 
 	public int getRechnungsNr() {
 		return rechnungsNr;
+	}
+
+	public int getAngebotsNr() {
+		return angebotsNr;
 	}
 
 	@Override

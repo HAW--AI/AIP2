@@ -25,6 +25,7 @@ import aip2.m.KundenModul.KundenTyp;
 import aip2.m.LieferungsModul.LieferungModul;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.RechnungsModul.RechnungModul;
+import aip2.m.RechnungsModul.RechnungTyp;
 
 public final class Szenario_SystemTest {
 
@@ -74,7 +75,7 @@ public final class Szenario_SystemTest {
 		Set<KundenTyp> kundenS = new HashSet<KundenTyp>(kundenL);
 		// assertTrue(kunden.equals(kundenS));
 		for (KundenTyp kundenTyp : kunden) {
-			assert (kundenS.contains(kundenTyp));
+			assertTrue(kundenS.contains(kundenTyp));
 		}
 
 		// Call Agent sucht das Produkt
@@ -83,7 +84,7 @@ public final class Szenario_SystemTest {
 		Set<ProduktTyp> produktS = new HashSet<ProduktTyp>(produktL);
 		// assertTrue(produkte.equals(produktS));
 		for (ProduktTyp produktTyp : produkte) {
-			assert (produktS.contains(produktTyp));
+			assertTrue(produktS.contains(produktTyp));
 		}
 
 		// Call Agent erstellt Angebot
@@ -93,23 +94,30 @@ public final class Szenario_SystemTest {
 				.erstelleAngebot(kundenL.get(0), new Date(), pMap, 1000000);
 		assertTrue(angebot != null);
 
-		// Call Agent sucht wieder Kunden
+		// 2 Wochen später, Call Agent sucht wieder Kunden
+		List<KundenTyp> kundenL2 = hes.getIKundenModulExtern().sucheKunden(
+				"Meier");
+		KundenTyp kunde = kundenL2.get(0);
 
 		// Call Agent sucht das Angebot
 		List<AngebotTyp> angebote = new ArrayList<AngebotTyp>();
 		angebote.add(angebot);
 		List<AngebotTyp> angebotsListe = hes.getIAngebotAuftragModulExtern()
-				.sucheAngebote(kundenL.get(0));
+				.sucheAngebote(kunde);
 		// assertTrue(angebote.equals(angebotsListe));
 
 		for (AngebotTyp angebotTyp : angebote) {
 			assert (angebotsListe.contains(angebotTyp));
 		}
+		AngebotTyp angenommenesAngebot = angebote.get(0);
 
 		// Call Agent erstellt Auftrag
 		AuftragTyp auftrag = hes.getIAngebotAuftragModulExtern()
-				.erstelleAuftrag(angebot);
+				.erstelleAuftrag(angenommenesAngebot);
 		assertTrue(auftrag != null);
+		assertFalse(auftrag.isAbgeschlossen());
+		assertEquals(angenommenesAngebot.getAngebotsNr(),
+				auftrag.getAngebotsNr());
 
 		// EXTERNE SCHRITTE
 		// Lieferung wird abgeliefert
@@ -118,14 +126,46 @@ public final class Szenario_SystemTest {
 		HapSpar.ueberweise(auftrag.getRechnungsNr(), new int[] { 1000000 });
 		// ENDE EXTERNE SCHRITTE
 
+		// Adapter BatchJobs
 		// Hole Lieferungen
 		LieferungModul.getTransportdienstleisterAdapter().jedeNacht();
 		// Rechnungen begleichen
 		RechnungModul.getBankAdapter().jedeNacht();
 
-		System.out.println(auftrag);
+		// Buchhaltung dursucht alle bezahlten Rechnungen
+		List<RechnungTyp> bezahlteRechnungen = hes.getIRechnungsModulExtern()
+				.sucheBezahlteRechnungen();
+		RechnungTyp auftragsRechnung = null;
+		for (RechnungTyp rechnungTyp : bezahlteRechnungen) {
+			if (rechnungTyp.getAuftragNr() == auftrag.getAuftragsNr())
+				auftragsRechnung = rechnungTyp;
+		}
+		assertTrue(auftragsRechnung != null);
+		assertTrue(auftragsRechnung.getAuftragNr() == auftrag.getAuftragsNr());
+		assertTrue(auftragsRechnung.isIstBezahlt());
 
-		// Tests um zu prüfen, ob das tatsächlich in der DB ist (?)
+		// Buchhaltung sucht den zur Rechnung gehörenden Auftrag
+		List<AuftragTyp> buchhaltungsAuftrage = hes
+				.getIAngebotAuftragModulExtern().sucheAuftraege(
+						auftragsRechnung.getAuftragNr());
+		assertTrue(buchhaltungsAuftrage.size() == 1);
+
+		AuftragTyp buchhaltungsAuftrag = buchhaltungsAuftrage.get(0);
+		assertTrue(buchhaltungsAuftrag.getAuftragsNr() == auftrag
+				.getAuftragsNr());
+
+		// Buchhaltung markiert Auftrag als abgeschlossen
+		boolean abSchluss = hes.getIAngebotAuftragModulExtern()
+				.schliesseAbAuftrag(buchhaltungsAuftrag);
+		assertTrue(abSchluss);
+
+		// ALLES Erledigt Auftrag abgeschlossen
+
+		List<AuftragTyp> kontrolleAuftrage = hes
+				.getIAngebotAuftragModulExtern().sucheAuftraege(
+						buchhaltungsAuftrag.getAuftragsNr());
+		assertTrue(kontrolleAuftrage.size() == 1);
+		AuftragTyp finalAuftrag = kontrolleAuftrage.get(0);
+		assertTrue(finalAuftrag.isAbgeschlossen());
 	}
-
 }

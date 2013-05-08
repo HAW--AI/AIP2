@@ -1,6 +1,9 @@
 package aip2.m.InterfacesExtern;
 
 import java.util.Date;
+import java.util.List;
+
+import aip2.m.RechnungsModul.RechnungTyp;
 
 /**
  * Stellt Methoden des RechnungsModul für externe Benutzer bereit
@@ -28,4 +31,10 @@ public interface IRechnungsModulExtern {
 	boolean erzeugeZahlungsEingangUndVerbuche(int rechnungsNr, Date datum,
 			int betragCent);
 
+	/**
+	 * Sucht alle bezahlten Rechnungen
+	 * 
+	 * @return eine leere Liste, oder alle jemals bezahlten Rechnungen
+	 */
+	List<RechnungTyp> sucheBezahlteRechnungen();
 }

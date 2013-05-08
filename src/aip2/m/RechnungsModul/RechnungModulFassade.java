@@ -1,6 +1,7 @@
 package aip2.m.RechnungsModul;
 
 import java.util.Date;
+import java.util.List;
 
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
@@ -129,5 +130,10 @@ final class RechnungModulFassade implements IRechnungsModulIntern,
 			transaktion.rollbackTransaction();
 		}
 		return false;
+	}
+
+	@Override
+	public List<RechnungTyp> sucheBezahlteRechnungen() {
+		return rechnungModulLogik.sucheBezahlteRechnungen();
 	}
 }

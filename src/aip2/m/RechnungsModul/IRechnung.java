@@ -33,6 +33,13 @@ public interface IRechnung {
 	boolean isIstBezahlt();
 
 	/**
+	 * Liefert den Betrag der Rechnug in Cent
+	 * 
+	 * @return preis in Cent
+	 */
+	int getPreis();
+
+	/**
 	 * Liefert den der Rechnung zugehörigen Auftrag
 	 * 
 	 * @return der Auftrag

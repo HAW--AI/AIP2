@@ -1,5 +1,8 @@
 package aip2.m.RechnungsModul;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Die Logik der Rechnugs Komponente
  * 
@@ -38,5 +41,16 @@ final class RechnungModulLogik {
 			rechnungVerwalter.updateRechnung(rechnung);
 		}
 		return rechnung;
+	}
+
+	List<RechnungTyp> sucheBezahlteRechnungen() {
+		List<Rechnung> listRechnungen = rechnungVerwalter
+				.sucheBezahlteRechnungen();
+		List<RechnungTyp> rechnungsTypListe = new ArrayList<RechnungTyp>();
+		for (IRechnung iRechnung : listRechnungen) {
+			RechnungTyp rt = rechnungVerwalter.getRechnungsTyp(iRechnung);
+			rechnungsTypListe.add(rt);
+		}
+		return rechnungsTypListe;
 	}
 }
