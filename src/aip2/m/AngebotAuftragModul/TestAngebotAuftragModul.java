@@ -5,12 +5,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import aip2.m.TransaktionModul.ITransaktionIntern;
-
 public class TestAngebotAuftragModul {
 
 	// private static IPersistenzSessionIntern persistenzSession;
-	private static ITransaktionIntern transaktion;
+	// private static ITransaktionIntern transaktion;
 
 	// private static AngebotAuftragModulLogik angebotAuftragModulLogik;
 	// private static AngebotVerwalter angebotVerwalter;
@@ -41,12 +39,12 @@ public class TestAngebotAuftragModul {
 
 	@Before
 	public void setUp() throws Exception {
-		transaktion.startTransaction();
+		// transaktion.startTransaction();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		transaktion.rollbackTransaction();
+		// transaktion.rollbackTransaction();
 	}
 
 	@Test
