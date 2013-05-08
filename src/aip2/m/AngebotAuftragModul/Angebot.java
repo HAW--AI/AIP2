@@ -47,7 +47,6 @@ public final class Angebot implements IAngebot {
 	// //Lets get CRAZY!!!
 	// @MapKeyType(@Type(parameters = {@Parameter(value =
 	// "aip2.m.ProduktModul.Produkt", name = "")}, type = ""))
-	// TODO teste wie DB die Map speichert?
 	// @Transient
 	@ElementCollection
 	@MapKeyClass(Produkt.class)
@@ -154,8 +153,9 @@ public final class Angebot implements IAngebot {
 	@Override
 	public String toString() {
 		return "Angebot [nr=" + nr + ", gesamtPreisCent=" + gesamtPreisCent
-				+ ", auftrag=" + auftrag + ", kunde=" + kunde + ", produkte="
-				+ produkte + ", getGueltigAbDatum()=" + gueltigAb
+				+ ", auftrag=" + auftrag.getAuftragsNr() + ", kunde="
+				+ kunde.getKundenNr() + ", produkte=" + produkte
+				+ ", getGueltigAbDatum()=" + gueltigAb
 				+ ", getGueltigBisDatum()=" + gueltigBis + "]";
 	}
 

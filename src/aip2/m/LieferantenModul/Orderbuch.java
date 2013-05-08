@@ -1,5 +1,6 @@
 package aip2.m.LieferantenModul;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -8,7 +9,7 @@ import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "bestellung")
-public class Orderbuch implements IOrderbuch {
+public final class Orderbuch implements IOrderbuch {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +20,7 @@ public class Orderbuch implements IOrderbuch {
 	private IProdukt produkt;
 
 	@OneToMany(mappedBy = "orderbuch", targetEntity = Orderbuchsatz.class)
-	private Set<Orderbuchsatz> orderbuchsaetze;
+	private Set<IOrderbuchsatz> orderbuchsaetze;
 
 	/**
 	 * For Hibernate
@@ -31,6 +32,7 @@ public class Orderbuch implements IOrderbuch {
 	public Orderbuch(IProdukt produkt) {
 		super();
 		this.produkt = produkt;
+		this.orderbuchsaetze = new HashSet<IOrderbuchsatz>();
 	}
 
 	@Override
@@ -48,11 +50,11 @@ public class Orderbuch implements IOrderbuch {
 	}
 
 	@Override
-	public Set<Orderbuchsatz> getOrderbuchsaetze() {
+	public Set<IOrderbuchsatz> getOrderbuchsaetze() {
 		return orderbuchsaetze;
 	}
 
-	void setOrderbuchsaetze(Set<Orderbuchsatz> orderbuchsaetze) {
+	void setOrderbuchsaetze(Set<IOrderbuchsatz> orderbuchsaetze) {
 		this.orderbuchsaetze = orderbuchsaetze;
 	}
 
@@ -80,8 +82,8 @@ public class Orderbuch implements IOrderbuch {
 
 	@Override
 	public String toString() {
-		return "Orderbuch [nr=" + nr + ", produkt=" + produkt
-				+ ", orderbuchsaetze=" + orderbuchsaetze + "]";
+		return "Orderbuch [nr=" + nr + ", produkt=" + produkt.getProduktNr()
+				+ "]";
 	}
 
 }

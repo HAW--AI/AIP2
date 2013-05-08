@@ -87,26 +87,26 @@ final class RechnungModulFassade implements IRechnungsModulIntern,
 		return false;
 	}
 
-//	@Override
-//	public IZahlungseingang erzeugeZahlungsEingangReturn(Date datum,
-//			int betragCent) {
-//		try {
-//			boolean myTransaction = transaktion.checkStartMyTransaction();
-//
-//			IZahlungseingang zahlungseingang = zahlungseingangVerwalter
-//					.erstelleZahlungsEingang(datum, betragCent);
-//
-//			if (myTransaction)
-//				transaktion.commitTransaction();
-//
-//			if (zahlungseingang != null)
-//				return zahlungseingang;
-//
-//		} catch (Exception e) {
-//			transaktion.rollbackTransaction();
-//		}
-//		return null;
-//	}
+	// @Override
+	// public IZahlungseingang erzeugeZahlungsEingangReturn(Date datum,
+	// int betragCent) {
+	// try {
+	// boolean myTransaction = transaktion.checkStartMyTransaction();
+	//
+	// IZahlungseingang zahlungseingang = zahlungseingangVerwalter
+	// .erstelleZahlungsEingang(datum, betragCent);
+	//
+	// if (myTransaction)
+	// transaktion.commitTransaction();
+	//
+	// if (zahlungseingang != null)
+	// return zahlungseingang;
+	//
+	// } catch (Exception e) {
+	// transaktion.rollbackTransaction();
+	// }
+	// return null;
+	// }
 
 	@Override
 	public boolean erzeugeZahlungsEingangUndVerbuche(int rechnungsNr,
@@ -119,8 +119,6 @@ final class RechnungModulFassade implements IRechnungsModulIntern,
 			IRechnung rechnung = rechnungModulLogik
 					.verbucheTeilZahlungseingang(rechnungsNr, zahlungseingang);
 
-			System.out.println(zahlungseingang);
-			System.out.println(rechnung);
 			if (myTransaction)
 				transaktion.commitTransaction();
 

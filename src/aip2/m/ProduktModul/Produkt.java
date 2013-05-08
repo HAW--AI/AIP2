@@ -27,7 +27,6 @@ public class Produkt implements IProdukt {
 
 	private int lagerbestand;
 
-	//TODO
 	@Transient 
 	@ManyToMany(mappedBy = "produkte", targetEntity = Angebot.class)
 	private Set<IAngebot> angebote;
@@ -155,7 +154,7 @@ public class Produkt implements IProdukt {
 		return "Produkt [nr=" + nr + ", name=" + name + ", lagerbestand="
 				+ lagerbestand + ", warenausgangsmeldungen="
 				+ warenausgangsmeldungen + ", bestellungen=" + bestellungen
-				+ ", orderbuch=" + orderbuch + ", einkaufsinfosaetze="
+				+ ", orderbuch=" + orderbuch.getOrderBuchNr() + ", einkaufsinfosaetze="
 				+ einkaufsinfosaetze + "]";
 	}
 

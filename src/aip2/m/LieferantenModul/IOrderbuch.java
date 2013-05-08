@@ -10,6 +10,6 @@ public interface IOrderbuch {
 
 	IProdukt getProdukt();
 
-	Set<Orderbuchsatz> getOrderbuchsaetze();
+	Set<IOrderbuchsatz> getOrderbuchsaetze();
 
 }

@@ -8,7 +8,7 @@ import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "warenausgangsmeldung")
-public class Warenausgangsmeldung implements IWarenausgangsmeldung {
+public final class Warenausgangsmeldung implements IWarenausgangsmeldung {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -95,7 +95,7 @@ public class Warenausgangsmeldung implements IWarenausgangsmeldung {
 	@Override
 	public String toString() {
 		return "Warenausgangsmeldung [nr=" + nr + ", datum=" + datum
-				+ ", menge=" + menge + ", produkt=" + produkt + "]";
+				+ ", menge=" + menge + ", produkt=" + produkt.getProduktNr() + "]";
 	}
 
 }

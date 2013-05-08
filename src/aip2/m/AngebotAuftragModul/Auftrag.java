@@ -10,7 +10,7 @@ import aip2.m.RechnungsModul.Rechnung;
 
 /**
  * Auftrags Entität inklusive Speicherung in der DB
- *
+ * 
  */
 @Entity
 @Table(name = "Auftrag")
@@ -126,8 +126,10 @@ public final class Auftrag implements IAuftrag {
 	@Override
 	public String toString() {
 		return "Auftrag [nr=" + nr + ", abgeschlossen=" + abgeschlossen
-				+ ", beauftragtAm=" + beauftragtAm + ", lieferung=" + lieferung
-				+ ", rechnung=" + rechnung + ", angebot=" + angebot + "]";
+				+ ", beauftragtAm=" + beauftragtAm + ", lieferung="
+				+ lieferung.getLieferungsNr() + ", rechnung="
+				+ rechnung.getRechnungsNr() + ", angebot="
+				+ angebot.getAngebotsNr() + "]";
 	}
 
 }

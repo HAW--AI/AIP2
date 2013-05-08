@@ -1,5 +1,6 @@
 package aip2.m.LieferantenModul;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -8,7 +9,7 @@ import aip2.m.BestellungsModul.IBestellung;
 
 @Entity
 @Table(name = "lieferant")
-public class Lieferant implements ILieferant {
+public final class Lieferant implements ILieferant {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,13 +38,15 @@ public class Lieferant implements ILieferant {
 	private Lieferant() {
 	}
 
-	public Lieferant(String name, String adresse,
-			String kontoverbindung, Set<IEinkaufsinfosatz> einkaufsinfosaetze) {
+	public Lieferant(String name, String adresse, String kontoverbindung,
+			Set<IEinkaufsinfosatz> einkaufsinfosaetze) {
 		super();
 		this.name = name;
 		this.adresse = adresse;
 		this.kontoverbindung = kontoverbindung;
 		this.einkaufsinfosaetze = einkaufsinfosaetze;
+		this.orderbuchsaetze = new HashSet<IOrderbuchsatz>();
+		this.bestellungen = new HashSet<IBestellung>();
 	}
 
 	@Override
@@ -129,9 +132,7 @@ public class Lieferant implements ILieferant {
 	@Override
 	public String toString() {
 		return "Lieferant [nr=" + nr + ", name=" + name + ", adresse="
-				+ adresse + ", kontoverbindung=" + kontoverbindung
-				+ ", einkaufsinfosaetze=" + einkaufsinfosaetze
-				+ ", orderbuchsaetze=" + orderbuchsaetze + "]";
+				+ adresse + ", kontoverbindung=" + kontoverbindung + "]";
 	}
 
 }

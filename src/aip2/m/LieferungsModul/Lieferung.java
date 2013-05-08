@@ -75,8 +75,9 @@ public final class Lieferung implements ILieferung {
 
 	@Override
 	public String toString() {
-		return "Lieferung [nr=" + nr + ", transportauftrag=" + transportauftrag
-				+ ", auftrag=" + auftrag + "]";
+		return "Lieferung [nr=" + nr + ", transportauftrag="
+				+ transportauftrag.getTransportAuftragNr() + ", auftrag="
+				+ auftrag.getAuftragsNr() + "]";
 	}
 
 }

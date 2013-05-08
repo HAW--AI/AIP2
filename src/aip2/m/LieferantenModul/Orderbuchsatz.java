@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "orderbuchsatz")
-public class Orderbuchsatz implements IOrderbuchsatz {
+public final class Orderbuchsatz implements IOrderbuchsatz {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -110,8 +110,9 @@ public class Orderbuchsatz implements IOrderbuchsatz {
 	@Override
 	public String toString() {
 		return "Orderbuchsatz [nr=" + nr + ", gueltigAb=" + gueltigAb
-				+ ", gueltigBis=" + gueltigBis + ", orderbuch=" + orderbuch
-				+ ", lieferant=" + lieferant + "]";
+				+ ", gueltigBis=" + gueltigBis + ", orderbuch="
+				+ orderbuch.getOrderBuchNr() + ", lieferant="
+				+ lieferant.getLieferantenNr() + "]";
 	}
 
 }

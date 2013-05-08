@@ -120,7 +120,7 @@ public class Transportauftrag implements ITransportauftrag {
 		return "Transportauftrag [nr=" + nr + ", ausgangsDatum="
 				+ ausgangsDatum + ", lieferungErfolgt=" + lieferungErfolgt
 				+ ", lieferDatum=" + lieferDatum + ", transportDienstleister="
-				+ transportDienstleister + "]";
+				+ transportDienstleister + "lieferungsNr="
+				+ lieferung.getLieferungsNr() + "]";
 	}
-
 }

@@ -9,7 +9,7 @@ import aip2.m.ProduktModul.Produkt;
 
 @Entity
 @Table(name = "einkaufsinfosatz")
-public class Einkaufsinfosatz implements IEinkaufsinfosatz {
+public final class Einkaufsinfosatz implements IEinkaufsinfosatz {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -152,8 +152,8 @@ public class Einkaufsinfosatz implements IEinkaufsinfosatz {
 		return "Einkaufsinfosatz [nr=" + nr + ", gueltigAb=" + gueltigAb
 				+ ", gueltigBis=" + gueltigBis + ", planlieferzeit="
 				+ planlieferzeit + ", normalmenge=" + normalmenge + ", preis="
-				+ preis + ", produkt=" + produkt + ", lieferant=" + lieferant
-				+ "]";
+				+ preis + ", produkt=" + produkt.getProduktNr()
+				+ ", lieferant=" + lieferant.getLieferantenNr() + "]";
 	}
 
 }

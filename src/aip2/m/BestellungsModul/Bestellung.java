@@ -12,7 +12,7 @@ import aip2.m.WarenmeldungsModul.Wareneingangsmeldung;
 
 @Entity
 @Table(name = "bestellung")
-public class Bestellung implements IBestellung {
+public final class Bestellung implements IBestellung {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -140,8 +140,9 @@ public class Bestellung implements IBestellung {
 	public String toString() {
 		return "Bestellung [nr=" + nr + ", bestelldatum=" + bestelldatum
 				+ ", menge=" + menge + ", freigabe=" + freigabe + ", produkt="
-				+ produkt + ", wareneingangsmeldung=" + wareneingangsmeldung
-				+ ", lieferant=" + lieferant + "]";
+				+ produkt.getProduktNr() + ", wareneingangsmeldung="
+				+ wareneingangsmeldung.getWareneingangsmeldungNr()
+				+ ", lieferant=" + lieferant.getLieferantenNr() + "]";
 	}
 
 }

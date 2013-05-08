@@ -8,7 +8,7 @@ import aip2.m.BestellungsModul.IBestellung;
 
 @Entity
 @Table(name = "wareneingangsmeldung")
-public class Wareneingangsmeldung implements IWareneingangsmeldung {
+public final class Wareneingangsmeldung implements IWareneingangsmeldung {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -106,7 +106,7 @@ public class Wareneingangsmeldung implements IWareneingangsmeldung {
 	public String toString() {
 		return "Wareneingangsmeldung [nr=" + nr + ", datum=" + datum
 				+ ", menge=" + menge + ", Lieferschein=" + Lieferschein
-				+ ", bestellung=" + bestellung + "]";
+				+ ", bestellung=" + bestellung.getBestellNr() + "]";
 	}
 
 }
