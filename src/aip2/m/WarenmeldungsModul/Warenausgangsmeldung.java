@@ -20,7 +20,7 @@ public final class Warenausgangsmeldung implements IWarenausgangsmeldung {
 
 	private int menge;
 
-	@JoinColumn
+//	@JoinColumn
 	@ManyToOne(targetEntity = Produkt.class)
 	private IProdukt produkt;
 

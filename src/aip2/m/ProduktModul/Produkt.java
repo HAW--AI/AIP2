@@ -31,6 +31,7 @@ public class Produkt implements IProdukt {
 	@ManyToMany(mappedBy = "produkte", targetEntity = Angebot.class)
 	private Set<IAngebot> angebote;
 
+	@JoinColumn
 	@OneToMany(targetEntity = Warenausgangsmeldung.class)
 	private Set<IWarenausgangsmeldung> warenausgangsmeldungen;
 
