@@ -7,9 +7,11 @@ import java.util.Map;
 
 import aip2.m.KundenModul.IKunde;
 import aip2.m.KundenModul.KundenTyp;
+import aip2.m.LieferungsModul.ILieferung;
 import aip2.m.LieferungsModul.ILieferungModulIntern;
 import aip2.m.ProduktModul.IProdukt;
 import aip2.m.ProduktModul.IProduktModulIntern;
+import aip2.m.RechnungsModul.IRechnung;
 import aip2.m.RechnungsModul.IRechnungsModulIntern;
 
 /**
@@ -78,8 +80,12 @@ final class AngebotAuftragModulLogik {
 		for (IProdukt p : angebot.getProdukte().keySet()) {
 			iProduktModulIntern.lagereAusProdukt(p, angebot.getProdukte().get(p));
 		}		
-		iLieferungModulIntern.erzeugeLieferung(auftrag); // ???
-		iRechnungsModulIntern.erzeugeRechnung(auftrag);
+		ILieferung lieferung = iLieferungModulIntern.erzeugeLieferung(auftrag);
+		IRechnung rechnung = iRechnungsModulIntern.erzeugeRechnung(auftrag);
+		auftrag.setLieferung(lieferung);
+		auftrag.setRechnung(rechnung);
+		
+		auftragVerwalter.update(auftrag);
 		
 		return auftragVerwalter.getAuftragTyp(auftrag);
 	}

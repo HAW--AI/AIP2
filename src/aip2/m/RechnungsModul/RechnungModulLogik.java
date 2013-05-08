@@ -25,6 +25,9 @@ final class RechnungModulLogik {
 
 		zahlungseingangVerwalter.updateZahlungsEingang(zahlungseingang);
 
+		rechnung.addZahlungseingang(zahlungseingang);
+		rechnungVerwalter.updateRechnung(rechnung);
+
 		int bezahlt = 0;
 		for (IZahlungseingang zahlung : rechnung.getZahlungseingaenge()) {
 			bezahlt += zahlung.getBetragCent();

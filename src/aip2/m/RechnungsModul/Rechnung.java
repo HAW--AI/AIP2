@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
+//import org.hibernate.annotations.CascadeType;
+//import org.hibernate.annotations.Cascade;
 
 import aip2.m.AngebotAuftragModul.Auftrag;
 import aip2.m.AngebotAuftragModul.IAuftrag;
@@ -31,7 +33,7 @@ public final class Rechnung implements IRechnung {
 	@OneToMany(mappedBy = "rechnung", targetEntity = Zahlungseingang.class)
 	private Set<Zahlungseingang> zahlungseingaenge;
 
-	// @Cascade({CascadeType.SAVE_UPDATE})
+//	 @Cascade({CascadeType.SAVE_UPDATE})
 	@OneToOne(mappedBy = "rechnung", targetEntity = Auftrag.class)
 	private IAuftrag auftrag;
 

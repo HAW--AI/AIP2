@@ -1,7 +1,5 @@
 package aip2.m.RechnungsModul;
 
-import java.util.Date;
-
 import aip2.m.AngebotAuftragModul.IAuftrag;
 
 /**
@@ -18,14 +16,15 @@ public interface IRechnungsModulIntern {
 	 */
 	IRechnung erzeugeRechnung(IAuftrag auftrag);
 
-	/**
-	 * Erzeugt eine Zahlungseingang und liefert ihn zurück
-	 * 
-	 * @param datum
-	 * @param betragCent
-	 * @return der Zahlungseingang oder null bei Misserfolg
-	 */
-	IZahlungseingang erzeugeZahlungsEingangReturn(Date datum, int betragCent);
+	// /**
+	// * Erzeugt eine Zahlungseingang und liefert ihn zurück
+	// *
+	// * @param datum
+	// * @param betragCent
+	// * @return der Zahlungseingang oder null bei Misserfolg
+	// */
+	// IZahlungseingang erzeugeZahlungsEingangReturn(Date datum, int
+	// betragCent);
 
 	/**
 	 * Ordnet der Rechnung mit der Nr den Zahlungseingang zu ... plus gucke ob

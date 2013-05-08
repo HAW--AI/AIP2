@@ -12,13 +12,18 @@ public final class AuftragTyp {
 
 	private Date beauftragtAm;
 
+	private int lieferungsNr;
+
+	private int rechnungsNr;
+
 	// private ILieferung lieferung;
 	//
 	// private IRechnung rechnung;
 	//
 	// private IAngebot angebot;
 
-	AuftragTyp(int nr, boolean abgeschlossen, Date beauftragtAm
+	AuftragTyp(int nr, boolean abgeschlossen, Date beauftragtAm,
+			int lieferungsNr, int rechnungsNr
 	/* , ILieferung lieferung, IRechnung rechnung, IAngebot angebot */) {
 		this.nr = nr;
 		this.abgeschlossen = abgeschlossen;
@@ -26,6 +31,8 @@ public final class AuftragTyp {
 		// this.lieferung = lieferung;
 		// this.rechnung = rechnung;
 		// this.angebot = angebot;
+		this.lieferungsNr = lieferungsNr;
+		this.rechnungsNr = rechnungsNr;
 	}
 
 	public int getAuftragsNr() {
@@ -51,6 +58,14 @@ public final class AuftragTyp {
 	// public IAngebot getAngebot() {
 	// return angebot;
 	// }
+
+	public int getLieferungsNr() {
+		return lieferungsNr;
+	}
+
+	public int getRechnungsNr() {
+		return rechnungsNr;
+	}
 
 	@Override
 	public int hashCode() {

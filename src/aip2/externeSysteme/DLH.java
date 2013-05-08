@@ -4,10 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DLH {
-	public static List<Integer> getLieferungen() {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(1);
-		list.add(2);
-		return list;
+
+	private static List<Integer> abgelieferteLieferungsNr = new ArrayList<Integer>();
+
+	public static List<Integer> getAbgelieferteLieferungen() {
+		return abgelieferteLieferungsNr;
+	}
+
+	public static boolean lieferantHatAbgeliefertNr(int lieferungsNr) {
+		abgelieferteLieferungsNr.add(lieferungsNr);
+		return true;
+	}
+
+	public static boolean abgelieferteLieferungenAbgeholt() {
+		abgelieferteLieferungsNr.clear();
+		return true;
 	}
 }

@@ -24,7 +24,9 @@ final class AuftragVerwalter {
 
 	AuftragTyp getAuftragTyp(Auftrag auftrag) {
 		AuftragTyp auftragTyp = new AuftragTyp(auftrag.getAuftragsNr(),
-				auftrag.isAbgeschlossen(), auftrag.getBeauftragtAm()
+				auftrag.isAbgeschlossen(), auftrag.getBeauftragtAm(), auftrag
+						.getLieferung().getLieferungsNr(), auftrag
+						.getRechnung().getRechnungsNr()
 		/* , auftrag.getLieferung(), auftrag.getRechnung(),auftrag.getAngebot() */);
 		return auftragTyp;
 	}

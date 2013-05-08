@@ -1,11 +1,13 @@
 package aip2.m.LieferungsModul;
 
+import aip2.m.Adapter.TransportdienstleisterAdapter;
 import aip2.m.InterfacesExtern.ILieferungModulExtern;
 import aip2.m.PersistenzModul.IPersistenzIntern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
-public class LieferungModul {
+public final class LieferungModul {
 	private static LieferungModulFassade lieferungModulFassade;
+	private static TransportdienstleisterAdapter transportdienstleisterAdapter;
 
 	private LieferungModul() {
 	}
@@ -20,7 +22,12 @@ public class LieferungModul {
 		return fassade(persistenz, transaktion);
 	}
 
-	private static LieferungModulFassade fassade(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
+	public static TransportdienstleisterAdapter getTransportdienstleisterAdapter() {
+		return transportdienstleisterAdapter;
+	}
+
+	private static LieferungModulFassade fassade(IPersistenzIntern persistenz,
+			ITransaktionIntern transaktion) {
 		if (lieferungModulFassade == null) {
 			LieferungVerwalter lieferungVerwalter = new LieferungVerwalter(
 					persistenz);
@@ -31,6 +38,8 @@ public class LieferungModul {
 			lieferungModulFassade = new LieferungModulFassade(
 					lieferungModulLogik, lieferungVerwalter,
 					transportauftragVerwalter, transaktion);
+			transportdienstleisterAdapter = new TransportdienstleisterAdapter(
+					lieferungModulFassade);
 		}
 		return lieferungModulFassade;
 	}

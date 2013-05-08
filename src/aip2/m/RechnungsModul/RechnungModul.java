@@ -1,16 +1,18 @@
 package aip2.m.RechnungsModul;
 
+import aip2.m.Adapter.BankAdapter;
 import aip2.m.InterfacesExtern.IRechnungsModulExtern;
 import aip2.m.PersistenzModul.IPersistenzIntern;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 
 /**
- * Factory Klasse konfiguriert und liefert die Kundenfassade aus
+ * Factory Klasse konfiguriert und liefert die Rechnungs aus und erstellt den BankAdapter
  * 
  */
-public class RechnungModul {
+public final class RechnungModul {
 
 	private static RechnungModulFassade rechnungModulFassade;
+	private static BankAdapter bankAdapter;
 
 	private RechnungModul() {
 	}
@@ -41,6 +43,10 @@ public class RechnungModul {
 		return fassade(persistenz, transaktion);
 	}
 	
+	public static BankAdapter getBankAdapter(){
+		return bankAdapter;
+	}
+	
 	private static RechnungModulFassade fassade(IPersistenzIntern persistenz, ITransaktionIntern transaktion) {
 		if (rechnungModulFassade == null) {
 			RechnungVerwalter rechnungVerwalter = new RechnungVerwalter(
@@ -51,6 +57,7 @@ public class RechnungModul {
 					rechnungVerwalter, zahlungseingangVerwalter);
 			rechnungModulFassade = new RechnungModulFassade(rechnungModulLogik,
 					rechnungVerwalter, zahlungseingangVerwalter, transaktion);
+			bankAdapter = new BankAdapter(rechnungModulFassade);
 		}
 		return rechnungModulFassade;
 	}

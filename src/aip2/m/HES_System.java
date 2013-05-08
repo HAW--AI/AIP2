@@ -23,38 +23,40 @@ import aip2.m.TransaktionModul.Transaktion;
 public final class HES_System {
 
 	// Erstellung der einzelnen Modul
-	public HES_System(){
-		IPersistenzSessionIntern persistenzSession = Persistenz.getPersistenzSessionIntern();
-		ITransaktionIntern transaktion = Transaktion.getTransaktion(persistenzSession);
-		
+	public HES_System() {
+		IPersistenzSessionIntern persistenzSession = Persistenz
+				.getPersistenzSessionIntern();
+		ITransaktionIntern transaktion = Transaktion
+				.getTransaktion(persistenzSession);
+
 		/*
-		 *  Erstellung durch das AAModul -> kaskadische Erstellung aller anderen Module
-		 *  
-		 *  AAModul -> KundenModul
-		 *          -> LieferungModul
-		 *          -> RechnungModul
-		 *          -> ProduktModul -> WarenmeldungsModul
+		 * Erstellung durch das AAModul -> kaskadische Erstellung aller anderen
+		 * Module
+		 * 
+		 * AAModul -> KundenModul -> LieferungModul -> RechnungModul ->
+		 * ProduktModul -> WarenmeldungsModul
 		 */
-		AngebotAuftragModul.getIAngebotAuftragModulExtern(persistenzSession, transaktion);
-	}	
-	
+		AngebotAuftragModul.getIAngebotAuftragModulExtern(persistenzSession,
+				transaktion);
+	}
+
 	public IAngebotAuftragModulExtern getIAngebotAuftragModulExtern() {
 		return AngebotAuftragModul.getIAngebotAuftragModulExtern(null, null);
 	}
 
 	public IKundenModulExtern getIKundenModulExtern() {
-		return KundenModul.getIKundenModulExtern(null, null); 
+		return KundenModul.getIKundenModulExtern(null, null);
 	}
-	
+
 	public ILieferungModulExtern getILieferungModulExtern() {
-		return LieferungModul.getILieferungModulExtern(null, null); 
+		return LieferungModul.getILieferungModulExtern(null, null);
 	}
-	
+
 	public IProduktModulExtern getIProduktModulExtern() {
 		return ProduktModul.getIProduktModulExtern(null, null);
 	}
-	
+
 	public IRechnungsModulExtern getIRechnungsModulExtern() {
-		return RechnungModul.getIRechnungsModulExtern(null, null); 
+		return RechnungModul.getIRechnungsModulExtern(null, null);
 	}
 }
