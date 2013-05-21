@@ -1,5 +1,7 @@
 package aip2.m.InterfacesExtern;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +15,7 @@ import aip2.m.ProduktModul.ProduktTyp;
  * Stellt Methoden des AngebotAuftragModul für externe Benutzer bereit
  * 
  */
-public interface IAngebotAuftragModulExtern {
+public interface IAngebotAuftragModulExtern extends Remote {
 
 	/**
 	 * Erstellt ein Angebot
@@ -29,7 +31,7 @@ public interface IAngebotAuftragModulExtern {
 	 * @return Das Angebot als fachlicher DatenTyp oder null bei Misserfolg
 	 */
 	AngebotTyp erstelleAngebot(KundenTyp kunde, Date angebotsEnde,
-			Map<ProduktTyp, Integer> anzahlProdukte, int preisCent);
+			Map<ProduktTyp, Integer> anzahlProdukte, int preisCent) throws RemoteException;
 
 	/**
 	 * Sucht alle jemals erstellten Angebote die einem Kunden gemacht wurden
@@ -38,7 +40,7 @@ public interface IAngebotAuftragModulExtern {
 	 * @return Eine leere List, falls keine vorhanden sind, sonst eine Liste von
 	 *         Angboten
 	 */
-	List<AngebotTyp> sucheAngebote(KundenTyp kunde);
+	List<AngebotTyp> sucheAngebote(KundenTyp kunde) throws RemoteException;
 
 	/**
 	 * Erstelle aus einem Angebot eine Auftag
@@ -46,7 +48,7 @@ public interface IAngebotAuftragModulExtern {
 	 * @param angebot
 	 * @return Der Auftrag als fachlicher DatenTyp oder null bei Misserfolg
 	 */
-	AuftragTyp erstelleAuftrag(AngebotTyp angebot);
+	AuftragTyp erstelleAuftrag(AngebotTyp angebot) throws RemoteException;
 
 	/**
 	 * Sucht alle Auftrage die dieser Rechnungsnr zugeordnet sind
@@ -55,7 +57,7 @@ public interface IAngebotAuftragModulExtern {
 	 * @return Eine leere List, falls keine vorhanden sind, sonst eine Liste von
 	 *         Angboten meistens der Länge 1
 	 */
-	List<AuftragTyp> sucheAuftraege(int RechnungsNr);
+	List<AuftragTyp> sucheAuftraege(int RechnungsNr) throws RemoteException;
 
 	/**
 	 * Markiert einen Auftrag als abgeschlossen
@@ -63,6 +65,6 @@ public interface IAngebotAuftragModulExtern {
 	 * @param auftrag
 	 * @return Der ErfolgsStatus der Operation
 	 */
-	boolean schliesseAbAuftrag(AuftragTyp auftrag);
+	boolean schliesseAbAuftrag(AuftragTyp auftrag) throws RemoteException;
 
 }

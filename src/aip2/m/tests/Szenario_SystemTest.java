@@ -2,6 +2,7 @@ package aip2.m.tests;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public final class Szenario_SystemTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws RemoteException {
 		// Call Agent sucht den Kunden
 		List<KundenTyp> kundenL = hes.getIKundenModulExtern().sucheKunden(
 				"Meier");
