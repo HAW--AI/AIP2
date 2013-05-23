@@ -7,8 +7,13 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import aip2.m.AngebotAuftragModul.AngebotAuftragModul;
+import aip2.m.AngebotAuftragModul.AngebotTyp;
+import aip2.m.AngebotAuftragModul.AuftragTyp;
 import aip2.m.InterfacesExtern.IAngebotAuftragModulExtern;
 import aip2.m.InterfacesExtern.IHES_System;
 import aip2.m.InterfacesExtern.IKundenModulExtern;
@@ -16,14 +21,17 @@ import aip2.m.InterfacesExtern.ILieferungModulExtern;
 import aip2.m.InterfacesExtern.IProduktModulExtern;
 import aip2.m.InterfacesExtern.IRechnungsModulExtern;
 import aip2.m.KundenModul.KundenModul;
+import aip2.m.KundenModul.KundenTyp;
 import aip2.m.LieferungsModul.LieferungModul;
 import aip2.m.PersistenzModul.IPersistenzSessionIntern;
 import aip2.m.PersistenzModul.Persistenz;
 import aip2.m.ProduktModul.ProduktModul;
+import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.RechnungsModul.RechnungModul;
+import aip2.m.RechnungsModul.RechnungTyp;
 import aip2.m.TransaktionModul.ITransaktionIntern;
 import aip2.m.TransaktionModul.Transaktion;
-import aip2.redundanz.IDispatcherMonitor;
+import aip2.redundanz.IMonitor;
 
 /**
  * Startet das komplete System, erstellt alle Module und liefert die Externen
@@ -52,23 +60,23 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 				transaktion);
 	}
 
-	public IAngebotAuftragModulExtern getIAngebotAuftragModulExtern() {
+	private IAngebotAuftragModulExtern getIAA() {
 		return AngebotAuftragModul.getIAngebotAuftragModulExtern(null, null);
 	}
 
-	public IKundenModulExtern getIKundenModulExtern() {
+	private IKundenModulExtern getIKM() {
 		return KundenModul.getIKundenModulExtern(null, null);
 	}
 
-	public ILieferungModulExtern getILieferungModulExtern() {
+	private ILieferungModulExtern getILM() {
 		return LieferungModul.getILieferungModulExtern(null, null);
 	}
 
-	public IProduktModulExtern getIProduktModulExtern() {
+	private IProduktModulExtern getIPM() {
 		return ProduktModul.getIProduktModulExtern(null, null);
 	}
 
-	public IRechnungsModulExtern getIRechnungsModulExtern() {
+	private IRechnungsModulExtern getIRM() {
 		return RechnungModul.getIRechnungsModulExtern(null, null);
 	}
 	
@@ -80,15 +88,15 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 		
 		IHES_System sys = new HES_System();
 		Registry rmiRegistry = LocateRegistry.getRegistry(args[0]);
-		IDispatcherMonitor d = null;
+		IMonitor d = null;
 		try {
-			d = (IDispatcherMonitor) rmiRegistry.lookup(IDispatcherMonitor.NAME);
+			d = (IMonitor) rmiRegistry.lookup(IMonitor.NAME);
 		} catch (NotBoundException e) {
-			System.err.println("Dispatcher not running at "+args[0]+"!");
+			System.err.println("Monitor not running at "+args[0]+"!");
 			System.exit(-1);
 		}
 		try {
-			d.registerAtDispatcher(sys, InetAddress.getLocalHost().getHostName());
+			d.registerAtMonitor(sys, InetAddress.getLocalHost().getHostName());
 		} catch (UnknownHostException e1) {
 			System.err.println("Locahost unknown! (>°o°)>");
 			System.exit(-1);
@@ -102,5 +110,82 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 				// ignore
 			}
 		}
+	}
+
+	@Override
+	public AngebotTyp erstelleAngebot(KundenTyp kunde, Date angebotsEnde,
+			Map<ProduktTyp, Integer> anzahlProdukte, int preisCent) throws RemoteException {
+		return getIAA().erstelleAngebot(kunde, angebotsEnde, anzahlProdukte, preisCent);
+	}
+
+	@Override
+	public List<AngebotTyp> sucheAngebote(KundenTyp kunde) {
+		return getIAA().sucheAngebote(kunde);
+	}
+
+	@Override
+	public AuftragTyp erstelleAuftrag(AngebotTyp angebot) {
+		return getIAA().erstelleAuftrag(angebot);
+	}
+
+	@Override
+	public List<AuftragTyp> sucheAuftraege(int RechnungsNr) {
+		return getIAA().sucheAuftraege(RechnungsNr);
+	}
+
+	@Override
+	public boolean schliesseAbAuftrag(AuftragTyp auftrag) {
+		return getIAA().schliesseAbAuftrag(auftrag);
+	}
+
+	@Override
+	public List<KundenTyp> sucheKunden(String name) {
+		return getIKM().sucheKunden(name);
+	}
+
+	@Override
+	public KundenTyp sucheKunden(int kundenId) {
+		return getIKM().sucheKunden(kundenId);
+	}
+
+	@Override
+	public KundenTyp erstelleKunde(String name, String adresse) {
+		return getIKM().erstelleKunde(name, adresse);
+	}
+
+	@Override
+	public boolean bestaetigeLieferung(int lieferungsNummer) {
+		return getILM().bestaetigeLieferung(lieferungsNummer);
+	}
+
+	@Override
+	public List<ProduktTyp> sucheProdukt(String name) {
+		return getIPM().sucheProdukt(name);
+	}
+
+	@Override
+	public ProduktTyp sucheProdukt(int id) {
+		return getIPM().sucheProdukt(id);
+	}
+
+	@Override
+	public ProduktTyp erstelleProdukt(String name, int mengeImLager) {
+		return getIPM().erstelleProdukt(name, mengeImLager);
+	}
+
+	@Override
+	public boolean erzeugeZahlungsEingang(Date datum, int betragCent) {
+		return getIRM().erzeugeZahlungsEingang(datum, betragCent);
+	}
+
+	@Override
+	public boolean erzeugeZahlungsEingangUndVerbuche(int rechnungsNr,
+			Date datum, int betragCent) {
+		return getIRM().erzeugeZahlungsEingangUndVerbuche(rechnungsNr, datum, betragCent);
+	}
+
+	@Override
+	public List<RechnungTyp> sucheBezahlteRechnungen() {
+		return getIRM().sucheBezahlteRechnungen();
 	}
 }

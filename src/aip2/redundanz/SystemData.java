@@ -4,13 +4,16 @@ class SystemData {
 	private long startTime;
 	private long lastAlive = 0;
 	private boolean isDisabled = false;
+	private boolean isAlive = true;
 	private long requestCounter = 0;
 	private long millisecondsUp = 0;
 	private String hostname = "Unknown";
+	private int number;
 	
-	SystemData(String hostname) {
+	SystemData(String hostname, int number) {
 		startTime = System.currentTimeMillis();
 		this.hostname = hostname;
+		this.number = number;
 	}
 
 	long getLastAlive() {
@@ -59,6 +62,18 @@ class SystemData {
 
 	void setHostname(String hostname) {
 		this.hostname = hostname;
+	}
+
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	public void setAlive(boolean isAlive) {
+		this.isAlive = isAlive;
+	}
+
+	public int getNumber() {
+		return number;
 	}
 
 	@Override

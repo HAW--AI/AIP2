@@ -40,16 +40,12 @@ public final class Szenario_SystemTest {
 
 		// Erstellung von Testdaten (2 Kunden und 2 Produkte)
 		kunden = new HashSet<KundenTyp>();
-		kunden.add(hes.getIKundenModulExtern().erstelleKunde("Meier, Peter",
-				"Bla 12 Dorf"));
-		kunden.add(hes.getIKundenModulExtern().erstelleKunde("Meier, Bert",
-				"Hust 13 Dorf"));
+		kunden.add(hes.erstelleKunde("Meier, Peter", "Bla 12 Dorf"));
+		kunden.add(hes.erstelleKunde("Meier, Bert", "Hust 13 Dorf"));
 
 		produkte = new HashSet<ProduktTyp>();
-		produkte.add(hes.getIProduktModulExtern().erstelleProdukt("SSD 1337",
-				10000));
-		produkte.add(hes.getIProduktModulExtern().erstelleProdukt("SSD ABC",
-				5000));
+		produkte.add(hes.erstelleProdukt("SSD 1337", 10000));
+		produkte.add(hes.erstelleProdukt("SSD ABC", 5000));
 	}
 
 	@Before
@@ -71,8 +67,7 @@ public final class Szenario_SystemTest {
 	@Test
 	public void test() throws RemoteException {
 		// Call Agent sucht den Kunden
-		List<KundenTyp> kundenL = hes.getIKundenModulExtern().sucheKunden(
-				"Meier");
+		List<KundenTyp> kundenL = hes.sucheKunden("Meier");
 		Set<KundenTyp> kundenS = new HashSet<KundenTyp>(kundenL);
 		// assertTrue(kunden.equals(kundenS));
 		for (KundenTyp kundenTyp : kunden) {
@@ -80,8 +75,7 @@ public final class Szenario_SystemTest {
 		}
 
 		// Call Agent sucht das Produkt
-		List<ProduktTyp> produktL = hes.getIProduktModulExtern().sucheProdukt(
-				"SSD");
+		List<ProduktTyp> produktL = hes.sucheProdukt("SSD");
 		Set<ProduktTyp> produktS = new HashSet<ProduktTyp>(produktL);
 		// assertTrue(produkte.equals(produktS));
 		for (ProduktTyp produktTyp : produkte) {
@@ -92,20 +86,18 @@ public final class Szenario_SystemTest {
 		Map<ProduktTyp, Integer> pMap = new HashMap<ProduktTyp, Integer>();
 		pMap.put(produktL.get(0), 1000);
 		pMap.put(produktL.get(1), 100);
-		AngebotTyp angebot = hes.getIAngebotAuftragModulExtern()
-				.erstelleAngebot(kundenL.get(0), new Date(), pMap, 1000000);
+		AngebotTyp angebot = hes.erstelleAngebot(kundenL.get(0), new Date(),
+				pMap, 1000000);
 		assertTrue(angebot != null);
 
 		// 2 Wochen später, Call Agent sucht wieder Kunden
-		List<KundenTyp> kundenL2 = hes.getIKundenModulExtern().sucheKunden(
-				"Meier");
+		List<KundenTyp> kundenL2 = hes.sucheKunden("Meier");
 		KundenTyp kunde = kundenL2.get(0);
 
 		// Call Agent sucht das Angebot
 		List<AngebotTyp> angebote = new ArrayList<AngebotTyp>();
 		angebote.add(angebot);
-		List<AngebotTyp> angebotsListe = hes.getIAngebotAuftragModulExtern()
-				.sucheAngebote(kunde);
+		List<AngebotTyp> angebotsListe = hes.sucheAngebote(kunde);
 		// assertTrue(angebote.equals(angebotsListe));
 
 		for (AngebotTyp angebotTyp : angebote) {
@@ -114,8 +106,7 @@ public final class Szenario_SystemTest {
 		AngebotTyp angenommenesAngebot = angebote.get(0);
 
 		// Call Agent erstellt Auftrag
-		AuftragTyp auftrag = hes.getIAngebotAuftragModulExtern()
-				.erstelleAuftrag(angenommenesAngebot);
+		AuftragTyp auftrag = hes.erstelleAuftrag(angenommenesAngebot);
 		assertTrue(auftrag != null);
 		assertFalse(auftrag.isAbgeschlossen());
 		assertEquals(angenommenesAngebot.getAngebotsNr(),
@@ -135,8 +126,7 @@ public final class Szenario_SystemTest {
 		RechnungModul.getBankAdapter().jedeNacht();
 
 		// Buchhaltung dursucht alle bezahlten Rechnungen
-		List<RechnungTyp> bezahlteRechnungen = hes.getIRechnungsModulExtern()
-				.sucheBezahlteRechnungen();
+		List<RechnungTyp> bezahlteRechnungen = hes.sucheBezahlteRechnungen();
 		RechnungTyp auftragsRechnung = null;
 		for (RechnungTyp rechnungTyp : bezahlteRechnungen) {
 			if (rechnungTyp.getAuftragNr() == auftrag.getAuftragsNr())
@@ -148,8 +138,7 @@ public final class Szenario_SystemTest {
 
 		// Buchhaltung sucht den zur Rechnung gehörenden Auftrag
 		List<AuftragTyp> buchhaltungsAuftrage = hes
-				.getIAngebotAuftragModulExtern().sucheAuftraege(
-						auftragsRechnung.getAuftragNr());
+				.sucheAuftraege(auftragsRechnung.getAuftragNr());
 		assertTrue(buchhaltungsAuftrage.size() == 1);
 
 		AuftragTyp buchhaltungsAuftrag = buchhaltungsAuftrage.get(0);
@@ -157,15 +146,13 @@ public final class Szenario_SystemTest {
 				.getAuftragsNr());
 
 		// Buchhaltung markiert Auftrag als abgeschlossen
-		boolean abSchluss = hes.getIAngebotAuftragModulExtern()
-				.schliesseAbAuftrag(buchhaltungsAuftrag);
+		boolean abSchluss = hes.schliesseAbAuftrag(buchhaltungsAuftrag);
 		assertTrue(abSchluss);
 
 		// ALLES Erledigt Auftrag abgeschlossen
 
 		List<AuftragTyp> kontrolleAuftrage = hes
-				.getIAngebotAuftragModulExtern().sucheAuftraege(
-						buchhaltungsAuftrag.getAuftragsNr());
+				.sucheAuftraege(buchhaltungsAuftrag.getAuftragsNr());
 		assertTrue(kontrolleAuftrage.size() == 1);
 		AuftragTyp finalAuftrag = kontrolleAuftrage.get(0);
 		assertTrue(finalAuftrag.isAbgeschlossen());

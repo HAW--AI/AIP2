@@ -1,6 +1,5 @@
 package aip2.m.Adapter;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 import aip2.externeSysteme.DLH;
@@ -19,12 +18,7 @@ public class TransportdienstleisterAdapter {
 		List<Integer> lieferungen = DLH.getAbgelieferteLieferungen();
 
 		for (int l : lieferungen) {
-			try {
-				lieferungModulExtern.bestaetigeLieferung(l);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			lieferungModulExtern.bestaetigeLieferung(l);
 		}
 
 		DLH.abgelieferteLieferungenAbgeholt();

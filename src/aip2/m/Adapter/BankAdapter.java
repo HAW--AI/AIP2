@@ -1,6 +1,5 @@
 package aip2.m.Adapter;
 
-import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Map;
 
@@ -28,13 +27,8 @@ public class BankAdapter {
 
 		for (Integer eingang : eingange.keySet()) {
 			for (int zahlung : eingange.get(eingang)) {
-				try {
-					iRechnungsModulExtern.erzeugeZahlungsEingangUndVerbuche(
-							eingang, new Date(), zahlung);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				iRechnungsModulExtern.erzeugeZahlungsEingangUndVerbuche(
+						eingang, new Date(), zahlung);
 			}
 		}
 

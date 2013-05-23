@@ -1,7 +1,5 @@
 package aip2.m.InterfacesExtern;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.util.List;
 
 import aip2.m.KundenModul.KundenTyp;
@@ -10,7 +8,7 @@ import aip2.m.KundenModul.KundenTyp;
  * Stellt Methoden zum Kunden für externe Benutzer bereit
  *
  */
-public interface IKundenModulExtern extends Remote {
+public interface IKundenModulExtern {
 
 	/**
 	 * Sucht Kunden mit gegebenem Namen
@@ -20,7 +18,7 @@ public interface IKundenModulExtern extends Remote {
 	 * @return Eine Liste von Kunden mit gesuchtem Namen oder eine leere Liste
 	 *         falls es keinen Kunden mit entsprechendem Namen gibt
 	 */
-	List<KundenTyp> sucheKunden(String name) throws RemoteException;
+	List<KundenTyp> sucheKunden(String name);
 	
 	/**
 	 * Sucht Kunden mit gegebener Id
@@ -29,7 +27,7 @@ public interface IKundenModulExtern extends Remote {
 	 *            Die Id des Kunden
 	 * @return Der gewünschte Kunde oder null
 	 */
-	KundenTyp sucheKunden(int kundenId) throws RemoteException;
+	KundenTyp sucheKunden(int kundenId);
 	
 	/**
 	 * Erstellt einen neuen Kunden
@@ -37,6 +35,6 @@ public interface IKundenModulExtern extends Remote {
 	 * @param adresse
 	 * @return den erstellten Kunden oder null bei Misserfolg
 	 */
-	KundenTyp erstelleKunde(String name, String adresse) throws RemoteException;
+	KundenTyp erstelleKunde(String name, String adresse);
 	
 }

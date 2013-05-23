@@ -5,15 +5,15 @@ import java.rmi.RemoteException;
 
 import aip2.m.InterfacesExtern.IHES_System;
 
-public interface IDispatcherMonitor extends Remote {
+public interface IMonitor extends Remote {
 	public static final int PORT = 1099;
-	public static final String NAME = "HES Dispatcher";
+	public static final String NAME = "HES Monitor";
 	
 	/**
-	 * Registriert ein HES System an den Dispatcher/Monitor.
+	 * Registriert ein HES System an den Monitor.
 	 * @pre Null nicht erlaubt!
 	 */
-	public boolean registerAtDispatcher(IHES_System system, String hostname) throws RemoteException;
+	public boolean registerAtMonitor(IHES_System system, String hostname) throws RemoteException;
 
 	/**
 	 * Sendet ein "IAmAlive" an den Monitor.
