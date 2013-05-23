@@ -1,6 +1,10 @@
 package aip2.redundanz;
 
-class SystemData {
+import java.io.Serializable;
+
+public class SystemData implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String hostname = "Unknown";
 	private String name = "";	
 	private boolean isAlive = true;
@@ -10,6 +14,7 @@ class SystemData {
 	private long lastRequest = 0;
 	private long requestCounter = 0;
 	private long millisecondsUp = 0;
+	private long millisecondsDown = 0;
 	
 	SystemData(String name, String hostname) {
 		this.startTime = System.currentTimeMillis();
@@ -19,7 +24,7 @@ class SystemData {
 		this.name = name;
 	}
 
-	long getLastAlive() {
+	public long getLastAlive() {
 		return lastAlive;
 	}
 
@@ -27,7 +32,7 @@ class SystemData {
 		this.lastAlive = lastAlive;
 	}
 
-	boolean isEnabled() {
+	public boolean isEnabled() {
 		return isEnabled;
 	}
 
@@ -35,31 +40,39 @@ class SystemData {
 		this.isEnabled = isEnabled;
 	}
 
-	long getRequestCounter() {
+	public long getRequestCounter() {
 		return requestCounter;
 	}
 
-	void setRequestCounter(long requestCounter) {
-		this.requestCounter = requestCounter;
+	void incRequestCounter() {
+		this.requestCounter++;
 	}
 
-	long getMillisecondsUp() {
+	public long getUpTime() {
 		return millisecondsUp;
 	}
 
-	void setMillisecondsUp(long millisecondsUp) {
-		this.millisecondsUp = millisecondsUp;
+	void addUpTime(long millisecondsUp) {
+		this.millisecondsUp += millisecondsUp;
 	}	
 	
-	long getStartTime() {
+	public long getStartTime() {
 		return startTime;
 	}
 
-	long getDownTime() {
-		return System.currentTimeMillis() - startTime - millisecondsUp;
+	void setStartTime(long startTime) {
+		this.startTime = startTime;
 	}
 	
-	String getHostname() {
+	public long getDownTime() {
+		return (isAlive ? millisecondsDown : System.currentTimeMillis() - lastAlive + millisecondsDown);
+	}
+	
+	void addDownTime(long millisecondsDown) {
+		this.millisecondsDown += millisecondsDown;
+	}	
+	
+	public String getHostname() {
 		return hostname;
 	}
 
@@ -71,7 +84,7 @@ class SystemData {
 		return isAlive;
 	}
 
-	public void setAlive(boolean isAlive) {
+	void setAlive(boolean isAlive) {
 		this.isAlive = isAlive;
 	}
 
@@ -83,7 +96,7 @@ class SystemData {
 		return lastRequest;
 	}
 
-	public void setLastRequest(long lastRequest) {
+	void setLastRequest(long lastRequest) {
 		this.lastRequest = lastRequest;
 	}
 	

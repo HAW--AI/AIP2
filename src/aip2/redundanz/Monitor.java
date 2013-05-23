@@ -12,20 +12,20 @@ import java.util.Map;
 
 import aip2.m.InterfacesExtern.IHES_System;
 
-public class Monitor implements IMonitor, IMonitorGUI {
-	private static final int ALIVE_MILLISECONDS = 10000;	
-	private static final int ALIVECHECK_MILLISECONDS = 5000;	
+public class Monitor extends UnicastRemoteObject implements IMonitor, IMonitorGUI {
+	private static final long serialVersionUID = 1L;
+	private static final int ALIVE_MILLISECONDS = 5000;	
+	private static final int ALIVECHECK_MILLISECONDS = 2500;	
 
 	Map<String, IHES_System> systems = new HashMap<String, IHES_System>(); 
 	Map<String, SystemData> systemsData = new HashMap<String, SystemData>(); 
 	
-	Monitor() throws RemoteException {
-		IMonitor stub = (IMonitor) UnicastRemoteObject.exportObject(this, 0);
-		java.rmi.registry.LocateRegistry.createRegistry(PORT);
+	Monitor() throws RemoteException {	
+		java.rmi.registry.LocateRegistry.createRegistry(IMonitor.PORT);
 	    Registry registry = LocateRegistry.getRegistry();
 	    
 	    try {
-			registry.bind(NAME, stub);
+			registry.bind(IMonitor.NAME, this);			
 		} catch (AlreadyBoundException e) {
 			System.err.println("Monitor already running!");
 			System.exit(-1);
@@ -48,6 +48,7 @@ public class Monitor implements IMonitor, IMonitorGUI {
 		if (curSys == null) throw new RuntimeException("All HES Systems are down!");
 		System.out.println("Current HES: "+systemsData.get(curSys).getName());
 		
+		systemsData.get(curSys).incRequestCounter();
 		systemsData.get(curSys).setLastRequest(System.currentTimeMillis());
 		return systems.get(curSys);
 	}
@@ -63,6 +64,8 @@ public class Monitor implements IMonitor, IMonitorGUI {
 			// update ref and values
 			systems.put(name, system);
 			d.setAlive(true);
+			d.addDownTime(System.currentTimeMillis() - d.getLastAlive());
+			d.setStartTime(System.currentTimeMillis());
 			d.setLastAlive(System.currentTimeMillis());
 			d.setHostname(hostname);
 			System.out.println(name+" REregistered @ "+hostname+"!");
@@ -83,7 +86,7 @@ public class Monitor implements IMonitor, IMonitorGUI {
 			long last = d.getLastAlive();			
 			d.setLastAlive(System.currentTimeMillis());
 			
-			if (d.isAlive()) d.setMillisecondsUp(d.getMillisecondsUp() + (System.currentTimeMillis() - last));
+			if (d.isAlive()) d.addUpTime(System.currentTimeMillis() - last);
 			else d.setAlive(true);
 			
 			System.out.println("IAmAlive von "+name);
@@ -110,14 +113,13 @@ public class Monitor implements IMonitor, IMonitorGUI {
 	}
 
 	@Override
-	public List<SystemData> getAllSystems() {
+	public List<SystemData> getAllSystems() throws RemoteException {
 		return new ArrayList<SystemData>(systemsData.values());
 	}
 
 	@Override
-	public void setSystemAlive(String name, boolean value) {
-		IHES_System s = systems.get(name);
-		SystemData d = systemsData.get(s);
-		d.setEnabled(value);
+	public void toggleSystemAlive(String name) throws RemoteException {
+		SystemData d = systemsData.get(name);
+		d.setEnabled(!d.isEnabled());
 	}
 }

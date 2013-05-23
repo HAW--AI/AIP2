@@ -40,7 +40,7 @@ import aip2.redundanz.IMonitor;
  */
 public final class HES_System extends UnicastRemoteObject implements IHES_System {
 	private static final long serialVersionUID = 1L;
-	private static final int ALIVE_MILLISECONDS = 5000;	
+	private static final int ALIVE_MILLISECONDS = 1000;	
 	
 	// Erstellung der einzelnen Modul
 	public HES_System() throws RemoteException {
@@ -82,7 +82,7 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 	
 	public static void main(final String[] args) throws RemoteException {
 		if (args.length < 2) {
-			System.err.println("Usage: HES_System HESName DispatcherIP");
+			System.err.println("Usage: HES_System HESName MonitorIP");
 			System.exit(-1);
 		}
 		
@@ -90,6 +90,12 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 		sys.connectAndRun(args[0], args[1]);
 	}
 
+	/**
+	 * 
+	 * @param name MUSS EINDEUTIG SEIN!
+	 * @param hostname
+	 * @throws RemoteException
+	 */
 	public void connectAndRun(String name, String hostname) throws RemoteException {
 		Registry rmiRegistry = LocateRegistry.getRegistry(hostname);
 		IMonitor d = null;
@@ -103,6 +109,7 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 			boolean res = d.registerAtMonitor(this, name, InetAddress.getLocalHost().getHostName());
 			if (!res) {
 				System.err.println("Could not register at monitor!");
+				System.exit(-1);
 			}
 		} catch (UnknownHostException e1) {
 			System.err.println("Locahost unknown! (>°o°)>");

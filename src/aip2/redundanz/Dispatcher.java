@@ -111,11 +111,13 @@ public class Dispatcher implements IHES_System {
 			}
 		}.start();
 		
-		System.out.println("Wait...");
-		(new Scanner(System.in)).nextLine();
-		
 		Dispatcher p = new Dispatcher(m);
-		p.erstelleProdukt("HDD 1TB", 10000);
-		p.erstelleKunde("Hans", "Im Dorf");
+		System.out.println("Dispatcher & Monitor are running...");
+		
+		while (true) {
+			(new Scanner(System.in)).nextLine();		
+			p.erstelleProdukt("HDD 1TB", 10000);
+			p.erstelleKunde("Hans", "Im Dorf");
+		}
 	}
 }

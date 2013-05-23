@@ -1,10 +1,11 @@
 package aip2.redundanz;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
-public interface IMonitorGUI {
+public interface IMonitorGUI extends Remote {	
+	public List<SystemData> getAllSystems() throws RemoteException;
 	
-	public List<SystemData> getAllSystems();
-	
-	public void setSystemAlive(String name, boolean value);
+	public void toggleSystemAlive(String name) throws RemoteException;
 }
