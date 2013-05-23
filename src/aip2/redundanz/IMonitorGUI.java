@@ -6,5 +6,5 @@ public interface IMonitorGUI {
 	
 	public List<SystemData> getAllSystems();
 	
-	public void setSystemAlive(int number, boolean value);
+	public void setSystemAlive(String name, boolean value);
 }

@@ -1,6 +1,9 @@
 package aip2.m.ProduktModul;
 
-public class ProduktTyp {
+import java.io.Serializable;
+
+public class ProduktTyp implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int nr;
 
 	private String name;

@@ -9,20 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import aip2.m.InterfacesExtern.IHES_System;
 
 public class Monitor implements IMonitor, IMonitorGUI {
 	private static final int ALIVE_MILLISECONDS = 10000;	
-	private static final int ALIVECHECK_MILLISECONDS = 20000;	
-	private static int curNumber = 0;
-	
-	Map<IHES_System, SystemData> aliveSystems = new HashMap<IHES_System, SystemData>(); 
-	Map<IHES_System, SystemData> deadSystems = new HashMap<IHES_System, SystemData>(); 
-	
-	IHES_System currentSystem = null;
+	private static final int ALIVECHECK_MILLISECONDS = 5000;	
+
+	Map<String, IHES_System> systems = new HashMap<String, IHES_System>(); 
+	Map<String, SystemData> systemsData = new HashMap<String, SystemData>(); 
 	
 	Monitor() throws RemoteException {
 		IMonitor stub = (IMonitor) UnicastRemoteObject.exportObject(this, 0);
@@ -38,70 +33,75 @@ public class Monitor implements IMonitor, IMonitorGUI {
 	}
 	
 	IHES_System getCurrentHES() {		
-//		if (currentSystem == null) {
-//			currentSystem = aliveSystems.firstKey();
-//		}
-//		else {
-//			SortedMap<IHES_System, SystemData> sub = aliveSystems.tailMap(currentSystem);
-//			if (sub.size() == 0) currentSystem = aliveSystems.firstKey();
-//			else currentSystem = sub.firstKey();
-//		}
+		String curSys = null;
+		long curTime = System.currentTimeMillis();
 		
-		return aliveSystems.keySet().iterator().next();
+		for (String s : systemsData.keySet()) {
+			SystemData d = systemsData.get(s);
+			
+			if (d.isAlive() && d.isEnabled() && d.getLastRequest() < curTime) {
+				curSys = s;
+				curTime = d.getLastRequest();
+			}
+		}
+		
+		if (curSys == null) throw new RuntimeException("All HES Systems are down!");
+		System.out.println("Current HES: "+systemsData.get(curSys).getName());
+		
+		systemsData.get(curSys).setLastRequest(System.currentTimeMillis());
+		return systems.get(curSys);
 	}
 	
 	@Override
-	public boolean registerAtMonitor(IHES_System system, String hostname) throws RemoteException {
-		if (aliveSystems.containsKey(system)) return false;
-		
-		if (deadSystems.containsKey(system)) {
-			SystemData d = deadSystems.get(system);
-			d.setAlive(true);
+	public boolean registerAtMonitor(IHES_System system, String name, String hostname) throws RemoteException {
+		if (systems.containsKey(name)) {			
+			SystemData d = systemsData.get(name);
 			
-			deadSystems.remove(system);
-			aliveSystems.put(system, d);
+			// already active?
+			if (d.isAlive()) return false;	
+			
+			// update ref and values
+			systems.put(name, system);
+			d.setAlive(true);
+			d.setLastAlive(System.currentTimeMillis());
+			d.setHostname(hostname);
+			System.out.println(name+" REregistered @ "+hostname+"!");
 		}
 		else {
-			aliveSystems.put(system, new SystemData(hostname, curNumber++));
+			systems.put(name, system);
+			systemsData.put(name, new SystemData(name, hostname));
+			System.out.println(name+" registered @ "+hostname+"!");
 		}
 		
 		return true;
 	}
 
 	@Override
-	public void iAmAlive(IHES_System system) throws RemoteException {
-		if (aliveSystems.containsKey(system)) {
-			SystemData d = aliveSystems.get(system);
-			long last = d.getLastAlive();
-			
-			d.setLastAlive(System.currentTimeMillis());
-			d.setMillisecondsUp(d.getMillisecondsUp() + (System.currentTimeMillis() - last));
-			
-			System.out.println("IAmAlive von "+d.getHostname());
-		}
-		else if (deadSystems.containsKey(system)) {
-			SystemData d = deadSystems.get(system);
-			d.setAlive(true);
+	public void iAmAlive(String name) throws RemoteException {
+		if (systems.containsKey(name)) {
+			SystemData d = systemsData.get(name);
+			long last = d.getLastAlive();			
 			d.setLastAlive(System.currentTimeMillis());
 			
-			deadSystems.remove(system);
-			aliveSystems.put(system, d);			
+			if (d.isAlive()) d.setMillisecondsUp(d.getMillisecondsUp() + (System.currentTimeMillis() - last));
+			else d.setAlive(true);
+			
+			System.out.println("IAmAlive von "+name);
 		}
 		else {
-			System.err.println("IAmAlive von Unbekannt...");
+			System.err.println("IAmAlive von Unbekannt ["+name+"]");
 		}
 	}
 	
 	void run() {
 		while(true) {
-			for (IHES_System sys : aliveSystems.keySet()) {
-				SystemData d = aliveSystems.get(sys);
+			for (String s : systems.keySet()) {
+				SystemData d = systemsData.get(s);
 				
-				if (System.currentTimeMillis() - d.getLastAlive() > ALIVE_MILLISECONDS) {
+				if (d.isAlive() && System.currentTimeMillis() - d.getLastAlive() > ALIVE_MILLISECONDS) {
 					// dead
 					d.setAlive(false);
-					aliveSystems.remove(sys);
-					deadSystems.put(sys, d);
+					System.out.println(d.getName()+" timeout nach "+ALIVE_MILLISECONDS+"ms!");
 				}
 			}
 			
@@ -111,40 +111,13 @@ public class Monitor implements IMonitor, IMonitorGUI {
 
 	@Override
 	public List<SystemData> getAllSystems() {
-		List<SystemData> list = new ArrayList<SystemData>();
-		for (SystemData s : aliveSystems.values()) list.add(s);
-		for (SystemData s : deadSystems.values()) list.add(s);	
-		return list;
+		return new ArrayList<SystemData>(systemsData.values());
 	}
 
 	@Override
-	public void setSystemAlive(int number, boolean value) {
-		IHES_System sys = null;
-		
-		for (IHES_System s : aliveSystems.keySet()) {
-			SystemData d = aliveSystems.get(s);
-			if (d.getNumber() == number) {
-				sys = s;
-				d.setAlive(value);
-				
-				if (!value) {
-					aliveSystems.remove(s);
-					deadSystems.put(sys, d);
-				}
-			}
-		}
-		
-		for (IHES_System s : deadSystems.keySet()) {
-			SystemData d = deadSystems.get(s);
-			if (d.getNumber() == number) {
-				sys = s;
-				d.setAlive(value);
-				
-				if (value) {
-					deadSystems.remove(s);
-					aliveSystems.put(sys, d);
-				}
-			}
-		}
+	public void setSystemAlive(String name, boolean value) {
+		IHES_System s = systems.get(name);
+		SystemData d = systemsData.get(s);
+		d.setEnabled(value);
 	}
 }

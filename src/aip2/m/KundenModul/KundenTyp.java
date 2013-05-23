@@ -1,11 +1,13 @@
 package aip2.m.KundenModul;
 
+import java.io.Serializable;
+
 
 /**
  * Fachlicher Datentyp Kunde
  */
-public final class KundenTyp{
-
+public final class KundenTyp implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int nr;
 
 	private String name;

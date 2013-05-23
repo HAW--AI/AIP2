@@ -1,11 +1,13 @@
 package aip2.m.AngebotAuftragModul;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Fachlicher Datentyp Auftrag
  */
-public final class AuftragTyp {
+public final class AuftragTyp implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int nr;
 
 	private boolean abgeschlossen;

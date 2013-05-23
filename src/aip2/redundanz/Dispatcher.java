@@ -13,7 +13,7 @@ import aip2.m.KundenModul.KundenTyp;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.RechnungsModul.RechnungTyp;
 
-public class Dispatcher implements IHES_SystemExtern {
+public class Dispatcher implements IHES_System {
 	private Monitor monitor;
 	
 	public Dispatcher(Monitor monitor) {
@@ -115,6 +115,7 @@ public class Dispatcher implements IHES_SystemExtern {
 		(new Scanner(System.in)).nextLine();
 		
 		Dispatcher p = new Dispatcher(m);
-		p.bestaetigeLieferung(0);
+		p.erstelleProdukt("HDD 1TB", 10000);
+		p.erstelleKunde("Hans", "Im Dorf");
 	}
 }

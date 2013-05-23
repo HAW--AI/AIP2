@@ -81,29 +81,42 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 	}
 	
 	public static void main(final String[] args) throws RemoteException {
-		if (args.length < 1) {
-			System.err.println("Usage: HES_System DispatcherIP");
+		if (args.length < 2) {
+			System.err.println("Usage: HES_System HESName DispatcherIP");
 			System.exit(-1);
 		}
 		
-		IHES_System sys = new HES_System();
-		Registry rmiRegistry = LocateRegistry.getRegistry(args[0]);
+		HES_System sys = new HES_System();
+		sys.connectAndRun(args[0], args[1]);
+	}
+
+	public void connectAndRun(String name, String hostname) throws RemoteException {
+		Registry rmiRegistry = LocateRegistry.getRegistry(hostname);
 		IMonitor d = null;
 		try {
 			d = (IMonitor) rmiRegistry.lookup(IMonitor.NAME);
 		} catch (NotBoundException e) {
-			System.err.println("Monitor not running at "+args[0]+"!");
+			System.err.println("Monitor not running at "+hostname+"!");
 			System.exit(-1);
 		}
 		try {
-			d.registerAtMonitor(sys, InetAddress.getLocalHost().getHostName());
+			boolean res = d.registerAtMonitor(this, name, InetAddress.getLocalHost().getHostName());
+			if (!res) {
+				System.err.println("Could not register at monitor!");
+			}
 		} catch (UnknownHostException e1) {
 			System.err.println("Locahost unknown! (>°o°)>");
 			System.exit(-1);
 		}
 		
 		while(true) {
-			d.iAmAlive(sys);
+			try {
+				d.iAmAlive(name);
+			} catch (RemoteException e) {
+				System.err.println("Monitor is down! Exit...");
+				System.exit(-1);
+			}
+			
 			try {
 				Thread.sleep(ALIVE_MILLISECONDS);
 			} catch (InterruptedException e) {
@@ -111,7 +124,7 @@ public final class HES_System extends UnicastRemoteObject implements IHES_System
 			}
 		}
 	}
-
+	
 	@Override
 	public AngebotTyp erstelleAngebot(KundenTyp kunde, Date angebotsEnde,
 			Map<ProduktTyp, Integer> anzahlProdukte, int preisCent) throws RemoteException {

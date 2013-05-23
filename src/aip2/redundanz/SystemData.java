@@ -1,19 +1,22 @@
 package aip2.redundanz;
 
 class SystemData {
+	private String hostname = "Unknown";
+	private String name = "";	
+	private boolean isAlive = true;
+	private boolean isEnabled = true;
 	private long startTime;
 	private long lastAlive = 0;
-	private boolean isDisabled = false;
-	private boolean isAlive = true;
+	private long lastRequest = 0;
 	private long requestCounter = 0;
 	private long millisecondsUp = 0;
-	private String hostname = "Unknown";
-	private int number;
 	
-	SystemData(String hostname, int number) {
-		startTime = System.currentTimeMillis();
+	SystemData(String name, String hostname) {
+		this.startTime = System.currentTimeMillis();
+		this.lastAlive = this.startTime;
+		this.lastRequest = this.startTime;
 		this.hostname = hostname;
-		this.number = number;
+		this.name = name;
 	}
 
 	long getLastAlive() {
@@ -24,12 +27,12 @@ class SystemData {
 		this.lastAlive = lastAlive;
 	}
 
-	boolean isDisabled() {
-		return isDisabled;
+	boolean isEnabled() {
+		return isEnabled;
 	}
 
-	void setDisabled(boolean isDisabled) {
-		this.isDisabled = isDisabled;
+	void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 	long getRequestCounter() {
@@ -72,15 +75,25 @@ class SystemData {
 		this.isAlive = isAlive;
 	}
 
-	public int getNumber() {
-		return number;
+	public String getName() {
+		return name;
 	}
+
+	public long getLastRequest() {
+		return lastRequest;
+	}
+
+	public void setLastRequest(long lastRequest) {
+		this.lastRequest = lastRequest;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "SystemData [startTime=" + startTime + ", lastAlive="
-				+ lastAlive + ", isDisabled=" + isDisabled
-				+ ", requestCounter=" + requestCounter + ", millisecondsUp="
-				+ millisecondsUp + ", hostname=" + hostname + "]";
+		return "SystemData [hostname=" + hostname + ", name=" + name
+				+ ", isEnabled=" + isEnabled + ", isAlive=" + isAlive
+				+ ", startTime=" + startTime + ", lastAlive=" + lastAlive
+				+ ", lastRequest=" + lastRequest + ", requestCounter="
+				+ requestCounter + ", millisecondsUp=" + millisecondsUp + "]";
 	}
 }

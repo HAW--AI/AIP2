@@ -1,9 +1,10 @@
 package aip2.m.RechnungsModul;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public final class RechnungTyp {
-
+public final class RechnungTyp implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int nr;
 
 	private Date rechnungsDatum;

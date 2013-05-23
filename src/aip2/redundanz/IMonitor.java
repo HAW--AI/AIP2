@@ -13,11 +13,11 @@ public interface IMonitor extends Remote {
 	 * Registriert ein HES System an den Monitor.
 	 * @pre Null nicht erlaubt!
 	 */
-	public boolean registerAtMonitor(IHES_System system, String hostname) throws RemoteException;
+	public boolean registerAtMonitor(IHES_System system, String name, String hostname) throws RemoteException;
 
 	/**
 	 * Sendet ein "IAmAlive" an den Monitor.
 	 * @pre Null nicht erlaubt!
 	 */
-	public void iAmAlive(IHES_System system) throws RemoteException;
+	public void iAmAlive(String name) throws RemoteException;
 }
