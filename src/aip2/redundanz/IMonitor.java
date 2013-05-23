@@ -3,7 +3,7 @@ package aip2.redundanz;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import aip2.m.InterfacesExtern.IHES_System;
+import aip2.m.IHES_System;
 
 public interface IMonitor extends Remote {
 	public static final int PORT = 1099;

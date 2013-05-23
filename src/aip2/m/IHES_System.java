@@ -1,4 +1,4 @@
-package aip2.m.InterfacesExtern;
+package aip2.m;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

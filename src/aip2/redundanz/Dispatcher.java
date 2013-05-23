@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import aip2.m.IHES_System;
 import aip2.m.AngebotAuftragModul.AngebotTyp;
 import aip2.m.AngebotAuftragModul.AuftragTyp;
-import aip2.m.InterfacesExtern.IHES_System;
 import aip2.m.KundenModul.KundenTyp;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.RechnungsModul.RechnungTyp;

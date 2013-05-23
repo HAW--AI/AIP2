@@ -15,7 +15,6 @@ import aip2.m.AngebotAuftragModul.AngebotAuftragModul;
 import aip2.m.AngebotAuftragModul.AngebotTyp;
 import aip2.m.AngebotAuftragModul.AuftragTyp;
 import aip2.m.InterfacesExtern.IAngebotAuftragModulExtern;
-import aip2.m.InterfacesExtern.IHES_System;
 import aip2.m.InterfacesExtern.IKundenModulExtern;
 import aip2.m.InterfacesExtern.ILieferungModulExtern;
 import aip2.m.InterfacesExtern.IProduktModulExtern;

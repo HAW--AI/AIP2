@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import aip2.m.InterfacesExtern.IHES_System;
+import aip2.m.IHES_System;
 
 public class Monitor extends UnicastRemoteObject implements IMonitor, IMonitorGUI {
 	private static final long serialVersionUID = 1L;
