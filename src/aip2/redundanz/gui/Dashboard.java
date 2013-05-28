@@ -115,6 +115,7 @@ public class Dashboard extends javax.swing.JFrame {
 			{
 				jTable = new JTable();
 				jTable.setModel(new TableModelSystems(monitor));
+				jTable.setDefaultRenderer(LightStatus.class, new LightStatusCellRenderer());
 				jTable.setAutoCreateRowSorter(true);
 				jTable.addMouseListener(new MouseListener() {
 					@Override

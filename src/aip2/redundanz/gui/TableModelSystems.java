@@ -33,6 +33,22 @@ public class TableModelSystems extends AbstractTableModel {
 		}
     }
 
+	public Class<?> getColumnClass(int col) {
+		switch (col) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+				return String.class;
+			case 7:
+				return LightStatus.class;
+		}
+		return String.class;
+	}
+    
     public String getColumnName(int col) {
         return columnNames[col];
     }
@@ -53,7 +69,7 @@ public class TableModelSystems extends AbstractTableModel {
     		case 4: return TIME_FORMAT.format(new Date(r.getStartTime()));
     		case 5: return formatDuration(r.getUpTime(), r.getDownTime());
     		case 6: return formatDuration(r.getDownTime(), r.getUpTime());
-    		case 7: return (r.isAlive() ? (r.isEnabled() ? "Running" : "Deactivated") : "Dead");
+    		case 7: return (r.isAlive() ? (r.isEnabled() ? LightStatus.GREEN : LightStatus.YELLOW) : LightStatus.RED);
     		default: return "";
     	}
     }
