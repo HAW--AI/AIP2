@@ -1,0 +1,19 @@
+Reihenfolge
+Monitor
+3 x HES
+Dashboard
+Client
+
+Trigger some Action show Monitor all sys
+deactivate Tri
+show action and Monitor
+
+kill kurd
+show action and Monitor
+
+restart kurd
+show monitor
+activate tri
+
+action
+monitor

@@ -12,10 +12,11 @@ import java.util.Map;
 
 import aip2.m.IHES_System;
 
-public class Monitor extends UnicastRemoteObject implements IMonitor, IMonitorGUI {
+public class Monitor extends UnicastRemoteObject implements IMonitorRR, IMonitor, IMonitorGUI {
 	private static final long serialVersionUID = 1L;
 	private static final int ALIVE_MILLISECONDS = 5000;	
 	private static final int ALIVECHECK_MILLISECONDS = 2500;	
+	private static final boolean DEBUG = false;	
 
 	Map<String, IHES_System> systems = new HashMap<String, IHES_System>(); 
 	Map<String, SystemData> systemsData = new HashMap<String, SystemData>(); 
@@ -23,16 +24,27 @@ public class Monitor extends UnicastRemoteObject implements IMonitor, IMonitorGU
 	Monitor() throws RemoteException {	
 		java.rmi.registry.LocateRegistry.createRegistry(IMonitor.PORT);
 	    Registry registry = LocateRegistry.getRegistry();
-	    
+	    	    
 	    try {
 			registry.bind(IMonitor.NAME, this);			
 		} catch (AlreadyBoundException e) {
 			System.err.println("Monitor already running!");
 			System.exit(-1);
 		}
+	    
+	    try {
+			registry.bind(IMonitorRR.NAME, this);			
+		} catch (AlreadyBoundException e) {
+			System.err.println("Monitor already running!");
+			System.exit(-1);
+		}
+	    
+		System.out.println("Monitor is running...");
+
 	}
 	
-	IHES_System getCurrentHES() {		
+	@Override
+	public IHES_System getCurrentHES() {		
 		String curSys = null;
 		long curTime = System.currentTimeMillis();
 		
@@ -89,7 +101,8 @@ public class Monitor extends UnicastRemoteObject implements IMonitor, IMonitorGU
 			if (d.isAlive()) d.addUpTime(System.currentTimeMillis() - last);
 			else d.setAlive(true);
 			
-			System.out.println("IAmAlive von "+name);
+			if(DEBUG)
+				System.out.println("IAmAlive von "+name);
 		}
 		else {
 			System.err.println("IAmAlive von Unbekannt ["+name+"]");
@@ -121,5 +134,9 @@ public class Monitor extends UnicastRemoteObject implements IMonitor, IMonitorGU
 	public void toggleSystemAlive(String name) throws RemoteException {
 		SystemData d = systemsData.get(name);
 		d.setEnabled(!d.isEnabled());
+	}
+	
+	public static void main(String[] args)throws Exception{
+		(new Monitor()).run();
 	}
 }
