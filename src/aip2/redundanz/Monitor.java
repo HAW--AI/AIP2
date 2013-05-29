@@ -51,7 +51,7 @@ public class Monitor extends UnicastRemoteObject implements IMonitorRR, IMonitor
 		for (String s : systemsData.keySet()) {
 			SystemData d = systemsData.get(s);
 			
-			if (d.isAlive() && d.isEnabled() && d.getLastRequest() < curTime) {
+			if (d.isAlive() && d.isEnabled() && d.getLastRequest() <= curTime) {
 				curSys = s;
 				curTime = d.getLastRequest();
 			}
