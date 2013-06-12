@@ -64,6 +64,7 @@ public final class Szenario_SystemTest {
 		// Lösche Daten...
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void test() throws RemoteException {
 		// Call Agent sucht den Kunden

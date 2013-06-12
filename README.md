@@ -1,7 +1,18 @@
-AIP2
+AIP HES
 ====
 
 Diagramme -> pub
+
+A4 
+
+NEW RabbitMQ 
+
+	http://www.erlang.org/download.html
+	http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.1/rabbitmq-server-3.1.1.exe
+	All jars http://www.rabbitmq.com/releases/rabbitmq-java-client/v3.1.1/rabbitmq-java-client-bin-3.1.1.zip
+
+
+
 
 http://sourceforge.net/projects/hibernate/files/hibernate4/4.2.0.Final/hibernate-release-4.2.0.Final.zip/download
 
