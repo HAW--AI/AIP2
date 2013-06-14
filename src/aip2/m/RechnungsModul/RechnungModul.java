@@ -58,7 +58,6 @@ public final class RechnungModul {
 			rechnungModulFassade = new RechnungModulFassade(rechnungModulLogik,
 					rechnungVerwalter, zahlungseingangVerwalter, transaktion);
 			bankAdapter = new BankAdapter(rechnungModulFassade);
-			bankAdapter.start();
 		}
 		return rechnungModulFassade;
 	}

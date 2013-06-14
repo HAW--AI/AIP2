@@ -18,6 +18,11 @@ public class HapSpar {
 	private final static String QUEUE_NAME = "hapsparToHes";
 	private final static String SEP = "#HES#HES#";
 
+	/**
+	 * Ueberweise
+	 * 
+	 * @param args rechnungsnr betrag
+	 */
 	public static void main(String[] args) {
 		if (args.length == 2) {
 
@@ -37,9 +42,7 @@ public class HapSpar {
 				connection.close();
 
 			} catch (IOException e) {
-				System.err.println("Unable To open our Bank");
-				//e.printStackTrace();
-				//System.exit(-1);
+				System.err.println("Die HapSpar ist gerade geschlossen");
 			}
 
 		} else

@@ -10,10 +10,11 @@ import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.ShutdownSignalException;
 
 /**
+ * Verbindet sich mit der HapSpar per RabbitMQ
  * 
  * @see http://www.rabbitmq.com/tutorials/tutorial-one-java.html
  */
-public final class BankListener extends Thread {
+public final class HapSparMQListener extends Thread {
 
 	private final static String QUEUE_NAME = "hapsparToHes";
 	private final static String SEP = "#HES#HES#";
@@ -25,7 +26,7 @@ public final class BankListener extends Thread {
 	private Channel channel;
 	private QueueingConsumer consumer;
 
-	public BankListener(BankAdapter callBackAdapter) {
+	public HapSparMQListener(BankAdapter callBackAdapter) {
 		this.callBackAdapter = callBackAdapter;
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
@@ -40,7 +41,6 @@ public final class BankListener extends Thread {
 
 		} catch (IOException e) {
 			System.err.println("Unable to connect to our Bank via Messaging");
-			// e.printStackTrace();
 		}
 	}
 
@@ -61,7 +61,6 @@ public final class BankListener extends Thread {
 			} catch (ShutdownSignalException | ConsumerCancelledException
 					| InterruptedException | NullPointerException e) {
 				System.err.println("Unable to receive from our Bank via Messaging");
-				// e.printStackTrace();
 				this.stopListener();
 			}
 		}

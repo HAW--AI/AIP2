@@ -2,7 +2,6 @@ package aip2.m.tests;
 
 import static org.junit.Assert.*;
 
-import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +28,7 @@ public class BankAdapterTest {
 	}
 
 	@Test
-	public void test() throws RemoteException {
+	public void test() throws Exception {
 
 		//Erstelle Kunden Produkt Angebot und Auftrag
 		KundenTyp kunde = hes.erstelleKunde("Meier, Peter", "Bla 12 Dorf");
@@ -47,6 +46,8 @@ public class BankAdapterTest {
 		HapSpar.main(new String[] { "" + auftrag.getRechnungsNr(), "" + 500000 });
 		HapSpar.main(new String[] { "" + auftrag.getRechnungsNr(), "" + 500000 });
 
+		//HapSpar Mittagspause
+		//Thread.sleep(240);
 		
 		//Suche die Rechnung zum Auftrag
 		List<RechnungTyp> bezahlteRechnungen = hes.sucheBezahlteRechnungen();

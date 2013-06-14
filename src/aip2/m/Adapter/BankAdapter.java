@@ -6,27 +6,30 @@ import java.util.Map;
 import aip2.externeSysteme.HapSpar;
 import aip2.m.InterfacesExtern.IRechnungsModulExtern;
 
+/**
+ * Verbindet das HES mit Banken und holt eintreffende Ueberweisungen ab und
+ * verbuchen sie
+ * 
+ */
 public class BankAdapter {
 
 	private final IRechnungsModulExtern iRechnungsModulExtern;
-	private final BankListener bankListener;
+	private final HapSparMQListener bankListener;
 
 	public BankAdapter(IRechnungsModulExtern iRechnungsModulExtern) {
 		this.iRechnungsModulExtern = iRechnungsModulExtern;
-		this.bankListener = new BankListener(this);
+		this.bankListener = new HapSparMQListener(this);
+		this.bankListener.start();
 	}
 
+	/**
+	 * Verbucht eingehende Ueberweisungen im HES System
+	 * @param rechnungsNr
+	 * @param betrag
+	 */
 	public void eintreffendeUeberweisung(int rechnungsNr, int betrag) {
 		iRechnungsModulExtern.erzeugeZahlungsEingangUndVerbuche(rechnungsNr,
 				new Date(), betrag);
-	}
-	
-	public void start(){
-		bankListener.start();
-	}
-	
-	public void stop(){
-		bankListener.stopListener();
 	}
 
 	@Deprecated
@@ -35,11 +38,15 @@ public class BankAdapter {
 
 		for (Integer eingang : eingange.keySet()) {
 			for (int zahlung : eingange.get(eingang)) {
-				eintreffendeUeberweisung( eingang,  zahlung);
+				eintreffendeUeberweisung(eingang, zahlung);
 			}
 		}
 
 		HapSpar.ueberweisungenAbgeholt();
+	}
+
+	public void stop() {
+		bankListener.stopListener();
 	}
 }
 
