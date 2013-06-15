@@ -2,16 +2,20 @@ package aip2.m.LieferungsModul;
 
 import java.util.Date;
 
+import aip2.m.Adapter.TransportdienstleisterAdapter;
+
 
 final class LieferungModulLogik {
-
 	private final LieferungVerwalter lieferungVerwalter;
 	private final TransportauftragVerwalter transportauftragVerwalter;
-
+	private final TransportdienstleisterAdapter transportdienstleisterAdapter;
+	
 	LieferungModulLogik(LieferungVerwalter lieferungVerwalter,
-			TransportauftragVerwalter transportauftragVerwalter) {
+			TransportauftragVerwalter transportauftragVerwalter,
+			TransportdienstleisterAdapter transportdienstleisterAdapter) {
 		this.lieferungVerwalter = lieferungVerwalter;
 		this.transportauftragVerwalter = transportauftragVerwalter;
+		this.transportdienstleisterAdapter = transportdienstleisterAdapter;
 	}
 
 	public boolean bestaetigeLieferung(int lieferungsNummer) {
@@ -27,15 +31,15 @@ final class LieferungModulLogik {
 		return true;
 	}
 
-	public ILieferung erzeugeLieferung() {
-		Transportauftrag transportauftrag = transportauftragVerwalter
-				.erstelleTransportauftrag(new Date(), "DLH");
-
-		ILieferung lieferung = lieferungVerwalter
-				.erstelleLieferung(transportauftrag);
-		transportauftrag.setLieferung(lieferung);
+	public ILieferung erzeugeLieferung(String adresse) {
+		Transportauftrag transportauftrag = transportauftragVerwalter.erstelleTransportauftrag(new Date(), "DLH");
+		ILieferung lieferung = lieferungVerwalter.erstelleLieferung(transportauftrag);
+		transportauftrag.setLieferung(lieferung);	
+		
+		String verfolgungsId = transportdienstleisterAdapter.sendeTransportAuftrag(lieferung.getLieferungsNr(), adresse);
+		transportauftrag.setTransportVerfolgungsId(verfolgungsId);
+		
 		transportauftragVerwalter.updateTransportauftrag(transportauftrag);
-
 		return lieferung;
 	}
 }

@@ -46,12 +46,11 @@ final class LieferungModulFassade implements ILieferungModulIntern,
 	}
 
 	@Override
-	public ILieferung erzeugeLieferung(/*IAuftrag auftrag*/) {
+	public ILieferung erzeugeLieferung(String adresse/*IAuftrag auftrag*/) {
 		try {
 			boolean myTransaction = transaktion.checkStartMyTransaction();
 
-			ILieferung lieferung = lieferungModulLogik
-					.erzeugeLieferung();
+			ILieferung lieferung = lieferungModulLogik.erzeugeLieferung(adresse);
 
 			if (myTransaction)
 				transaktion.commitTransaction();

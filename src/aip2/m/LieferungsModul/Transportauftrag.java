@@ -29,6 +29,8 @@ public class Transportauftrag implements ITransportauftrag {
 	private Date lieferDatum;
 
 	private String transportDienstleister;
+	
+	private String transportVerfolgungsId;
 
 	/**
 	 * For Hibernate
@@ -93,6 +95,15 @@ public class Transportauftrag implements ITransportauftrag {
 		this.transportDienstleister = transportDienstleister;
 	}
 
+	@Override
+	public String getTransportVerfolgungsId() {
+		return transportVerfolgungsId;
+	}
+
+	public void setTransportVerfolgungsId(String transportVerfolgungsId) {
+		this.transportVerfolgungsId = transportVerfolgungsId;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

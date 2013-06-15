@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import aip2.m.IHES_System;
 import aip2.m.AngebotAuftragModul.AngebotTyp;
+import aip2.m.AngebotAuftragModul.AuftragTyp;
 import aip2.m.KundenModul.KundenTyp;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.redundanz.Dispatcher;
@@ -27,21 +28,26 @@ public class Client {
 
 			produkt = hes.erstelleProdukt("HDD 1TB", 10000);
 			System.out.println("Erstelle Produkt: " + produkt);
+			
 			kunde = hes.erstelleKunde("Hans", "Im Dorf");
 			System.out.println("Erstelle Kunde: " + kunde);
+			
 			produkt = hes.sucheProdukt("HDD").get(0);
 			Map<ProduktTyp, Integer> pMap = new HashMap<ProduktTyp, Integer>();
 			pMap.put(produkt, 1000);
-			angebot = hes.erstelleAngebot(kunde, new Date(), pMap,
-					1000000);
+			
+			angebot = hes.erstelleAngebot(kunde, new Date(), pMap, 1000000);
 			System.out.println("Erstelle Angebot: " + angebot);
-			System.out.println("Bezahlte Rechnungen: "
-					+ hes.sucheBezahlteRechnungen());
+			
+			System.out.println("Bezahlte Rechnungen: " + hes.sucheBezahlteRechnungen());
+			
+			AuftragTyp auftrag = hes.erstelleAuftrag(angebot);
+			System.out.println("Erstelle Auftrag: "+auftrag);
 			
 			produkt = null;
 			kunde = null;
 			angebot = null;
-			}
+		}
 		
 	}
 }

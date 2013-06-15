@@ -15,13 +15,9 @@ final class TransportauftragVerwalter {
 		this.persistenz = persistenz;
 	}
 
-	Transportauftrag erstelleTransportauftrag(Date ausgangsDatum,
-			String transportDienstleister) {
-		Transportauftrag transportauftrag = new Transportauftrag(ausgangsDatum,
-				transportDienstleister);
-
+	Transportauftrag erstelleTransportauftrag(Date ausgangsDatum, String transportDienstleister) {
+		Transportauftrag transportauftrag = new Transportauftrag(ausgangsDatum,transportDienstleister);
 		persistenz.add(transportauftrag);
-
 		return transportauftrag;
 	}
 

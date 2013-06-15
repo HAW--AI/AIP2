@@ -11,8 +11,14 @@ NEW RabbitMQ
 	http://www.rabbitmq.com/releases/rabbitmq-server/v3.1.1/rabbitmq-server-3.1.1.exe
 	All jars http://www.rabbitmq.com/releases/rabbitmq-java-client/v3.1.1/rabbitmq-java-client-bin-3.1.1.zip
 
+NEW REST
+	
+	http://repo1.maven.org/maven2/com/sun/jersey/jersey-bundle/1.9.1/jersey-bundle-1.9.1.jar
+	http://download.java.net/maven/2/javax/ws/rs/jsr311-api/1.1/jsr311-api-1.1.jar
+	http://repo1.maven.org/maven2/asm/asm/3.1/asm-3.1.jar
 
-
+Falls ein "Access denied" bei einer Klasse auftritt, einfach die JRE im Buildpath entfernen und neu hinzufügen.
+	
 
 http://sourceforge.net/projects/hibernate/files/hibernate4/4.2.0.Final/hibernate-release-4.2.0.Final.zip/download
 

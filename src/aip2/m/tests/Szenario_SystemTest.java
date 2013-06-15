@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import aip2.externeSysteme.DLH;
 import aip2.externeSysteme.HapSpar;
 import aip2.m.HES_System;
 import aip2.m.AngebotAuftragModul.AngebotTyp;
@@ -115,7 +114,7 @@ public final class Szenario_SystemTest {
 
 		// EXTERNE SCHRITTE
 		// Lieferung wird abgeliefert
-		DLH.lieferantHatAbgeliefertNr(auftrag.getLieferungsNr());
+//		DLH.lieferantHatAbgeliefertNr(auftrag.getLieferungsNr());
 		// Begleiche Rechnung
 		HapSpar.ueberweise(auftrag.getRechnungsNr(), new int[] { 1000000 });
 		// ENDE EXTERNE SCHRITTE

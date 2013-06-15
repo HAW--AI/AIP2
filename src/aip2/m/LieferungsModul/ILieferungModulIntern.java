@@ -13,5 +13,5 @@ public interface ILieferungModulIntern {
 	 * @param auftrag
 	 * @return die erstellte Lieferung oder null bei Misserfolg
 	 */
-	ILieferung erzeugeLieferung(/*IAuftrag auftrag*/);
+	ILieferung erzeugeLieferung(String adresse/*IAuftrag auftrag*/);
 }

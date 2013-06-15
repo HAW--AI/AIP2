@@ -7,7 +7,7 @@ import aip2.m.TransaktionModul.ITransaktionIntern;
 
 public final class LieferungModul {
 	private static LieferungModulFassade lieferungModulFassade;
-	private static TransportdienstleisterAdapter transportdienstleisterAdapter;
+//	private static TransportdienstleisterAdapter transportdienstleisterAdapter;
 
 	private LieferungModul() {
 	}
@@ -22,24 +22,23 @@ public final class LieferungModul {
 		return fassade(persistenz, transaktion);
 	}
 
+	@Deprecated
 	public static TransportdienstleisterAdapter getTransportdienstleisterAdapter() {
-		return transportdienstleisterAdapter;
+//		return transportdienstleisterAdapter;
+		return null;
 	}
 
 	private static LieferungModulFassade fassade(IPersistenzIntern persistenz,
 			ITransaktionIntern transaktion) {
 		if (lieferungModulFassade == null) {
-			LieferungVerwalter lieferungVerwalter = new LieferungVerwalter(
-					persistenz);
-			TransportauftragVerwalter transportauftragVerwalter = new TransportauftragVerwalter(
-					persistenz);
-			LieferungModulLogik lieferungModulLogik = new LieferungModulLogik(
-					lieferungVerwalter, transportauftragVerwalter);
-			lieferungModulFassade = new LieferungModulFassade(
-					lieferungModulLogik, lieferungVerwalter,
+			LieferungVerwalter lieferungVerwalter = new LieferungVerwalter(persistenz);
+			TransportdienstleisterAdapter transportdienstleisterAdapter = 
+					new TransportdienstleisterAdapter(lieferungModulFassade);			
+			TransportauftragVerwalter transportauftragVerwalter = new TransportauftragVerwalter(persistenz);
+			LieferungModulLogik lieferungModulLogik = new LieferungModulLogik(lieferungVerwalter, transportauftragVerwalter,
+					transportdienstleisterAdapter);
+			lieferungModulFassade = new LieferungModulFassade(lieferungModulLogik, lieferungVerwalter,
 					transportauftragVerwalter, transaktion);
-			transportdienstleisterAdapter = new TransportdienstleisterAdapter(
-					lieferungModulFassade);
 		}
 		return lieferungModulFassade;
 	}

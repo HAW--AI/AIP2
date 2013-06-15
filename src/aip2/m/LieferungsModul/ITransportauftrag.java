@@ -49,4 +49,11 @@ public interface ITransportauftrag {
 	 * @return Transportdiensleister
 	 */
 	String getTransportDienstleister();
+	
+	/**
+	 * Gibt die VerfolgungsId 
+	 * 
+	 * @return VerfolgungsId
+	 */
+	String getTransportVerfolgungsId();
 }
