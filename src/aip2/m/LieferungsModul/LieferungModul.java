@@ -33,7 +33,7 @@ public final class LieferungModul {
 		if (lieferungModulFassade == null) {
 			LieferungVerwalter lieferungVerwalter = new LieferungVerwalter(persistenz);
 			TransportdienstleisterAdapter transportdienstleisterAdapter = 
-					new TransportdienstleisterAdapter(lieferungModulFassade);			
+					new TransportdienstleisterAdapter();			
 			TransportauftragVerwalter transportauftragVerwalter = new TransportauftragVerwalter(persistenz);
 			LieferungModulLogik lieferungModulLogik = new LieferungModulLogik(lieferungVerwalter, transportauftragVerwalter,
 					transportdienstleisterAdapter);

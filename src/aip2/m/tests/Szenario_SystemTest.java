@@ -22,7 +22,6 @@ import aip2.m.HES_System;
 import aip2.m.AngebotAuftragModul.AngebotTyp;
 import aip2.m.AngebotAuftragModul.AuftragTyp;
 import aip2.m.KundenModul.KundenTyp;
-import aip2.m.LieferungsModul.LieferungModul;
 import aip2.m.ProduktModul.ProduktTyp;
 import aip2.m.RechnungsModul.RechnungModul;
 import aip2.m.RechnungsModul.RechnungTyp;
@@ -114,14 +113,15 @@ public final class Szenario_SystemTest {
 
 		// EXTERNE SCHRITTE
 		// Lieferung wird abgeliefert
-//		DLH.lieferantHatAbgeliefertNr(auftrag.getLieferungsNr());
+		//DLH.lieferantHatAbgeliefertNr(auftrag.getLieferungsNr());
+		hes.bestaetigeLieferung(auftrag.getLieferungsNr());
 		// Begleiche Rechnung
 		HapSpar.ueberweise(auftrag.getRechnungsNr(), new int[] { 1000000 });
 		// ENDE EXTERNE SCHRITTE
 
 		// Adapter BatchJobs
 		// Hole Lieferungen
-		LieferungModul.getTransportdienstleisterAdapter().jedeNacht();
+		//LieferungModul.getTransportdienstleisterAdapter().jedeNacht();
 		// Rechnungen begleichen
 		RechnungModul.getBankAdapter().jedeNacht();
 

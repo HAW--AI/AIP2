@@ -31,7 +31,7 @@ final class AngebotAuftragModulFassade implements
 	private final IProduktModulIntern iProduktIntern;
 	private final IKundenModulIntern iKundeIntern;
 
-	// TODO AA braucht Lieferung Rechnung???
+	// NaIATODO AA braucht Lieferung Rechnung???
 	// private final ILieferungModulIntern iLieferungModulIntern;
 	// private final IRechnungsModulIntern iRechnungsModulIntern;
 

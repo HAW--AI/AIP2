@@ -5,7 +5,7 @@ import aip2.m.PersistenzModul.IPersistenzSessionIntern;
 /**
  * Konfigurator: Stellt die ITransaktionIntern zur Verfügung
  * 
- * TODO für Aufgabe 3 mehrere TransaktionsManager
+ * NaIATODO für Aufgabe 3 mehrere TransaktionsManager
  */
 public final class Transaktion {
 

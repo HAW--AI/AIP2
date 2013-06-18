@@ -21,7 +21,7 @@ public final class AngebotTyp implements Serializable {
 
 	// private IKunde kunde;
 
-	// TODO für Aufgabe 3 IProdukt to ProduktTyp in allen Fachlichen
+	// NaIATODO für Aufgabe 3 IProdukt to ProduktTyp in allen Fachlichen
 	// private Map<ProduktTyp, Integer> produkte;
 
 	AngebotTyp(int nr, Date gueltigAb, Date gueltigBis, int gesamtPreisCent

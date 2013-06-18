@@ -7,18 +7,17 @@ import org.junit.Test;
 
 //import aip2.m.PersistenzModul.IPersistenzSessionIntern;
 //import aip2.m.PersistenzModul.Persistenz;
-import aip2.m.TransaktionModul.ITransaktionIntern;
+//import aip2.m.TransaktionModul.ITransaktionIntern;
 //import aip2.m.TransaktionModul.Transaktion;
 
 public class TestLieferungsModul {
 
-	@SuppressWarnings("unused")
-	private static LieferungModulFassade lieferungModulFassade;
+	//private static LieferungModulFassade lieferungModulFassade;
 //	private static LieferungModulLogik lieferungModulLogik;
 //	private static LieferungVerwalter lieferungVerwalter;
 //	private static TransportauftragVerwalter transportauftragVerwalter;
 //	private static IPersistenzSessionIntern persistenzSession;
-	private static ITransaktionIntern transaktion;
+	//private static ITransaktionIntern transaktion;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -35,12 +34,12 @@ public class TestLieferungsModul {
 
 	@Before
 	public void beforeEach() {
-		transaktion.startTransaction();
+		//transaktion.startTransaction();
 	}
 
 	@After
 	public void afterEach() {
-		transaktion.rollbackTransaction();
+		//transaktion.rollbackTransaction();
 	}
 
 	@Test
