@@ -21,4 +21,6 @@ public interface ILieferungModulExtern {
 	 * @return Liste der Ids
 	 */
 	//List<Integer> sucheUnbestaetigeLieferungen();
+	
+	void setTrackingCode(int lieferungsId, String trackingCode); 
 }

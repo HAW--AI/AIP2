@@ -42,4 +42,10 @@ final class LieferungModulLogik {
 		transportauftragVerwalter.updateTransportauftrag(transportauftrag);
 		return lieferung;
 	}
+	
+	public void setTrackingCode(int lieferungsId, String trackingCode) {
+		Lieferung lieferung = lieferungVerwalter.getLieferung(lieferungsId);
+		ITransportauftrag auftrag = lieferung.getTransportauftrag();
+		transportauftragVerwalter.getTransportauftrag(auftrag.getTransportAuftragNr()).setTransportVerfolgungsId(trackingCode);
+	}
 }

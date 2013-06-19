@@ -64,4 +64,7 @@ final class LieferungModulFassade implements ILieferungModulIntern,
 		return null;
 	}
 
+	public void setTrackingCode(int lieferungsId, String trackingCode) {
+		lieferungModulLogik.setTrackingCode(lieferungsId, trackingCode);
+	}
 }

@@ -32,13 +32,13 @@ public final class LieferungModul {
 			ITransaktionIntern transaktion) {
 		if (lieferungModulFassade == null) {
 			LieferungVerwalter lieferungVerwalter = new LieferungVerwalter(persistenz);
-			TransportdienstleisterAdapter transportdienstleisterAdapter = 
-					new TransportdienstleisterAdapter();			
+			TransportdienstleisterAdapter transportdienstleisterAdapter = new TransportdienstleisterAdapter();			
 			TransportauftragVerwalter transportauftragVerwalter = new TransportauftragVerwalter(persistenz);
 			LieferungModulLogik lieferungModulLogik = new LieferungModulLogik(lieferungVerwalter, transportauftragVerwalter,
 					transportdienstleisterAdapter);
 			lieferungModulFassade = new LieferungModulFassade(lieferungModulLogik, lieferungVerwalter,
 					transportauftragVerwalter, transaktion);
+			transportdienstleisterAdapter.setLieferungModulExtern(lieferungModulFassade);
 		}
 		return lieferungModulFassade;
 	}
