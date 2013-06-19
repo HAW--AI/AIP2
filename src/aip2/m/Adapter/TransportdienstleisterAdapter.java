@@ -41,6 +41,7 @@ public class TransportdienstleisterAdapter {
 				String trackId = service.path("create").queryParam("id", ""+t.x).queryParam("adr", t.y).put(String.class);
 				lieferungModulExtern.setTrackingCode(t.x, trackId);
 			}
+			requests.clear();
 			
 			return result;
 		} catch(Exception e) {

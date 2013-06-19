@@ -13,6 +13,7 @@ import aip2.redundanz.Dispatcher;
 
 public class Client {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
 		IHES_System hes = Dispatcher.getRedundantesHES("localhost");
 		
